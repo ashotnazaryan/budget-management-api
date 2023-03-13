@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/index.ts",
   "scripts": {
-    "build": "npx tsc",
+    "build": "tsc -p .",
     "start": "nodemon src/index.ts"
   },
   "keywords": [],
