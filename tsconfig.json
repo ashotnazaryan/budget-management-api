@@ -9,5 +9,6 @@
     "outDir": "./dist",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "sourceMap": true
   }
 }

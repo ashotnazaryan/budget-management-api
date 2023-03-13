@@ -1,10 +1,11 @@
 import { Router } from 'express';
-import { getSummary } from '../services/summary.service';
+import { getSummary, addTransaction } from '../services/summary.service';
 
 const summaryRoute = () => {
   const router = Router();
 
   router.get('/getSummary', getSummary);
+  router.post('/addTransaction', addTransaction);
 
   return router;
 };
