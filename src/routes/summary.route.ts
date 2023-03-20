@@ -11,4 +11,3 @@ const summaryRoute = () => {
 };
 
 export { summaryRoute };
-
