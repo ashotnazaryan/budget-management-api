@@ -32,6 +32,7 @@ export interface TransactionDataDTO {
 }
 
 type SummaryDocument = Document & {
+  userId: string;
   incomes: number;
   expenses: number;
   balance: number;
@@ -40,6 +41,7 @@ type SummaryDocument = Document & {
 };
 
 type SummaryInput = {
+  userId: SummaryDocument['userId'];
   incomes: SummaryDocument['incomes'];
   expenses: SummaryDocument['expenses'];
   balance: SummaryDocument['balance'];
@@ -49,6 +51,10 @@ type SummaryInput = {
 
 const summarysSchema = new Schema(
   {
+    userId: {
+      type: Schema.Types.String,
+      required: true
+    },
     incomes: {
       type: Schema.Types.Number,
       required: true
@@ -72,7 +78,7 @@ const summarysSchema = new Schema(
   },
   {
     collection: 'summary',
-    timestamps: true
+    timestamps: false
   }
 );
 
