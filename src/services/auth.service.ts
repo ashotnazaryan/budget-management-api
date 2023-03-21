@@ -4,8 +4,10 @@ import { NextFunction, Request, Response } from 'express';
 const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:3000';
 
 const loginSuccess = (request: Request, response: Response) => {
-  if (request.user) {
-    return response.json({ data: request.user });
+  const user = request.session?.passport?.user;
+
+  if (user) {
+    return response.json({ data: user });
   }
 
   return response.redirect('/api/auth/login/failed');
@@ -18,9 +20,7 @@ const loginFailed = (request: Request, response: Response) => {
 };
 
 const logout = (request: Request, response: Response, next: NextFunction) => {
-  request.session.destroy((error) => {
-    return next(error);
-  });
+  request.session = null;
   request.user = undefined;
   request.logout((error) => {
     return next(error);
