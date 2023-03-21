@@ -3,18 +3,18 @@ import mongoose, { Document } from 'mongoose';
 const Schema = mongoose.Schema;
 
 export type UserDocument = Document & {
-  googleId: string;
+  userId: string;
 };
 
 export interface UserInput {
   id: string;
-  googleId: string;
+  userId: string;
   accessToken: string;
 }
 
 const userSchema = new Schema(
   {
-    googleId: {
+    userId: {
       type: Schema.Types.String,
       required: true
     }

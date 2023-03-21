@@ -8,16 +8,16 @@ passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_OUATH_CLIENT_ID || '',
   clientSecret: process.env.GOOGLE_OUATH_CLIENT_SECRET || '',
 }, async (accessToken, refreshToken, { id }, done) => {
-  const user = await User.findOne({ googleId: id });
+  const user = await User.findOne({ userId: id });
 
   if (!user) {
     const newUser = await User.create({
-      googleId: id
+      userId: id
     });
 
     const newUserWithToken = {
       id: newUser.id,
-      googleId: id,
+      userId: id,
       accessToken
     };
 
@@ -27,7 +27,7 @@ passport.use(new GoogleStrategy({
   } else {
     const userWithToken = {
       id: user.id,
-      googleId: user.googleId,
+      userId: user.userId,
       accessToken
     };
 
@@ -37,13 +37,13 @@ passport.use(new GoogleStrategy({
 
 // TODO: fix any type
 passport.serializeUser((user: any, done) => {
-  done(null, { id: user.id, googleId: user.googleId, accessToken: user.accessToken });
+  done(null, { id: user.id, userId: user.userId, accessToken: user.accessToken });
 });
 
 passport.deserializeUser<UserInput>((user, done) => {
   const userWithToken = {
     id: user.id,
-    googleId: user.googleId,
+    userId: user.userId,
     accessToken: user.accessToken
   };
 

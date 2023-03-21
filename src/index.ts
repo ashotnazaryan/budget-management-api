@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import cookieSession from 'cookie-session';
 import passport from 'passport';
-import { connectToDatabase } from './db-connection';
+import { connectToDatabase } from './config/db-connection';
 import { summaryRoute } from './routes/summary.route';
 import { authRoute } from './routes/auth.routes';
 import './config/passport';
@@ -13,8 +13,9 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// TODO: remove this
 app.use(
-  cookieSession({ name: 'move_to_env', keys: ['move_to_env_key'], maxAge: 24 * 60 * 60 * 100, })
+  cookieSession({ name: 'move_to_env', keys: ['move_to_env_key'], maxAge: 60 * 60 * 100, })
 );
 
 app.use(passport.initialize());
@@ -22,8 +23,7 @@ app.use(passport.session());
 
 app.use(cors({
   origin: ['http://localhost:3000', 'https://app-budget-management.netlify.app'],
-  methods: 'GET,POST,PUT,DELETE',
-  credentials: true,
+  credentials: true
 })
 );
 
