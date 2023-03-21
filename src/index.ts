@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import cookieSession from 'cookie-session';
+// import cookieSession from 'cookie-session';
+import session from 'express-session';
 import passport from 'passport';
 import { connectToDatabase } from './config/db-connection';
 import { summaryRoute } from './routes/summary.route';
@@ -13,16 +14,24 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(
-  cookieSession({
-    name: 'move_to_env',
-    keys: ['move_to_env_key'],
-    maxAge: 24 * 60 * 60 * 100,
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
-  })
-);
+// app.use(
+//   cookieSession({
+//     name: 'move_to_env',
+//     keys: ['move_to_env_key'],
+//     maxAge: 24 * 60 * 60 * 100,
+//     secure: process.env.NODE_ENV === 'production',
+//     sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
+//   })
+// );
+
+app.use(session({
+  secret: 'move_to_env',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: 'auto'
+  }
+}));
 
 app.use(passport.initialize());
 app.use(passport.session());
