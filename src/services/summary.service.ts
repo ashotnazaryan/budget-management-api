@@ -10,22 +10,25 @@ const initialSummary: SummaryDTO = {
 }
 
 const getSummary = async (request: Request, response: Response) => {
+  const userId = (request.user as any)?.userId;
   try {
-    const summary = await Summary.findOne();
+    const summary = await Summary.findOne({ userId });
 
     return response.status(200).json({ data: summary });
   } catch {
-    response.status(404);
+    response.status(200).json({ data: null });
   }
 };
 
 const addTransaction = async (request: Request<{}, {}, SummaryRequestDTO>, response: Response) => {
   const { amount, categoryId, name, type } = request.body;
+  const userId = (request.user as any)?.userId;
+
   if (!amount || !categoryId || !name) {
     return response.status(422).json({ message: 'The fields amount, categoryId, name, type are required' });
   }
   const payload = { amount, categoryId, name, type, createdAt: new Date() };
-  const summary = await Summary.findOne() || initialSummary;
+  const summary = await Summary.findOne({ userId }) || initialSummary;
   const categoryAvailable = summary.categoryTransactions.some((transaction) => transaction.categoryId === categoryId);
   const categoryTransactions = categoryAvailable
     ? summary.categoryTransactions.map((transaction) => ({
@@ -36,6 +39,7 @@ const addTransaction = async (request: Request<{}, {}, SummaryRequestDTO>, respo
 
   let result = {
     ...summary,
+    userId,
     categoryTransactions: categoryTransactions,
     transactions: [...summary.transactions, payload],
   } as SummaryDTO;
@@ -66,7 +70,7 @@ const addTransaction = async (request: Request<{}, {}, SummaryRequestDTO>, respo
 
       return response.status(201).json({ data: summaryCreated });
     } else {
-      await Summary.updateOne({ _id: id }, {
+      await Summary.updateOne({userId }, {
         $set: {
           incomes: result.incomes,
           expenses: result.expenses,

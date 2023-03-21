@@ -13,6 +13,7 @@ export interface SummaryRequestDTO {
 }
 
 export interface SummaryDTO {
+  userId?: string;
   incomes: number;
   expenses: number;
   balance: number;
@@ -32,7 +33,7 @@ export interface TransactionDataDTO {
 }
 
 type SummaryDocument = Document & {
-  userId: string;
+  userId?: string;
   incomes: number;
   expenses: number;
   balance: number;
