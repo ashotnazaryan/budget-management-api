@@ -12,13 +12,15 @@ const loginSuccess = (request: Request, response: Response) => {
 };
 
 const loginFailed = (request: Request, response: Response) => {
-  response.status(401).json({
-    message: 'login failed',
+  response.status(404).json({
+    message: 'User not found',
   });
 };
 
 const logout = (request: Request, response: Response, next: NextFunction) => {
-  request.session = null;
+  request.session.destroy((error) => {
+    return next(error);
+  });
   request.user = undefined;
   request.logout((error) => {
     return next(error);
