@@ -7,15 +7,21 @@ import { summaryRoute } from './routes/summary.route';
 import { authRoute } from './routes/auth.routes';
 import './config/passport';
 
-const port = process.env.PORT;
+const port = process.env.PORT || 'http://localhost:3000';
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// TODO: remove this
 app.use(
-  cookieSession({ name: 'move_to_env', keys: ['move_to_env_key'], maxAge: 60 * 60 * 100, })
+  cookieSession({
+    name: 'move_to_env',
+    keys: ['move_to_env_key'],
+    maxAge: 24 * 60 * 60 * 100,
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    // sameSite: 'none'
+  })
 );
 
 app.use(passport.initialize());

@@ -13,7 +13,7 @@ const loginSuccess = (request: Request, response: Response) => {
 
 const loginFailed = (request: Request, response: Response) => {
   response.status(401).json({
-    message: 'failure',
+    message: 'login failed',
   });
 };
 
@@ -23,7 +23,7 @@ const logout = (request: Request, response: Response, next: NextFunction) => {
   request.logout((error) => {
     return next(error);
   });
-  response.status(200).json({ message: 'success' });
+  response.status(200).json({ message: 'logged out' });
 };
 
 const google = (request: Request, response: Response, next: NextFunction) => {
