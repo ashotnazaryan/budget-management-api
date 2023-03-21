@@ -70,7 +70,7 @@ const addTransaction = async (request: Request<{}, {}, SummaryRequestDTO>, respo
 
       return response.status(201).json({ data: summaryCreated });
     } else {
-      await Summary.updateOne({userId }, {
+      await Summary.updateOne({ userId }, {
         $set: {
           incomes: result.incomes,
           expenses: result.expenses,
