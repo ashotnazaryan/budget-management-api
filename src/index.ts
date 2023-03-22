@@ -8,18 +8,22 @@ import { authRoute } from './routes/auth.routes';
 import './config/passport';
 
 const port = process.env.PORT || 'http://localhost:3000';
+const cookieSessionSecretName = process.env.COOKIE_SECRET_NAME;
+const cookieSessionSecretKey = process.env.COOKIE_SECRET_KEY || 'key';
 const app = express();
 
+app.set('trust proxy', true);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(
   cookieSession({
-    name: 'move_to_env',
-    keys: ['move_to_env_key'],
+    name: cookieSessionSecretName,
+    keys: [cookieSessionSecretKey],
     maxAge: 24 * 60 * 60 * 100,
     secure: process.env.NODE_ENV === 'production',
-    // sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
+    httpOnly: true,
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
   })
 );
 
