@@ -1,7 +1,5 @@
 import { Request, Response } from 'express';
-import { CategoryType } from '../models/category';
-import Summary, { SummaryDocument, SummaryDTO, SummaryRequestDTO } from '../models/summary';
-import Transaction from '../models/transaction';
+import { Summary, SummaryDocument, SummaryRequestDTO, Transaction, CategoryType } from '../models';
 
 const getTransactions = async (request: Request, response: Response) => {
   const userId = (request.user as any)?.userId;

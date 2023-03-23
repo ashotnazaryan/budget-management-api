@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Summary, { SummaryDTO } from '../models/summary';
+import { Summary, SummaryDTO } from '../models';
 
 const initialSummary: SummaryDTO = {
   incomes: 0,

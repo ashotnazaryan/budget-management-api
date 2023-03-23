@@ -1,18 +1,13 @@
 import mongoose from 'mongoose';
 import { ServerApiVersion } from 'mongodb';
-import dotenv from 'dotenv';
+import { CONFIG } from './settings';
 
 mongoose.Promise = global.Promise;
-dotenv.config();
-
-const user = process.env.MONGO_ATLAS_CLUSTER_USERNAME;
-const password = process.env.MONGO_ATLAS_CLUSTER_PASSWORD;
-const db = process.env.MONGO_ATLAS_CLUSTER_DB;
 
 const connectToDatabase = async (): Promise<void> => {
   const options: mongoose.ConnectOptions = { serverApi: ServerApiVersion.v1 };
 
-  await mongoose.connect(`mongodb+srv://${user}:${password}@budget-management.ewiffuf.mongodb.net/${db}?retryWrites=true&w=majority`, options);
+  await mongoose.connect(`mongodb+srv://${CONFIG.mongoUser}:${CONFIG.mongoPassword}@budget-management.ewiffuf.mongodb.net/${CONFIG.db}?retryWrites=true&w=majority`, options);
 };
 
 export { connectToDatabase };
