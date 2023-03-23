@@ -4,6 +4,7 @@ import cookieSession from 'cookie-session';
 import passport from 'passport';
 import { connectToDatabase } from './config/db-connection';
 import { summaryRoute } from './routes/summary.route';
+import { transactionRoute } from './routes/transaction.route';
 import { authRoute } from './routes/auth.routes';
 import { categoryRoute } from './routes/category.route';
 import './config/passport';
@@ -27,8 +28,6 @@ app.use(
     sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
     signed: true,
     overwrite: true
-    // domain: process.env.CLIENT_URL || 'http://localhost:3000',
-    // path: process.env.CLIENT_URL || 'http://localhost:3000'
   })
 );
 
@@ -43,6 +42,7 @@ app.use(cors({
 
 app.use('/api/summary', summaryRoute());
 app.use('/api/category', categoryRoute());
+app.use('/api/transaction', transactionRoute());
 app.use('/api/auth', authRoute());
 
 app.get('/', (req, res) => {
