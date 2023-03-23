@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
-import { CategoryType, Summary, SummaryDTO, SummaryRequestDTO } from '../models/summary';
+import { CategoryType } from '../models/category';
+import { Summary, SummaryDTO, SummaryRequestDTO } from '../models/summary';
 
 const initialSummary: SummaryDTO = {
   incomes: 0,
