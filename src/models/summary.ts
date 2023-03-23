@@ -66,5 +66,4 @@ const summarysSchema = new Schema(
 
 const Summary: Model<SummaryDocument> = mongoose.model<SummaryDocument>('summary', summarysSchema);
 
-export default Summary;
-export { SummaryInput, SummaryDocument };
+export { Summary, SummaryInput, SummaryDocument };

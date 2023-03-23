@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { google, googleCallback, loginFailed, loginSuccess, logout } from '../services/auth.service';
+import { google, googleCallback, loginFailed, loginSuccess, logout } from '../services';
 
 const authRoute = () => {
   const router = Router();

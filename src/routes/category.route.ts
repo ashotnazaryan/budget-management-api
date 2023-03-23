@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { loggedIn } from '../middleware/auth.middleware';
-import { getDefaultCategories } from '../services/category.service';
+import { loggedIn } from '../middleware';
+import { getDefaultCategories } from '../services';
 
 const categoryRoute = () => {
   const router = Router();

@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { loggedIn } from '../middleware/auth.middleware';
-import { getTransactions, addTransaction } from '../services/transaction.service';
+import { loggedIn } from '../middleware';
+import { getTransactions, addTransaction } from '../services';
 
 const transactionRoute = () => {
   const router = Router();

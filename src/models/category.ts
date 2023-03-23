@@ -44,4 +44,4 @@ const defaultCategorySchema = new Schema(
 
 const DefaultCategory = mongoose.model<CategoryDocument>('defaultCategories', defaultCategorySchema);
 
-export default DefaultCategory;
+export { DefaultCategory };

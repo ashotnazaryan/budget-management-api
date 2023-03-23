@@ -1,7 +1,6 @@
 import passport from 'passport';
 import { NextFunction, Request, Response } from 'express';
-
-const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:3000';
+import { CONFIG } from '../config/settings';
 
 const loginSuccess = (request: Request, response: Response) => {
   const user = request.session?.passport?.user;
@@ -49,7 +48,7 @@ const googleCallback = (request: Request, response: Response, next: NextFunction
         return next(error);
       }
 
-      response.redirect(CLIENT_URL);
+      response.redirect(CONFIG.clientUrl);
     });
   })(request, response, next);
 };

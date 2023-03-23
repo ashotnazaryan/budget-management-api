@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import DefaultCategory from '../models/category';
+import { DefaultCategory } from '../models';
 
 const getDefaultCategories = async (request: Request, response: Response) => {
   try {
