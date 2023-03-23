@@ -1,5 +1,6 @@
 import mongoose, { Schema, Model, Document } from 'mongoose';
 import { CategoryType } from './category';
+import { TransactionDTO } from './transaction';
 
 export interface SummaryRequestDTO {
   amount: number;
@@ -12,19 +13,10 @@ export interface SummaryDTO {
   incomes: number;
   expenses: number;
   balance: number;
-  transactions: TransactionDataDTO[];
-  categoryTransactions: TransactionDataDTO[];
+  categoryTransactions: TransactionDTO[];
   // TODO: check this field
   _id?: string;
   userId?: string;
-}
-
-export interface TransactionDataDTO {
-  categoryId: string;
-  type: CategoryType;
-  name: string;
-  amount: number;
-  createdAt: Date;
 }
 
 type SummaryDocument = Document & {
@@ -32,8 +24,7 @@ type SummaryDocument = Document & {
   incomes: number;
   expenses: number;
   balance: number;
-  transactions: TransactionDataDTO[];
-  categoryTransactions: TransactionDataDTO[];
+  categoryTransactions: TransactionDTO[];
 };
 
 type SummaryInput = {
@@ -41,7 +32,6 @@ type SummaryInput = {
   incomes: SummaryDocument['incomes'];
   expenses: SummaryDocument['expenses'];
   balance: SummaryDocument['balance'];
-  transactions: SummaryDocument['transactions'];
   categoryTransactions: SummaryDocument['categoryTransactions'];
 };
 
@@ -63,10 +53,6 @@ const summarysSchema = new Schema(
       type: Schema.Types.Number,
       required: true
     },
-    transactions: {
-      type: Schema.Types.Array,
-      required: true
-    },
     categoryTransactions: {
       type: Schema.Types.Array,
       required: true
@@ -80,4 +66,5 @@ const summarysSchema = new Schema(
 
 const Summary: Model<SummaryDocument> = mongoose.model<SummaryDocument>('summary', summarysSchema);
 
-export { Summary, SummaryInput, SummaryDocument };
+export default Summary;
+export { SummaryInput, SummaryDocument };
