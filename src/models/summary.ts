@@ -1,9 +1,5 @@
 import mongoose, { Schema, Model, Document } from 'mongoose';
-
-export enum CategoryType {
-  income = 0,
-  expense = 1
-}
+import { CategoryType } from './category';
 
 export interface SummaryRequestDTO {
   amount: number;
@@ -13,7 +9,6 @@ export interface SummaryRequestDTO {
 }
 
 export interface SummaryDTO {
-  userId?: string;
   incomes: number;
   expenses: number;
   balance: number;
@@ -21,10 +16,10 @@ export interface SummaryDTO {
   categoryTransactions: TransactionDataDTO[];
   // TODO: check this field
   _id?: string;
+  userId?: string;
 }
 
 export interface TransactionDataDTO {
-  // uuid: string;
   categoryId: string;
   type: CategoryType;
   name: string;
