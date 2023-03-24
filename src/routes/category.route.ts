@@ -1,11 +1,11 @@
 import { Router } from 'express';
-import { loggedIn } from '../middleware';
+import { isAuthenticated } from '../middleware';
 import { getDefaultCategories } from '../services';
 
 const categoryRoute = () => {
   const router = Router();
 
-  router.get('/getDefaultCategories', loggedIn, getDefaultCategories);
+  router.get('/getDefaultCategories', isAuthenticated, getDefaultCategories);
 
   return router;
 };
