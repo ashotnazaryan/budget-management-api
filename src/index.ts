@@ -8,6 +8,11 @@ import './config/passport';
 import { CONFIG } from './config/settings';
 
 const app = express();
+const corsOptions = {
+  origin: [CONFIG.clientUrl],
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true
+};
 
 app.set('trust proxy', true);
 app.use(express.urlencoded({ extended: true }));
@@ -28,12 +33,8 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-app.use(cors({
-  origin: [CONFIG.clientUrl],
-  credentials: true
-}));
-
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions))
 app.use('/api/summary', summaryRoute());
 app.use('/api/category', categoryRoute());
 app.use('/api/transaction', transactionRoute());
