@@ -23,7 +23,7 @@ app.use(
     name: CONFIG.cookieSessionSecretName,
     keys: [CONFIG.cookieSessionSecretKey],
     maxAge: 24 * 60 * 60 * 100,
-    // secure: CONFIG.env === 'production', // TODO: enable if client and server are under the same domain
+    secure: CONFIG.env === 'production',
     httpOnly: true,
     // sameSite: CONFIG.env === 'production' ? 'none' : 'lax', // TODO: check this if client and server are under the same domain
     signed: true,
