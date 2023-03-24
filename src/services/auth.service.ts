@@ -24,7 +24,7 @@ const logout = (request: Request, response: Response, next: NextFunction) => {
   request.logout((error) => {
     return next(error);
   });
-  response.status(200).json({ message: 'logged out' });
+  response.status(200).json({ data: null });
 };
 
 const google = (request: Request, response: Response, next: NextFunction) => {

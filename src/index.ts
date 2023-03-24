@@ -25,16 +25,13 @@ app.use(
     maxAge: 24 * 60 * 60 * 100,
     secure: CONFIG.env === 'production',
     httpOnly: true,
-    // sameSite: CONFIG.env === 'production' ? 'none' : 'lax', // TODO: check this if client and server are under the same domain
-    signed: true,
-    overwrite: true
+    sameSite: CONFIG.env === 'production' ? 'none' : 'lax'
   })
 );
 
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors(corsOptions));
-// app.options('*', cors(corsOptions));
 app.use('/api/summary', summaryRoute());
 app.use('/api/category', categoryRoute());
 app.use('/api/transaction', transactionRoute());
