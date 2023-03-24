@@ -23,9 +23,9 @@ app.use(
     name: CONFIG.cookieSessionSecretName,
     keys: [CONFIG.cookieSessionSecretKey],
     maxAge: 24 * 60 * 60 * 100,
-    secure: CONFIG.env === 'production',
+    // secure: CONFIG.env === 'production', // TODO: enable if client and server are under the same domain
     httpOnly: true,
-    sameSite: CONFIG.env === 'production' ? 'none' : 'lax',
+    // sameSite: CONFIG.env === 'production' ? 'none' : 'lax', // TODO: check this if client and server are under the same domain
     signed: true,
     overwrite: true
   })
@@ -34,7 +34,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions))
+// app.options('*', cors(corsOptions));
 app.use('/api/summary', summaryRoute());
 app.use('/api/category', categoryRoute());
 app.use('/api/transaction', transactionRoute());
