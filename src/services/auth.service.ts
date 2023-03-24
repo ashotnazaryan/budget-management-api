@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import { CONFIG } from '../config/settings';
 
 const loginSuccess = (request: Request, response: Response) => {
-  const user = request.session?.passport?.user;
+  const user = request.user;
 
   if (user) {
     return response.json({ data: user });
@@ -19,8 +19,11 @@ const loginFailed = (request: Request, response: Response) => {
 };
 
 const logout = (request: Request, response: Response, next: NextFunction) => {
-  request.session = null;
-  request.user = undefined;
+  request.session.destroy((error) => {
+    if (error) {
+      return next(error);
+    }
+  });
   request.logout((error) => {
     return next(error);
   });
