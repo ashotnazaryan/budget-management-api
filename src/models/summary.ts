@@ -19,11 +19,11 @@ interface SummaryDTO {
 }
 
 interface SummaryDocument extends Document {
-  userId?: string;
   incomes: number;
   expenses: number;
   balance: number;
   categoryExpenseTransactions: TransactionDTO[];
+  userId?: string;
 };
 
 interface SummaryInput {

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Summary, SummaryDocument, SummaryRequestDTO, Transaction, CategoryType, TransactionDTO } from '../models';
+import { Summary, SummaryDocument, SummaryRequestDTO, Transaction, CategoryType, TransactionDTO, SummaryDTO } from '../models';
 
 const getTransactions = async (request: Request, response: Response) => {
   const userId = (request.user as any)?.userId;
@@ -30,32 +30,42 @@ const addTransaction = async (request: Request<{}, {}, SummaryRequestDTO>, respo
     }))
     : type === CategoryType.expense ? [...summary.categoryExpenseTransactions, payload] : summary.categoryExpenseTransactions;
 
-  let result = {
+  let result: SummaryDTO = {
     ...summary,
     userId,
-    categoryExpenseTransactions,
   };
+  let incomes = summary.incomes;
+  let expenses = summary.expenses;
 
   const newTransaction = { ...payload, userId };
   await Transaction.create(newTransaction);
 
   if (type === CategoryType.income) {
-    const incomes = summary.incomes + amount;
+    incomes = incomes + amount;
 
     result = {
       ...result,
       incomes,
-      balance: incomes - summary.expenses
+      balance: incomes - expenses
     };
   } else {
-    const expenses = summary.expenses + amount;
+    expenses = expenses + amount;
 
     result = {
       ...result,
       expenses,
-      balance: summary.incomes - expenses
+      balance: incomes - expenses
     };
   }
+
+  result = {
+    ...result,
+    categoryExpenseTransactions: categoryExpenseTransactions.map((transaction) => ({
+      ...transaction,
+      userId,
+      categoryExpenseValue: parseInt(((transaction.amount / expenses) * 100).toFixed(0))
+    }))
+  };
 
   try {
     let summaryCreated;

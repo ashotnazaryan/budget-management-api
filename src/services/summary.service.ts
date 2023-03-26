@@ -36,6 +36,8 @@ const getBalanceInfo = async (request: Request, response: Response) => {
     if (summary) {
       return response.status(200).json({ data: summary.balance });
     }
+
+    return response.status(200).json({ data: 0 });
   } catch {
     return response.status(200).json({ data: 0 });
   }

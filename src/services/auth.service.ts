@@ -9,12 +9,12 @@ const loginSuccess = (request: Request, response: Response) => {
     return response.json({ data: user });
   }
 
-  return response.redirect('/api/auth/login/failed');
+  response.status(401).redirect(`/api/auth/${CONFIG.routes.loginFailed}`);
 };
 
 const loginFailed = (request: Request, response: Response) => {
-  response.status(404).json({
-    message: 'User not found',
+  response.status(401).json({
+    message: 'Unauthorized',
   });
 };
 
@@ -44,7 +44,7 @@ const googleCallback = (request: Request, response: Response, next: NextFunction
       return next(error);
     }
     if (!user) {
-      return response.redirect('/api/auth/login/failed');
+      response.status(401).redirect(`/api/auth/${CONFIG.routes.loginFailed}`);
     }
     request.logIn(user, (error) => {
       if (error) {
