@@ -1,9 +1,10 @@
 import mongoose, { Document } from 'mongoose';
+import { CONFIG } from '../core/configs';
 import { CategoryType } from './category';
 
 const Schema = mongoose.Schema;
 
-export interface TransactionDTO {
+interface TransactionDTO {
   categoryId: string; // TODO: check
   userId: string;
   type: CategoryType;
@@ -12,7 +13,7 @@ export interface TransactionDTO {
   createdAt: Date;
 }
 
-type TransactionDocument = Document & {
+interface TransactionDocument extends Document {
   categoryId: string;  // TODO: check
   userId: string;
   type: CategoryType;
@@ -49,11 +50,11 @@ const transactionSchema = new Schema(
     }
   },
   {
-    collection: 'transactions',
-    timestamps: false
+    timestamps: false,
+    collection: CONFIG.collections.transactions
   }
 );
 
-const Transaction = mongoose.model<TransactionDocument>('transactions', transactionSchema);
+const Transaction = mongoose.model<TransactionDocument>(CONFIG.collections.transactions, transactionSchema);
 
-export { Transaction, TransactionDocument };
+export { Transaction, TransactionDocument, TransactionDTO };

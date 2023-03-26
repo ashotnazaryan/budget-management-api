@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { ServerApiVersion } from 'mongodb';
-import { CONFIG } from './settings';
+import { CONFIG } from './configs';
 
 mongoose.Promise = global.Promise;
 

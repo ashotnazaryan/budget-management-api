@@ -1,12 +1,13 @@
 import mongoose, { Document } from 'mongoose';
+import { CONFIG } from '../core/configs';
 
 const Schema = mongoose.Schema;
 
-export type UserDocument = Document & {
+interface UserDocument extends Document {
   userId: string;
 };
 
-export interface UserInput {
+interface UserInput {
   id: string;
   userId: string;
   accessToken: string;
@@ -20,11 +21,11 @@ const userSchema = new Schema(
     }
   },
   {
-    collection: 'user',
-    timestamps: false
+    timestamps: false,
+    collection: CONFIG.collections.user
   }
 );
 
-const User = mongoose.model<UserDocument>('user', userSchema);
+const User = mongoose.model<UserDocument>(CONFIG.collections.user, userSchema);
 
-export { User };
+export { User, UserDocument, UserInput };

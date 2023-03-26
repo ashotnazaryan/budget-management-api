@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Summary, SummaryDocument, SummaryRequestDTO, Transaction, CategoryType } from '../models';
+import { Summary, SummaryDocument, SummaryRequestDTO, Transaction, CategoryType, TransactionDTO } from '../models';
 
 const getTransactions = async (request: Request, response: Response) => {
   const userId = (request.user as any)?.userId;
@@ -19,20 +19,21 @@ const addTransaction = async (request: Request<{}, {}, SummaryRequestDTO>, respo
   if (!amount || !categoryId || !name) {
     return response.status(422).json({ message: 'The fields amount, categoryId, name, type are required' });
   }
+
   const payload = { amount, categoryId, name, type, createdAt: new Date() };
   const summary = await Summary.findOne({ userId }) as SummaryDocument;
-  const categoryAvailable = summary.categoryTransactions.some((transaction) => transaction.categoryId === categoryId);
-  const categoryTransactions = categoryAvailable
-    ? summary.categoryTransactions.map((transaction) => ({
+  const categoryAvailable = summary.categoryExpenseTransactions.some((transaction) => transaction.categoryId === categoryId);
+  const categoryExpenseTransactions = categoryAvailable
+    ? summary.categoryExpenseTransactions.map((transaction) => ({
       ...transaction,
       amount: categoryId === transaction.categoryId ? transaction.amount + amount : transaction.amount
     }))
-    : [...summary.categoryTransactions, payload];
+    : type === CategoryType.expense ? [...summary.categoryExpenseTransactions, payload] : summary.categoryExpenseTransactions;
 
   let result = {
     ...summary,
     userId,
-    categoryTransactions: categoryTransactions,
+    categoryExpenseTransactions,
   };
 
   const newTransaction = { ...payload, userId };
@@ -58,24 +59,21 @@ const addTransaction = async (request: Request<{}, {}, SummaryRequestDTO>, respo
 
   try {
     let summaryCreated;
-    const id = summary._id;
-    if (!id) {
+    if (!summary.userId) {
       summaryCreated = await Summary.create(result);
 
       return response.status(201).json({ data: summaryCreated });
     } else {
-      await Summary.updateOne({ userId }, {
+      await Summary.findOneAndUpdate({ userId }, {
         $set: {
           incomes: result.incomes,
           expenses: result.expenses,
           balance: result.balance,
-          categoryTransactions: result.categoryTransactions
+          categoryExpenseTransactions: result.categoryExpenseTransactions
         }
       });
 
-      const summaryUpdated = await Summary.findById(id);
-
-      return response.status(200).json({ data: summaryUpdated });
+      return response.status(200).json({ data: null });
     }
 
   } catch {

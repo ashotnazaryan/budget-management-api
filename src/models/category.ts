@@ -1,4 +1,5 @@
 import mongoose, { Document } from 'mongoose';
+import { CONFIG } from '../core/configs';
 
 const Schema = mongoose.Schema;
 
@@ -7,7 +8,7 @@ export enum CategoryType {
   income = 1
 }
 
-export type CategoryDocument = Document & {
+export interface CategoryDocument extends Document {
   id: string;
   name: string;
   icon: string;
@@ -37,11 +38,11 @@ const defaultCategorySchema = new Schema(
     }
   },
   {
-    collection: 'defaultCategories',
-    timestamps: false
+    timestamps: false,
+    collection: CONFIG.collections.defaultCategories
   }
 );
 
-const DefaultCategory = mongoose.model<CategoryDocument>('defaultCategories', defaultCategorySchema);
+const DefaultCategory = mongoose.model<CategoryDocument>(CONFIG.collections.defaultCategories, defaultCategorySchema);
 
 export { DefaultCategory };
