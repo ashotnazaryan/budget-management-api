@@ -15,7 +15,7 @@ export const CONFIG = {
   db: process.env.MONGO_ATLAS_CLUSTER_DB || '',
   routes: {
     loginSuccess: '/login/success',
-    loginFailed: 'login/failed',
+    loginFailed: '/login/failed',
     logout: '/logout',
     google: '/google',
     googleCallback: '/google/callback',
