@@ -5,11 +5,12 @@ const initialSummary: SummaryDTO = {
   incomes: 0,
   expenses: 0,
   balance: 0,
-  categoryTransactions: []
+  categoryExpenseTransactions: []
 };
 
 const getSummary = async (request: Request, response: Response) => {
   const userId = (request.user as any)?.userId;
+
   try {
     const summary = await Summary.findOne({ userId });
 
@@ -26,4 +27,18 @@ const getSummary = async (request: Request, response: Response) => {
   }
 };
 
-export { getSummary };
+const getBalanceInfo = async (request: Request, response: Response) => {
+  const userId = (request.user as any)?.userId;
+
+  try {
+    const summary = await Summary.findOne({ userId });
+
+    if (summary) {
+      return response.status(200).json({ data: summary.balance });
+    }
+  } catch {
+    return response.status(200).json({ data: 0 });
+  }
+};
+
+export { getSummary, getBalanceInfo };

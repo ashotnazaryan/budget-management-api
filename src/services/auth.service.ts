@@ -1,6 +1,6 @@
 import passport from 'passport';
 import { NextFunction, Request, Response } from 'express';
-import { CONFIG } from '../config/settings';
+import { CONFIG } from '../core/configs';
 
 const loginSuccess = (request: Request, response: Response) => {
   const user = request.user;

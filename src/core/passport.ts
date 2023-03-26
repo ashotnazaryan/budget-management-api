@@ -1,7 +1,7 @@
 import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { User, UserInput } from '../models';
-import { CONFIG } from './settings';
+import { CONFIG } from './configs';
 
 passport.use(new GoogleStrategy({
   callbackURL: '/api/auth/google/callback',

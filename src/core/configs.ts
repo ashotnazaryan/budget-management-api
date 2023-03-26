@@ -13,4 +13,25 @@ export const CONFIG = {
   mongoUser: process.env.MONGO_ATLAS_CLUSTER_USERNAME || '',
   mongoPassword: process.env.MONGO_ATLAS_CLUSTER_PASSWORD || '',
   db: process.env.MONGO_ATLAS_CLUSTER_DB || '',
+  routes: {
+    loginSuccess: '/login/success',
+    loginFailed: 'login/failed',
+    logout: '/logout',
+    google: '/google',
+    googleCallback: '/google/callback',
+    getSummary: '/',
+    getBalance: '/balance',
+    getDefaultCategories: '/defaultCategories',
+    getTransactions: '/',
+    addTransaction: '/transaction',
+    getSettings: '/',
+    addSetting: '/setting',
+  },
+  collections: {
+    user: 'user',
+    setting: 'setting',
+    summary: 'summary',
+    defaultCategories: 'defaultCategories',
+    transactions: 'transactions',
+  }
 };

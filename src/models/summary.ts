@@ -1,38 +1,37 @@
 import mongoose, { Schema, Model, Document } from 'mongoose';
+import { CONFIG } from '../core/configs';
 import { CategoryType } from './category';
 import { TransactionDTO } from './transaction';
 
-export interface SummaryRequestDTO {
+interface SummaryRequestDTO {
   amount: number;
   categoryId: string;
   name: string;
   type: CategoryType;
 }
 
-export interface SummaryDTO {
+interface SummaryDTO {
   incomes: number;
   expenses: number;
   balance: number;
-  categoryTransactions: TransactionDTO[];
-  // TODO: check this field
-  _id?: string;
+  categoryExpenseTransactions: TransactionDTO[];
   userId?: string;
 }
 
-type SummaryDocument = Document & {
+interface SummaryDocument extends Document {
   userId?: string;
   incomes: number;
   expenses: number;
   balance: number;
-  categoryTransactions: TransactionDTO[];
+  categoryExpenseTransactions: TransactionDTO[];
 };
 
-type SummaryInput = {
+interface SummaryInput {
   userId: SummaryDocument['userId'];
   incomes: SummaryDocument['incomes'];
   expenses: SummaryDocument['expenses'];
   balance: SummaryDocument['balance'];
-  categoryTransactions: SummaryDocument['categoryTransactions'];
+  categoryExpenseTransactions: SummaryDocument['categoryExpenseTransactions'];
 };
 
 const summarysSchema = new Schema(
@@ -53,17 +52,17 @@ const summarysSchema = new Schema(
       type: Schema.Types.Number,
       required: true
     },
-    categoryTransactions: {
-      type: Schema.Types.Array,
+    categoryExpenseTransactions: {
+      type: Schema.Types.Array as unknown as SummaryDocument['categoryExpenseTransactions'],
       required: true
     }
   },
   {
-    collection: 'summary',
-    timestamps: false
+    timestamps: false,
+    collection: CONFIG.collections.summary
   }
 );
 
-const Summary: Model<SummaryDocument> = mongoose.model<SummaryDocument>('summary', summarysSchema);
+const Summary: Model<SummaryDocument> = mongoose.model<SummaryDocument>(CONFIG.collections.summary, summarysSchema);
 
-export { Summary, SummaryInput, SummaryDocument };
+export { Summary, SummaryInput, SummaryDTO, SummaryRequestDTO, SummaryDocument };
