@@ -4,7 +4,6 @@ import { CONFIG, GOOGLE_STRATEGY_OPTIONS } from '../core/configs';
 import { UserInput } from '../models';
 import { getGoogleAccessToken } from '../helpers';
 
-
 const loginSuccess = (request: Request, response: Response) => {
   const user = request.user;
 

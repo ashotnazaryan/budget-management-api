@@ -83,7 +83,7 @@ const addTransaction = async (request: Request<{}, {}, SummaryRequestDTO>, respo
         }
       });
 
-      return response.status(200).json({ data: null });
+      return response.status(201).json({ data: null });
     }
 
   } catch {
