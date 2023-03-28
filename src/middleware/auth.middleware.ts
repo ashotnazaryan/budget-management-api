@@ -6,5 +6,5 @@ export const isAuthenticated = (request: Request, response: Response, next: Next
     return next();
   }
 
-  response.status(401).redirect(`/api/auth/${CONFIG.routes.loginFailed}`);
+  response.status(401).redirect(`/api/auth${CONFIG.routes.loginFailed}`);
 }
