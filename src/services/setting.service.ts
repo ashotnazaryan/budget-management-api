@@ -6,7 +6,8 @@ const initialSetting: SettingInput = {
     iso: 'USD',
     symbol: '$',
     name: 'US Dollar'
-  }
+  },
+  showDecimals: false
 };
 
 const getSettings = async (request: Request, response: Response) => {
@@ -30,16 +31,13 @@ const getSettings = async (request: Request, response: Response) => {
 
 const addSetting = async (request: Request<{}, {}, SettingDTO>, response: Response) => {
   const userId = (request.user as any)?.userId;
-  const { currency } = request.body;
-
-  if (!currency) {
-    return response.status(422).json({ message: 'Missing fields' });
-  }
+  const { currency, showDecimals } = request.body;
 
   try {
     await Setting.updateOne({ userId }, {
       $set: {
-        currency
+        currency,
+        showDecimals
       }
     });
 

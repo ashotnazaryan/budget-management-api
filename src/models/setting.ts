@@ -11,21 +11,28 @@ interface Currency {
 
 interface SettingDocument extends Document {
   currency: Currency;
+  showDecimals: boolean;
   userId: string;
 };
 
 interface SettingInput {
   currency: Currency;
+  showDecimals: boolean;
 }
 
 interface SettingDTO {
   currency: Currency;
+  showDecimals: boolean;
 }
 
 const defaultCategorySchema = new Schema(
   {
     currency: {
       type: Schema.Types.Mixed as unknown as Currency,
+      required: true
+    },
+    showDecimals: {
+      type: Schema.Types.Boolean,
       required: true
     },
     userId: {
