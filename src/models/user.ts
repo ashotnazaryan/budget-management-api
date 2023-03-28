@@ -11,6 +11,7 @@ interface UserInput {
   id: string;
   userId: string;
   accessToken: string;
+  refreshToken: string;
 }
 
 const userSchema = new Schema(
