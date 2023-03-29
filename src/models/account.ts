@@ -4,15 +4,17 @@ import { CONFIG } from '../core/configs';
 const Schema = mongoose.Schema;
 
 export interface AccountDocument extends Document {
-  id: string;
   name: string;
   icon: string;
+  initialAmount: number;
+  userId?: string;
 };
 
 export interface AccountInput {
-  id: string;
   name: string;
   icon: string;
+  initialAmount: number;
+  userId?: string;
 }
 
 const defaultAccountSchema = new Schema(
@@ -24,6 +26,10 @@ const defaultAccountSchema = new Schema(
     icon: {
       type: Schema.Types.String,
       required: true
+    },
+    initialAmount: {
+      type: Schema.Types.Number,
+      required: true
     }
   },
   {
@@ -32,6 +38,32 @@ const defaultAccountSchema = new Schema(
   }
 );
 
-const DefaultAccount= mongoose.model<AccountDocument>(CONFIG.collections.defaultAccounts, defaultAccountSchema);
+const accountSchema = new Schema(
+  {
+    userId: {
+      type: Schema.Types.String,
+      required: true
+    },
+    name: {
+      type: Schema.Types.String,
+      required: true
+    },
+    icon: {
+      type: Schema.Types.String,
+      required: true
+    },
+    initialAmount: {
+      type: Schema.Types.Number,
+      required: true
+    }
+  },
+  {
+    timestamps: false,
+    collection: CONFIG.collections.accounts
+  }
+);
 
-export { DefaultAccount };
+const DefaultAccount = mongoose.model<AccountDocument>(CONFIG.collections.defaultAccounts, defaultAccountSchema);
+const Account = mongoose.model<AccountDocument>(CONFIG.collections.accounts, accountSchema);
+
+export { DefaultAccount, Account };
