@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import session from 'express-session';
+import cookieSession from 'cookie-session';
 import passport from 'passport';
 import { connectToDatabase } from './core/db-connection';
 import { authRoute, summaryRoute, transactionRoute, categoryRoute, settingRoute } from './routes';
@@ -18,17 +18,16 @@ app.set('trust proxy', true);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(session({
-  secret: CONFIG.cookieSessionSecretName,
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
+app.use(
+  cookieSession({
+    name: CONFIG.cookieSessionSecretName,
+    keys: [CONFIG.cookieSessionSecretKey],
     maxAge: 24 * 60 * 60 * 100,
     secure: CONFIG.env === 'production',
     httpOnly: true,
-    sameSite: CONFIG.env === 'production' ? 'none' : 'lax', // TODO: change this to true/strict when both client and server are hosted under the same domain
-  }
-}));
+    sameSite: CONFIG.env === 'production' ? 'none' : 'lax' // TODO: change this to true/strict when both client and server are hosted under the same domain
+  })
+);
 
 app.use(passport.initialize());
 app.use(passport.session());

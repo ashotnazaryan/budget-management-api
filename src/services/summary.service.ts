@@ -5,7 +5,8 @@ const initialSummary: SummaryDTO = {
   incomes: 0,
   expenses: 0,
   balance: 0,
-  categoryExpenseTransactions: []
+  categoryExpenseTransactions: [],
+  categoryIncomeTransactions: []
 };
 
 const getSummary = async (request: Request, response: Response) => {
