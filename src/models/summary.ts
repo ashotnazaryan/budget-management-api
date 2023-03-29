@@ -15,6 +15,7 @@ interface SummaryDTO {
   expenses: number;
   balance: number;
   categoryExpenseTransactions: TransactionDTO[];
+  categoryIncomeTransactions: TransactionDTO[];
   userId?: string;
 }
 
@@ -23,6 +24,7 @@ interface SummaryDocument extends Document {
   expenses: number;
   balance: number;
   categoryExpenseTransactions: TransactionDTO[];
+  categoryIncomeTransactions: TransactionDTO[];
   userId?: string;
 };
 
@@ -32,6 +34,7 @@ interface SummaryInput {
   expenses: SummaryDocument['expenses'];
   balance: SummaryDocument['balance'];
   categoryExpenseTransactions: SummaryDocument['categoryExpenseTransactions'];
+  categoryIncomeTransactions: SummaryDocument['categoryIncomeTransactions'];
 };
 
 const summarysSchema = new Schema(
@@ -53,6 +56,10 @@ const summarysSchema = new Schema(
       required: true
     },
     categoryExpenseTransactions: {
+      type: Schema.Types.Array as unknown as SummaryDocument['categoryExpenseTransactions'],
+      required: true
+    },
+    categoryIncomeTransactions: {
       type: Schema.Types.Array as unknown as SummaryDocument['categoryExpenseTransactions'],
       required: true
     }

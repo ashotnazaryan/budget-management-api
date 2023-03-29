@@ -35,11 +35,8 @@ const loginFailed = (request: Request, response: Response) => {
 };
 
 const logout = (request: Request, response: Response, next: NextFunction) => {
-  request.session.destroy((error) => {
-    if (error) {
-      return next(error);
-    }
-  });
+  request.session = null;
+  request.user = undefined;
   request.logout((error) => {
     return next(error);
   });

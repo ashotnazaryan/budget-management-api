@@ -22,13 +22,20 @@ const addTransaction = async (request: Request<{}, {}, SummaryRequestDTO>, respo
 
   const payload = { amount, categoryId, name, type, createdAt: new Date() };
   const summary = await Summary.findOne({ userId }) as SummaryDocument;
-  const categoryAvailable = summary.categoryExpenseTransactions.some((transaction) => transaction.categoryId === categoryId);
-  const categoryExpenseTransactions = categoryAvailable
+  const categoryExpenseAvailable = summary.categoryExpenseTransactions.some((transaction) => transaction.categoryId === categoryId);
+  const categoryIncomeAvailable = summary.categoryIncomeTransactions.some((transaction) => transaction.categoryId === categoryId);
+  const categoryExpenseTransactions = categoryExpenseAvailable
     ? summary.categoryExpenseTransactions.map((transaction) => ({
       ...transaction,
       amount: categoryId === transaction.categoryId ? transaction.amount + amount : transaction.amount
     }))
     : type === CategoryType.expense ? [...summary.categoryExpenseTransactions, payload] : summary.categoryExpenseTransactions;
+  const categoryIncomeTransactions = categoryIncomeAvailable
+    ? summary.categoryIncomeTransactions.map((transaction) => ({
+      ...transaction,
+      amount: categoryId === transaction.categoryId ? transaction.amount + amount : transaction.amount
+    }))
+    : type === CategoryType.income ? [...summary.categoryIncomeTransactions, payload] : summary.categoryIncomeTransactions;
 
   let result: SummaryDTO = {
     ...summary,
@@ -63,7 +70,12 @@ const addTransaction = async (request: Request<{}, {}, SummaryRequestDTO>, respo
     categoryExpenseTransactions: categoryExpenseTransactions.map((transaction) => ({
       ...transaction,
       userId,
-      categoryExpenseValue: parseInt(((transaction.amount / expenses) * 100).toFixed(0))
+      percentValue: parseInt(((transaction.amount / expenses) * 100).toFixed(0))
+    })),
+    categoryIncomeTransactions: categoryIncomeTransactions.map((transaction) => ({
+      ...transaction,
+      userId,
+      percentValue: parseInt(((transaction.amount / incomes) * 100).toFixed(0))
     }))
   };
 
@@ -79,7 +91,8 @@ const addTransaction = async (request: Request<{}, {}, SummaryRequestDTO>, respo
           incomes: result.incomes,
           expenses: result.expenses,
           balance: result.balance,
-          categoryExpenseTransactions: result.categoryExpenseTransactions
+          categoryExpenseTransactions: result.categoryExpenseTransactions,
+          categoryIncomeTransactions: result.categoryIncomeTransactions
         }
       });
 

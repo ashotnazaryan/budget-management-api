@@ -10,7 +10,7 @@ interface TransactionDTO {
   type: CategoryType;
   name: string;
   amount: number;
-  categoryExpenseValue: number;
+  percentValue: number;
   createdAt: Date;
 }
 
@@ -20,7 +20,7 @@ interface TransactionDocument extends Document {
   type: CategoryType;
   name: string;
   amount: number;
-  categoryExpenseValue: number;
+  percentValue: number;
   createdAt: Date;
 };
 
@@ -46,7 +46,7 @@ const transactionSchema = new Schema(
       type: Schema.Types.Number,
       required: true
     },
-    categoryExpenseValue: {
+    percentValue: {
       type: Schema.Types.Number,
       required: false
     },
