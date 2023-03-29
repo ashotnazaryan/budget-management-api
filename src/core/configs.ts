@@ -23,6 +23,7 @@ export const CONFIG = {
     getSummary: '/',
     getBalance: '/balance',
     getDefaultCategories: '/default-categories',
+    getDefaultAccounts: '/default-accounts',
     getTransactions: '/',
     addTransaction: '/transaction',
     getSettings: '/',
@@ -34,6 +35,7 @@ export const CONFIG = {
     setting: 'setting',
     summary: 'summary',
     defaultCategories: 'defaultCategories',
+    defaultAccounts: 'defaultAccounts',
     transactions: 'transactions',
   }
 };
