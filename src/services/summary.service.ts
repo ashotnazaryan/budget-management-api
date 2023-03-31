@@ -24,7 +24,7 @@ const getSummary = async (request: Request, response: Response) => {
 
     return response.status(200).json({ data: newEmptySummary });
   } catch {
-    response.status(404).json({ message: 'Summary not found' });
+    response.status(404).json({ error: { message: 'Summary not found', status: 404 } });
   }
 };
 

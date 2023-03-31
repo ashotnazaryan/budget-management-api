@@ -6,6 +6,7 @@ import { connectToDatabase } from './core/db-connection';
 import { authRoute, summaryRoute, transactionRoute, categoryRoute, settingRoute, accountRoute } from './routes';
 import { CONFIG } from './core/configs';
 import './core/passport';
+import { setResponseHeaders } from './middleware';
 
 const app = express();
 const corsOptions = {
@@ -33,6 +34,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(cors(corsOptions));
+app.use(setResponseHeaders);
 app.use('/api/auth', authRoute());
 app.use('/api/summary', summaryRoute());
 app.use('/api/category', categoryRoute());

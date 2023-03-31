@@ -25,7 +25,7 @@ const getSettings = async (request: Request, response: Response) => {
 
     return response.status(200).json({ data: newEmptySetting });
   } catch {
-    response.status(404).json({ message: 'Setting not found' });
+    response.status(404).json({ error: { message: 'Setting not found', status: 404 } });
   }
 };
 
@@ -43,7 +43,7 @@ const addSetting = async (request: Request<{}, {}, SettingDTO>, response: Respon
 
     return response.status(201).json({ data: null });
   } catch {
-    response.status(500).json({ message: 'Internal server error' });
+    response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
   }
 };
 

@@ -29,9 +29,7 @@ const getNewAccessToken = async (request: Request<{}, {}, UserInput>, response: 
 };
 
 const loginFailed = (request: Request, response: Response) => {
-  response.status(401).json({
-    message: 'Unauthorized',
-  });
+  response.status(401).json({ error: { message: 'Unauthorized', status: 401 } });
 };
 
 const logout = (request: Request, response: Response, next: NextFunction) => {

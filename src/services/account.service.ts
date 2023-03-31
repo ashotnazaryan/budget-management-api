@@ -30,33 +30,38 @@ const getAccounts = async (request: Request, response: Response) => {
 
 const createAccount = async (request: Request<{}, {}, AccountInput>, response: Response) => {
   const userId = (request.user as any)?.userId;
-  const newAccount = {...request.body, userId};
+  const newAccount = { ...request.body, userId };
 
   try {
     const defaultAccounts = await DefaultAccount.find();
     const accounts = await Account.find({ userId });
-    const accountAvailable = accounts.some((account) => account.userId === userId);
-    const defaultAccountsList = defaultAccounts.map((account) => ({
+    const accountAvailable = accounts.some((account) => account.name === newAccount.name);
+    const defaultAccountsList: AccountInput[] = defaultAccounts.map((account) => ({
       userId,
       icon: account.icon,
       name: account.name,
       initialAmount: account.initialAmount
     }));
 
-    let newAccounts: AccountInput[] = [];
-
-    if (!accountAvailable) {
-      newAccounts = [
+    if (!accounts.length) {
+      await Account.insertMany([
         ...defaultAccountsList,
         newAccount
-      ];
+      ]);
+
+      return response.status(201).json({ data: null });
     }
 
-    const accountCreated = await Account.insertMany(newAccounts);
+    if (!accountAvailable) {
+      await Account.create(newAccount);
 
-    return response.status(201).json({ data: accountCreated });
-  } catch(error) {
-    response.status(500).json({ message: 'Internal server error' });
+      return response.status(201).json({ data: null });
+    }
+
+    return response.status(400).json({ error: { message: 'Account already exists', status: 400 } });
+
+  } catch (error) {
+    response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
   }
 };
 
