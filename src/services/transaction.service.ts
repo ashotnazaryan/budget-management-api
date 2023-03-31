@@ -17,7 +17,7 @@ const addTransaction = async (request: Request<{}, {}, SummaryRequestDTO>, respo
   const userId = (request.user as any)?.userId;
 
   if (!amount || !categoryId || !name) {
-    return response.status(422).json({ message: 'The fields amount, categoryId, name, type are required' });
+    return response.status(422).json({ error: { message: 'The fields amount, categoryId, name, type are required', status: 422 } });
   }
 
   const payload = { amount, categoryId, name, type, createdAt: new Date() };
@@ -100,7 +100,7 @@ const addTransaction = async (request: Request<{}, {}, SummaryRequestDTO>, respo
     }
 
   } catch {
-    return response.status(500).json({ message: 'Internal server error' });
+    return response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
   }
 }
 
