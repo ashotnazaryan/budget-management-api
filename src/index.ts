@@ -37,7 +37,7 @@ app.use(cors(corsOptions));
 app.use(setResponseHeaders);
 app.use('/api/auth', authRoute());
 app.use('/api/summary', summaryRoute());
-app.use('/api/category', categoryRoute());
+app.use('/api/categories', categoryRoute());
 app.use('/api/accounts', accountRoute());
 app.use('/api/transactions', transactionRoute());
 app.use('/api/settings', settingRoute());

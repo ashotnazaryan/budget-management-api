@@ -27,7 +27,9 @@ export const CONFIG = {
     getTransactions: '/',
     addTransaction: '/transaction',
     createAccount: '/account',
+    createCategory: '/category',
     getAccounts: '/',
+    getCategories: '/',
     getSettings: '/',
     addSetting: '/setting',
     accessToken: '/access-token',
@@ -38,6 +40,7 @@ export const CONFIG = {
     summary: 'summary',
     defaultCategories: 'defaultCategories',
     defaultAccounts: 'defaultAccounts',
+    categories: 'categories',
     accounts: 'accounts',
     transactions: 'transactions',
   }

@@ -9,17 +9,17 @@ export enum CategoryType {
 }
 
 export interface CategoryDocument extends Document {
-  id: string;
   name: string;
   icon: string;
   type: CategoryType;
+  userId?: string;
 };
 
 export interface CategoryInput {
-  id: string;
   name: string;
   icon: string;
   type: CategoryType;
+  userId?: string;
 }
 
 const defaultCategorySchema = new Schema(
@@ -43,6 +43,32 @@ const defaultCategorySchema = new Schema(
   }
 );
 
-const DefaultCategory = mongoose.model<CategoryDocument>(CONFIG.collections.defaultCategories, defaultCategorySchema);
+const categorySchema = new Schema(
+  {
+    userId: {
+      type: Schema.Types.String,
+      required: true
+    },
+    name: {
+      type: Schema.Types.String,
+      required: true
+    },
+    icon: {
+      type: Schema.Types.String,
+      required: true
+    },
+    type: {
+      type: Schema.Types.Number,
+      required: true
+    }
+  },
+  {
+    timestamps: false,
+    collection: CONFIG.collections.categories
+  }
+);
 
-export { DefaultCategory };
+const DefaultCategory = mongoose.model<CategoryDocument>(CONFIG.collections.defaultCategories, defaultCategorySchema);
+const Category = mongoose.model<CategoryDocument>(CONFIG.collections.categories, categorySchema);
+
+export { DefaultCategory, Category };

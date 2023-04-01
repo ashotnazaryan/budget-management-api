@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import { Summary, SummaryDocument, SummaryRequestDTO, Transaction, CategoryType, TransactionDTO, SummaryDTO } from '../models';
+import { Summary, SummaryDocument, Transaction, CategoryType, TransactionRequestRequestDTO, SummaryDTO } from '../models';
 
 const getTransactions = async (request: Request, response: Response) => {
   const userId = (request.user as any)?.userId;
   try {
-    const transactions = await Transaction.find({ userId });
+    const transactions = await Transaction.find({ userId }).sort({ createdAt: -1 });
 
     return response.status(200).json({ data: transactions });
   } catch {
@@ -12,15 +12,15 @@ const getTransactions = async (request: Request, response: Response) => {
   }
 };
 
-const addTransaction = async (request: Request<{}, {}, SummaryRequestDTO>, response: Response) => {
-  const { amount, categoryId, name, type } = request.body;
+const addTransaction = async (request: Request<{}, {}, TransactionRequestRequestDTO>, response: Response) => {
+  const { amount, categoryId, name, type, icon } = request.body;
   const userId = (request.user as any)?.userId;
 
   if (!amount || !categoryId || !name) {
     return response.status(422).json({ error: { message: 'The fields amount, categoryId, name, type are required', status: 422 } });
   }
 
-  const payload = { amount, categoryId, name, type, createdAt: new Date() };
+  const payload = { amount, categoryId, name, type, icon, createdAt: new Date() };
   const summary = await Summary.findOne({ userId }) as SummaryDocument;
   const categoryExpenseAvailable = summary.categoryExpenseTransactions.some((transaction) => transaction.categoryId === categoryId);
   const categoryIncomeAvailable = summary.categoryIncomeTransactions.some((transaction) => transaction.categoryId === categoryId);
@@ -44,7 +44,7 @@ const addTransaction = async (request: Request<{}, {}, SummaryRequestDTO>, respo
   let incomes = summary.incomes;
   let expenses = summary.expenses;
 
-  const newTransaction = { ...payload, userId };
+  const newTransaction = { ...payload, userId, icon };
   await Transaction.create(newTransaction);
 
   if (type === CategoryType.income) {

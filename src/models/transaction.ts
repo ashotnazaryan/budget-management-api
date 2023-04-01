@@ -4,24 +4,34 @@ import { CategoryType } from './category';
 
 const Schema = mongoose.Schema;
 
+interface TransactionRequestRequestDTO {
+  amount: number;
+  categoryId: string;
+  name: string;
+  type: CategoryType;
+  icon: string;
+}
+
 interface TransactionDTO {
-  categoryId: string; // TODO: check
+  categoryId: string;
   userId: string;
   type: CategoryType;
   name: string;
   amount: number;
   percentValue: number;
   createdAt: Date;
+  icon: string;
 }
 
 interface TransactionDocument extends Document {
-  categoryId: string;  // TODO: check
+  categoryId: string;
   userId: string;
   type: CategoryType;
   name: string;
   amount: number;
   percentValue: number;
   createdAt: Date;
+  icon: string;
 };
 
 const transactionSchema = new Schema(
@@ -53,6 +63,10 @@ const transactionSchema = new Schema(
     createdAt: {
       type: Schema.Types.Date,
       required: true
+    },
+    icon: {
+      type: Schema.Types.String,
+      required: true
     }
   },
   {
@@ -63,4 +77,4 @@ const transactionSchema = new Schema(
 
 const Transaction = mongoose.model<TransactionDocument>(CONFIG.collections.transactions, transactionSchema);
 
-export { Transaction, TransactionDocument, TransactionDTO };
+export { Transaction, TransactionDocument, TransactionDTO, TransactionRequestRequestDTO };
