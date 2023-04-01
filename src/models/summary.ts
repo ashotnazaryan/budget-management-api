@@ -3,13 +3,6 @@ import { CONFIG } from '../core/configs';
 import { CategoryType } from './category';
 import { TransactionDTO } from './transaction';
 
-interface SummaryRequestDTO {
-  amount: number;
-  categoryId: string;
-  name: string;
-  type: CategoryType;
-}
-
 interface SummaryDTO {
   incomes: number;
   expenses: number;
@@ -72,4 +65,4 @@ const summarysSchema = new Schema(
 
 const Summary: Model<SummaryDocument> = mongoose.model<SummaryDocument>(CONFIG.collections.summary, summarysSchema);
 
-export { Summary, SummaryInput, SummaryDTO, SummaryRequestDTO, SummaryDocument };
+export { Summary, SummaryInput, SummaryDTO, SummaryDocument };

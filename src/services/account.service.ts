@@ -36,16 +36,17 @@ const createAccount = async (request: Request<{}, {}, AccountInput>, response: R
     const defaultAccounts = await DefaultAccount.find();
     const accounts = await Account.find({ userId });
     const accountAvailable = accounts.some((account) => account.name === newAccount.name);
-    const defaultAccountsList: AccountInput[] = defaultAccounts.map((account) => ({
+    const defaultAccountList: AccountInput[] = defaultAccounts.map((account) => ({
       userId,
       icon: account.icon,
       name: account.name,
+      currencyIso: account.currencyIso,
       initialAmount: account.initialAmount
     }));
 
     if (!accounts.length) {
       await Account.insertMany([
-        ...defaultAccountsList,
+        ...defaultAccountList,
         newAccount
       ]);
 

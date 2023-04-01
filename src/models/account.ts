@@ -1,5 +1,6 @@
 import mongoose, { Document } from 'mongoose';
 import { CONFIG } from '../core/configs';
+import { Currency } from './setting';
 
 const Schema = mongoose.Schema;
 
@@ -7,6 +8,7 @@ export interface AccountDocument extends Document {
   name: string;
   icon: string;
   initialAmount: number;
+  currencyIso: Currency['iso'];
   userId?: string;
 };
 
@@ -14,6 +16,7 @@ export interface AccountInput {
   name: string;
   icon: string;
   initialAmount: number;
+  currencyIso: Currency['iso'];
   userId?: string;
 }
 
@@ -24,6 +27,10 @@ const defaultAccountSchema = new Schema(
       required: true
     },
     icon: {
+      type: Schema.Types.String,
+      required: true
+    },
+    currencyIso: {
       type: Schema.Types.String,
       required: true
     },
@@ -49,6 +56,10 @@ const accountSchema = new Schema(
       required: true
     },
     icon: {
+      type: Schema.Types.String,
+      required: true
+    },
+    currencyIso: {
       type: Schema.Types.String,
       required: true
     },
