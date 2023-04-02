@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
+import mongoose from 'mongoose';
 import { Setting, SettingDTO, SettingInput } from '../models';
+import { CONFIG } from '../core/configs';
 
 const initialSetting: SettingInput = {
   currency: {
@@ -47,4 +49,26 @@ const addSetting = async (request: Request<{}, {}, SettingDTO>, response: Respon
   }
 };
 
-export { getSettings, addSetting };
+const deleteAllData = async (request: Request, response: Response) => {
+  const droppableCollections = [
+    CONFIG.collections.accounts,
+    CONFIG.collections.categories,
+    CONFIG.collections.setting,
+    CONFIG.collections.summary,
+    CONFIG.collections.transactions
+  ];
+  const availableCollections = await mongoose.connection.db.listCollections().toArray();
+  const availableUserCollections = availableCollections.filter((collection) => droppableCollections.includes(collection.name));
+
+  try {
+    for (const collection of availableUserCollections) {
+      await mongoose.connection.db.dropCollection(collection.name);
+    }
+
+    return response.status(204).json({ data: null });
+  } catch {
+    response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
+  }
+};
+
+export { getSettings, addSetting, deleteAllData };
