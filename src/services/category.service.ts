@@ -28,6 +28,22 @@ const getCategories = async (request: Request, response: Response) => {
   }
 };
 
+const getCategoryById = async (request: Request, response: Response) => {
+  const categoryId = request.params.categoryId;
+
+  try {
+    const category = await Category.findById(categoryId);
+
+    if (category) {
+      return response.status(200).json({ data: category });
+    }
+
+    return response.status(404).json({ error: { message: 'Category not found', status: 404 } });
+  } catch {
+    response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
+  }
+};
+
 const createCategory = async (request: Request<{}, {}, CategoryInput>, response: Response) => {
   const userId = (request.user as any)?.userId;
   const newCategory = { ...request.body, userId };
@@ -40,7 +56,8 @@ const createCategory = async (request: Request<{}, {}, CategoryInput>, response:
       userId,
       icon: category.icon,
       name: category.name,
-      type: category.type
+      type: category.type,
+      isDefaultCategory: category.isDefaultCategory
     }));
 
     if (!categories.length) {
@@ -65,4 +82,17 @@ const createCategory = async (request: Request<{}, {}, CategoryInput>, response:
   }
 };
 
-export { getDefaultCategories, getCategories, createCategory };
+const editCategory = async (request: Request, response: Response) => {
+  const categoryId = request.params.categoryId;
+  const category = request.body;
+
+  try {
+    await Category.findByIdAndUpdate(categoryId, category);
+
+    return response.status(201).json({ data: null });
+  } catch {
+    response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
+  }
+};
+
+export { getDefaultCategories, getCategories, getCategoryById, createCategory, editCategory };

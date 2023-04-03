@@ -28,6 +28,8 @@ export const CONFIG = {
     addTransaction: '/transaction',
     createAccount: '/account',
     createCategory: '/category',
+    editCategory: '/:categoryId',
+    getCategoryById: '/:categoryId',
     getAccounts: '/',
     getCategories: '/',
     getSettings: '/',
