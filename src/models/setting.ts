@@ -25,7 +25,7 @@ interface SettingDTO {
   showDecimals: boolean;
 }
 
-const defaultCategorySchema = new Schema(
+const settingSchema = new Schema(
   {
     currency: {
       type: Schema.Types.Mixed as unknown as Currency,
@@ -46,6 +46,6 @@ const defaultCategorySchema = new Schema(
   }
 );
 
-const Setting = mongoose.model<SettingDocument>(CONFIG.collections.setting, defaultCategorySchema);
+const Setting = mongoose.model<SettingDocument>(CONFIG.collections.setting, settingSchema);
 
 export { Setting, SettingDocument, SettingInput, SettingDTO, Currency };

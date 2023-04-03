@@ -1,7 +1,5 @@
 import { Request, Response } from 'express';
-import mongoose from 'mongoose';
-import { Setting, SettingDTO, SettingInput } from '../models';
-import { CONFIG } from '../core/configs';
+import { Account, Category, Setting, SettingDTO, SettingInput, Summary, Transaction } from '../models';
 
 const initialSetting: SettingInput = {
   currency: {
@@ -50,20 +48,14 @@ const addSetting = async (request: Request<{}, {}, SettingDTO>, response: Respon
 };
 
 const deleteAllData = async (request: Request, response: Response) => {
-  const droppableCollections = [
-    CONFIG.collections.accounts,
-    CONFIG.collections.categories,
-    CONFIG.collections.setting,
-    CONFIG.collections.summary,
-    CONFIG.collections.transactions
-  ];
-  const availableCollections = await mongoose.connection.db.listCollections().toArray();
-  const availableUserCollections = availableCollections.filter((collection) => droppableCollections.includes(collection.name));
+  const userId = request.params.userId;
 
   try {
-    for (const collection of availableUserCollections) {
-      await mongoose.connection.db.dropCollection(collection.name);
-    }
+    await Setting.deleteMany({ userId });
+    await Account.deleteMany({ userId });
+    await Category.deleteMany({ userId });
+    await Summary.deleteMany({ userId });
+    await Transaction.deleteMany({ userId });
 
     return response.status(204).json({ data: null });
   } catch {
