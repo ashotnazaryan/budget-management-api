@@ -12,17 +12,20 @@ interface Currency {
 interface SettingDocument extends Document {
   currency: Currency;
   showDecimals: boolean;
+  isDarkTheme: boolean;
   userId: string;
 };
 
 interface SettingInput {
   currency: Currency;
   showDecimals: boolean;
+  isDarkTheme: boolean;
 }
 
 interface SettingDTO {
   currency: Currency;
   showDecimals: boolean;
+  isDarkTheme: boolean;
 }
 
 const settingSchema = new Schema(
@@ -32,6 +35,10 @@ const settingSchema = new Schema(
       required: true
     },
     showDecimals: {
+      type: Schema.Types.Boolean,
+      required: true
+    },
+    isDarkTheme: {
       type: Schema.Types.Boolean,
       required: true
     },
