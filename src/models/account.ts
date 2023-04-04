@@ -10,6 +10,7 @@ export interface AccountDocument extends Document {
   initialAmount: number;
   currencyIso: Currency['iso'];
   userId?: string;
+  isDefaultAccount?: boolean;
 };
 
 export interface AccountInput {
@@ -18,6 +19,7 @@ export interface AccountInput {
   initialAmount: number;
   currencyIso: Currency['iso'];
   userId?: string;
+  isDefaultAccount?: boolean;
 }
 
 const defaultAccountSchema = new Schema(
@@ -37,6 +39,9 @@ const defaultAccountSchema = new Schema(
     initialAmount: {
       type: Schema.Types.Number,
       required: true
+    },
+    isDefaultAccount: {
+      type: Schema.Types.Boolean
     }
   },
   {
@@ -66,6 +71,9 @@ const accountSchema = new Schema(
     initialAmount: {
       type: Schema.Types.Number,
       required: true
+    },
+    isDefaultAccount: {
+      type: Schema.Types.Boolean
     }
   },
   {

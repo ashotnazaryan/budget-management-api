@@ -8,8 +8,8 @@ const categoryRoute = () => {
 
   router.get(CONFIG.routes.getDefaultCategories, isAuthenticated, getDefaultCategories);
   router.get(CONFIG.routes.getCategories, isAuthenticated, getCategories);
-  router.get(CONFIG.routes.getCategoryById, isAuthenticated, getCategoryById);
   router.post(CONFIG.routes.createCategory, isAuthenticated, createCategory);
+  router.get(CONFIG.routes.getCategoryById, isAuthenticated, getCategoryById);
   router.put(CONFIG.routes.editCategory, isAuthenticated, editCategory);
 
   return router;

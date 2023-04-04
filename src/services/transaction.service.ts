@@ -17,7 +17,7 @@ const addTransaction = async (request: Request<{}, {}, TransactionRequestRequest
   const userId = (request.user as any)?.userId;
 
   if (!amount || !categoryId || !name) {
-    return response.status(422).json({ error: { message: 'The fields amount, categoryId, name, type are required', status: 422 } });
+    return response.status(422).json({ error: { message: 'Missing fields', status: 422 } });
   }
 
   const payload = { amount, categoryId, name, type, icon, createdAt: new Date() };
