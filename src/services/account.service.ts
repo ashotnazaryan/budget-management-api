@@ -28,6 +28,22 @@ const getAccounts = async (request: Request, response: Response) => {
   }
 };
 
+const getAccountById = async (request: Request, response: Response) => {
+  const accountId = request.params.accountId;
+
+  try {
+    const account = await Account.findById(accountId);
+
+    if (account) {
+      return response.status(200).json({ data: account });
+    }
+
+    return response.status(404).json({ error: { message: 'Account not found', status: 404 } });
+  } catch {
+    response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
+  }
+};
+
 const createAccount = async (request: Request<{}, {}, AccountInput>, response: Response) => {
   const userId = (request.user as any)?.userId;
   const newAccount = { ...request.body, userId };
@@ -41,7 +57,8 @@ const createAccount = async (request: Request<{}, {}, AccountInput>, response: R
       icon: account.icon,
       name: account.name,
       currencyIso: account.currencyIso,
-      initialAmount: account.initialAmount
+      initialAmount: account.initialAmount,
+      isDefaultAccount: account.isDefaultAccount
     }));
 
     if (!accounts.length) {
@@ -66,4 +83,17 @@ const createAccount = async (request: Request<{}, {}, AccountInput>, response: R
   }
 };
 
-export { getDefaultAccounts, getAccounts, createAccount };
+const editAccount = async (request: Request, response: Response) => {
+  const accountId = request.params.accountId;
+  const account = request.body;
+
+  try {
+    await Account.findByIdAndUpdate(accountId, account);
+
+    return response.status(201).json({ data: null });
+  } catch {
+    response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
+  }
+};
+
+export { getDefaultAccounts, getAccounts, createAccount, getAccountById, editAccount };
