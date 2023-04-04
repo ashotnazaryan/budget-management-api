@@ -7,7 +7,8 @@ const initialSetting: SettingInput = {
     symbol: '$',
     name: 'US Dollar'
   },
-  showDecimals: false
+  showDecimals: false,
+  isDarkTheme: false
 };
 
 const getSettings = async (request: Request, response: Response) => {
@@ -31,13 +32,14 @@ const getSettings = async (request: Request, response: Response) => {
 
 const addSetting = async (request: Request<{}, {}, SettingDTO>, response: Response) => {
   const userId = (request.user as any)?.userId;
-  const { currency, showDecimals } = request.body;
+  const { currency, showDecimals, isDarkTheme } = request.body;
 
   try {
     await Setting.updateOne({ userId }, {
       $set: {
         currency,
-        showDecimals
+        showDecimals,
+        isDarkTheme
       }
     });
 
