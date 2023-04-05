@@ -10,6 +10,7 @@ interface TransactionRequestRequestDTO {
   name: string;
   type: CategoryType;
   icon: string;
+  accountId: string;
 }
 
 interface TransactionDTO {
@@ -21,6 +22,7 @@ interface TransactionDTO {
   percentValue: number;
   createdAt: Date;
   icon: string;
+  accountId: string;
 }
 
 interface TransactionDocument extends Document {
@@ -32,6 +34,7 @@ interface TransactionDocument extends Document {
   percentValue: number;
   createdAt: Date;
   icon: string;
+  accountId: string;
 };
 
 const transactionSchema = new Schema(
@@ -65,6 +68,10 @@ const transactionSchema = new Schema(
       required: true
     },
     icon: {
+      type: Schema.Types.String,
+      required: true
+    },
+    accountId: {
       type: Schema.Types.String,
       required: true
     }
