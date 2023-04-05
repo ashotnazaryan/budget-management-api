@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 
 interface UserDocument extends Document {
   userId: string;
+  fullName: string;
 };
 
 interface UserInput {
@@ -17,6 +18,10 @@ interface UserInput {
 const userSchema = new Schema(
   {
     userId: {
+      type: Schema.Types.String,
+      required: true
+    },
+    fullName: {
       type: Schema.Types.String,
       required: true
     }

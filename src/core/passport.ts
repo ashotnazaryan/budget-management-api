@@ -5,12 +5,14 @@ import { CONFIG, GOOGLE_STRATEGY_OPTIONS } from './configs';
 
 passport.use(new GoogleStrategy({
   ...GOOGLE_STRATEGY_OPTIONS
-}, async (accessToken, refreshToken, { id }, done) => {
+}, async (accessToken, refreshToken, { id, name }, done) => {
+  const fullName = `${name?.givenName || ''} ${name?.familyName || ''}`;
   const user = await User.findOne({ userId: id });
 
   if (!user) {
     const newUser = await User.create({
-      userId: id
+      fullName,
+      userId: id,
     });
 
     const newUserWithToken = {

@@ -1,10 +1,12 @@
 import { Request, Response } from 'express';
-import { Summary, SummaryDocument, Transaction, CategoryType, TransactionRequestRequestDTO, SummaryDTO } from '../models';
+import { Summary, SummaryDocument, Transaction, CategoryType, TransactionRequestRequestDTO, SummaryDTO, Account } from '../models';
+import { getTransactionQuery } from '../queries';
 
 const getTransactions = async (request: Request, response: Response) => {
   const userId = (request.user as any)?.userId;
   try {
-    const transactions = await Transaction.find({ userId }).sort({ createdAt: -1 });
+    const pipeline = getTransactionQuery(userId);
+    const transactions = await Transaction.aggregate(pipeline);
 
     return response.status(200).json({ data: transactions });
   } catch {
@@ -13,7 +15,7 @@ const getTransactions = async (request: Request, response: Response) => {
 };
 
 const addTransaction = async (request: Request<{}, {}, TransactionRequestRequestDTO>, response: Response) => {
-  const { amount, categoryId, name, type, icon } = request.body;
+  const { amount, categoryId, name, type, icon, accountId } = request.body;
   const userId = (request.user as any)?.userId;
 
   if (!amount || !categoryId || !name) {
@@ -44,8 +46,7 @@ const addTransaction = async (request: Request<{}, {}, TransactionRequestRequest
   let incomes = summary.incomes;
   let expenses = summary.expenses;
 
-  const newTransaction = { ...payload, userId, icon };
-  await Transaction.create(newTransaction);
+  await createTransaction({ ...payload, userId, accountId, icon });
 
   if (type === CategoryType.income) {
     incomes = incomes + amount;
@@ -70,14 +71,18 @@ const addTransaction = async (request: Request<{}, {}, TransactionRequestRequest
     categoryExpenseTransactions: categoryExpenseTransactions.map((transaction) => ({
       ...transaction,
       userId,
+      accountId,
       percentValue: parseInt(((transaction.amount / expenses) * 100).toFixed(0))
     })),
     categoryIncomeTransactions: categoryIncomeTransactions.map((transaction) => ({
       ...transaction,
       userId,
+      accountId,
       percentValue: parseInt(((transaction.amount / incomes) * 100).toFixed(0))
     }))
   };
+
+  await calculateBalance(accountId, amount, type);
 
   try {
     let summaryCreated;
@@ -102,6 +107,20 @@ const addTransaction = async (request: Request<{}, {}, TransactionRequestRequest
   } catch {
     return response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
   }
-}
+};
+
+const calculateBalance = async (accountId: string, amount: number, type: CategoryType) => {
+  const account = await Account.findById(accountId);
+
+  if (account) {
+    const balance = type === CategoryType.income ? account.balance + amount : account.balance - amount;
+
+    await Account.findByIdAndUpdate(accountId, { balance });
+  }
+};
+
+const createTransaction = async (transaction: TransactionRequestRequestDTO & { userId: string }) => {
+  await Transaction.create(transaction);
+};
 
 export { getTransactions, addTransaction };

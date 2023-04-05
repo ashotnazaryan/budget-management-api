@@ -2,11 +2,12 @@ import { Request, Response } from 'express';
 import { Account, Category, Setting, SettingDTO, SettingInput, Summary, Transaction } from '../models';
 
 const initialSetting: SettingInput = {
-  currency: {
+  defaultCurrency: {
     iso: 'USD',
     symbol: '$',
     name: 'US Dollar'
   },
+  defaultAccount: '',
   showDecimals: false,
   isDarkTheme: false
 };
@@ -32,12 +33,13 @@ const getSettings = async (request: Request, response: Response) => {
 
 const addSetting = async (request: Request<{}, {}, SettingDTO>, response: Response) => {
   const userId = (request.user as any)?.userId;
-  const { currency, showDecimals, isDarkTheme } = request.body;
+  const { defaultCurrency, defaultAccount, showDecimals, isDarkTheme } = request.body;
 
   try {
     await Setting.updateOne({ userId }, {
       $set: {
-        currency,
+        defaultCurrency,
+        defaultAccount,
         showDecimals,
         isDarkTheme
       }

@@ -10,29 +10,35 @@ interface Currency {
 }
 
 interface SettingDocument extends Document {
-  currency: Currency;
+  defaultCurrency: Currency;
+  defaultAccount: string;
   showDecimals: boolean;
   isDarkTheme: boolean;
   userId: string;
 };
 
 interface SettingInput {
-  currency: Currency;
+  defaultCurrency: Currency;
+  defaultAccount: string;
   showDecimals: boolean;
   isDarkTheme: boolean;
 }
 
 interface SettingDTO {
-  currency: Currency;
+  defaultCurrency: Currency;
+  defaultAccount: string;
   showDecimals: boolean;
   isDarkTheme: boolean;
 }
 
 const settingSchema = new Schema(
   {
-    currency: {
+    defaultCurrency: {
       type: Schema.Types.Mixed as unknown as Currency,
       required: true
+    },
+    defaultAccount: {
+      type: Schema.Types.String
     },
     showDecimals: {
       type: Schema.Types.Boolean,

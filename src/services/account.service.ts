@@ -3,10 +3,28 @@ import { CONFIG } from '../core/configs';
 import { Account, AccountInput, DefaultAccount } from '../models';
 
 const getDefaultAccounts = async (request: Request, response: Response) => {
+  const userId = (request.user as any)?.userId;
+
   try {
     const defaultAccounts = await DefaultAccount.find();
+    let accounts = await Account.find({ userId });
+    const defaultAccountList: AccountInput[] = defaultAccounts.map((account) => ({
+      userId,
+      icon: account.icon,
+      name: account.name,
+      currencyIso: account.currencyIso,
+      initialAmount: account.initialAmount,
+      balance: account.balance,
+      isDefaultAccount: account.isDefaultAccount
+    }));
 
-    return response.status(200).json({ data: defaultAccounts });
+    if (!accounts.length) {
+      await Account.insertMany(defaultAccountList);
+    }
+
+    accounts = await Account.find({ userId });
+
+    return response.status(200).json({ data: accounts });
   } catch {
     response.status(200).json({ data: null });
   }
@@ -18,7 +36,7 @@ const getAccounts = async (request: Request, response: Response) => {
   try {
     const accounts = await Account.find({ userId });
 
-    if (!accounts?.length) {
+    if (!accounts.length) {
       return response.redirect(`/api/accounts${CONFIG.routes.getDefaultAccounts}`);
     }
 
@@ -46,29 +64,15 @@ const getAccountById = async (request: Request, response: Response) => {
 
 const createAccount = async (request: Request<{}, {}, AccountInput>, response: Response) => {
   const userId = (request.user as any)?.userId;
-  const newAccount = { ...request.body, userId };
+  const newAccount: AccountInput = {
+    ...request.body,
+    userId,
+    balance: request.body.initialAmount
+  };
 
   try {
-    const defaultAccounts = await DefaultAccount.find();
     const accounts = await Account.find({ userId });
     const accountAvailable = accounts.some((account) => account.name === newAccount.name);
-    const defaultAccountList: AccountInput[] = defaultAccounts.map((account) => ({
-      userId,
-      icon: account.icon,
-      name: account.name,
-      currencyIso: account.currencyIso,
-      initialAmount: account.initialAmount,
-      isDefaultAccount: account.isDefaultAccount
-    }));
-
-    if (!accounts.length) {
-      await Account.insertMany([
-        ...defaultAccountList,
-        newAccount
-      ]);
-
-      return response.status(201).json({ data: null });
-    }
 
     if (!accountAvailable) {
       await Account.create(newAccount);
@@ -83,12 +87,23 @@ const createAccount = async (request: Request<{}, {}, AccountInput>, response: R
   }
 };
 
-const editAccount = async (request: Request, response: Response) => {
+const editAccount = async (request: Request<{ accountId: string }, {}, AccountInput>, response: Response) => {
   const accountId = request.params.accountId;
-  const account = request.body;
+  let updatedAccount = request.body;
 
   try {
-    await Account.findByIdAndUpdate(accountId, account);
+    const account = await Account.findById(accountId);
+
+    if (account) {
+      const initialAmountDiff = updatedAccount.initialAmount - account.initialAmount;
+
+      updatedAccount = {
+        ...updatedAccount,
+        balance: account.balance + initialAmountDiff
+      };
+    }
+
+    await Account.findByIdAndUpdate(accountId, updatedAccount);
 
     return response.status(201).json({ data: null });
   } catch {
