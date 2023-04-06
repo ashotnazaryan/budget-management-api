@@ -1,14 +1,16 @@
 import { Request, Response } from 'express';
 import { Summary, SummaryDocument, Transaction, CategoryType, TransactionRequestRequestDTO, SummaryDTO, Account } from '../models';
-import { getTransactionQuery } from '../queries';
+import { mapTransactionsWithAccounts } from '../helpers';
 
 const getTransactions = async (request: Request, response: Response) => {
   const userId = (request.user as any)?.userId;
   try {
-    const pipeline = getTransactionQuery(userId);
-    const transactions = await Transaction.aggregate(pipeline);
+    const transactions = await Transaction.find({ userId }).sort({ createdAt: -1 });
+    const accounts = await Account.find({ userId });
 
-    return response.status(200).json({ data: transactions });
+    const mappedTransactions = mapTransactionsWithAccounts(transactions, accounts);
+
+    return response.status(200).json({ data: mappedTransactions });
   } catch {
     response.status(200).json({ data: null });
   }
