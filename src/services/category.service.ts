@@ -16,8 +16,9 @@ const getDefaultCategories = async (request: Request, response: Response) => {
     }
 
     categories = await Category.find({ userId });
+    const mappedCategories = mapCategories(categories, userId);
 
-    return response.status(200).json({ data: categories });
+    return response.status(200).json({ data: mappedCategories });
   } catch {
     response.status(200).json({ data: null });
   }
@@ -28,12 +29,13 @@ const getCategories = async (request: Request, response: Response) => {
 
   try {
     const categories = await Category.find({ userId });
+    const mappedCategories = mapCategories(categories, userId);
 
     if (!categories.length) {
       return response.redirect(`/api/categories${CONFIG.routes.getDefaultCategories}`);
     }
 
-    return response.status(200).json({ data: categories });
+    return response.status(200).json({ data: mappedCategories });
   } catch {
     response.status(200).json({ data: null });
   }

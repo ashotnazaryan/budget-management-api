@@ -1,12 +1,8 @@
 import { Request, Response } from 'express';
-import { Account, Category, Setting, SettingDTO, SettingInput, Summary, Transaction } from '../models';
+import { Account, Category, Setting, SettingInput, Summary, Transaction } from '../models';
 
 const initialSetting: SettingInput = {
-  defaultCurrency: {
-    iso: 'USD',
-    symbol: '$',
-    name: 'US Dollar'
-  },
+  defaultCurrency: 'USD',
   defaultAccount: '',
   showDecimals: false,
   isDarkTheme: false
@@ -31,7 +27,7 @@ const getSettings = async (request: Request, response: Response) => {
   }
 };
 
-const addSetting = async (request: Request<{}, {}, SettingDTO>, response: Response) => {
+const addSetting = async (request: Request<{}, {}, SettingInput>, response: Response) => {
   const userId = (request.user as any)?.userId;
   const { defaultCurrency, defaultAccount, showDecimals, isDarkTheme } = request.body;
 

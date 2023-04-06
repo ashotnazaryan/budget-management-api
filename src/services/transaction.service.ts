@@ -56,6 +56,7 @@ const addTransaction = async (request: Request<{}, {}, TransactionRequestRequest
     result = {
       ...result,
       incomes,
+      // TODO: calculate balance by all accounts balance
       balance: incomes - expenses
     };
   } else {
