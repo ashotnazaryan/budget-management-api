@@ -1,14 +1,13 @@
 import mongoose, { Schema, Model, Document } from 'mongoose';
 import { CONFIG } from '../core/configs';
-import { CategoryType } from './category';
-import { TransactionDTO } from './transaction';
+import { TransactionInput } from './transaction';
 
 interface SummaryDTO {
   incomes: number;
   expenses: number;
   balance: number;
-  categoryExpenseTransactions: TransactionDTO[];
-  categoryIncomeTransactions: TransactionDTO[];
+  categoryExpenseTransactions: TransactionInput[];
+  categoryIncomeTransactions: TransactionInput[];
   userId?: string;
 }
 
@@ -16,8 +15,8 @@ interface SummaryDocument extends Document {
   incomes: number;
   expenses: number;
   balance: number;
-  categoryExpenseTransactions: TransactionDTO[];
-  categoryIncomeTransactions: TransactionDTO[];
+  categoryExpenseTransactions: TransactionInput[];
+  categoryIncomeTransactions: TransactionInput[];
   userId?: string;
 };
 

@@ -13,7 +13,7 @@ interface TransactionRequestRequestDTO {
   accountId: string;
 }
 
-interface TransactionDTO {
+interface TransactionInput {
   categoryId: string;
   userId: string;
   type: CategoryType;
@@ -84,4 +84,4 @@ const transactionSchema = new Schema(
 
 const Transaction = mongoose.model<TransactionDocument>(CONFIG.collections.transactions, transactionSchema);
 
-export { Transaction, TransactionDocument, TransactionDTO, TransactionRequestRequestDTO };
+export { Transaction, TransactionDocument, TransactionInput, TransactionRequestRequestDTO };

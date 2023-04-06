@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { CONFIG } from '../core/configs';
 import { Account, AccountInput, DefaultAccount } from '../models';
+import { mapAccounts } from '../helpers';
 
 const getDefaultAccounts = async (request: Request, response: Response) => {
   const userId = (request.user as any)?.userId;
@@ -8,23 +9,16 @@ const getDefaultAccounts = async (request: Request, response: Response) => {
   try {
     const defaultAccounts = await DefaultAccount.find();
     let accounts = await Account.find({ userId });
-    const defaultAccountList: AccountInput[] = defaultAccounts.map((account) => ({
-      userId,
-      icon: account.icon,
-      name: account.name,
-      currencyIso: account.currencyIso,
-      initialAmount: account.initialAmount,
-      balance: account.balance,
-      isDefaultAccount: account.isDefaultAccount
-    }));
+    const defaultAccountList: AccountInput[] = mapAccounts(defaultAccounts, userId);
 
     if (!accounts.length) {
       await Account.insertMany(defaultAccountList);
     }
 
     accounts = await Account.find({ userId });
+    const mappedAccounts = mapAccounts(accounts, userId);
 
-    return response.status(200).json({ data: accounts });
+    return response.status(200).json({ data: mappedAccounts });
   } catch {
     response.status(200).json({ data: null });
   }
@@ -35,12 +29,13 @@ const getAccounts = async (request: Request, response: Response) => {
 
   try {
     const accounts = await Account.find({ userId });
+    const mappedAccounts = mapAccounts(accounts, userId);
 
     if (!accounts.length) {
       return response.redirect(`/api/accounts${CONFIG.routes.getDefaultAccounts}`);
     }
 
-    return response.status(200).json({ data: accounts });
+    return response.status(200).json({ data: mappedAccounts });
   } catch {
     response.status(200).json({ data: null });
   }

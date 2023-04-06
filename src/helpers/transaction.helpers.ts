@@ -1,6 +1,6 @@
-import { AccountDocument, TransactionDocument } from '../models';
+import { AccountDocument, TransactionDocument, TransactionInput } from '../models';
 
-export const mapTransactionsWithAccounts = (transactions: TransactionDocument[], accounts: AccountDocument[]) => {
+export const mapTransactionsWithAccounts = (transactions: TransactionDocument[], accounts: AccountDocument[]): TransactionInput[] => {
   return transactions.map((transaction) => {
     const { name, icon } = accounts.find(({ id }) => id === transaction.accountId) || {};
 
