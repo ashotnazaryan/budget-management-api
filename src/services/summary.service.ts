@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import { Summary, SummaryInput } from '../models';
+import { calculateSummaryBalance } from './transaction.service';
+import { mapSummary } from '../helpers';
 
 const initialSummary: Omit<SummaryInput, 'userId'> = {
   incomes: 0,
@@ -14,9 +16,12 @@ const getSummary = async (request: Request, response: Response) => {
 
   try {
     const summary = await Summary.findOne({ userId });
+    const balance = await calculateSummaryBalance(userId);
 
     if (summary) {
-      return response.status(200).json({ data: summary });
+      const mappedSummary = mapSummary(summary, balance, userId);
+
+      return response.status(200).json({ data: mappedSummary });
     }
 
     const emptySummary = { ...initialSummary, userId };
@@ -32,10 +37,10 @@ const getBalanceInfo = async (request: Request, response: Response) => {
   const userId = (request.user as any)?.userId;
 
   try {
-    const summary = await Summary.findOne({ userId });
+    const balance = await calculateSummaryBalance(userId);
 
-    if (summary) {
-      return response.status(200).json({ data: summary.balance });
+    if (!!balance || balance === 0) {
+      return response.status(200).json({ data: balance });
     }
 
     return response.status(200).json({ data: 0 });

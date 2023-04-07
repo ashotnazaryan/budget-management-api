@@ -75,7 +75,7 @@ const createAccount = async (request: Request<{}, {}, AccountInput>, response: R
       return response.status(201).json({ data: null });
     }
 
-    return response.status(400).json({ error: { message: 'Account already exists', status: 400 } });
+    return response.status(409).json({ error: { message: 'Account already exists', status: 409 } });
 
   } catch (error) {
     response.status(500).json({ error: { message: 'Internal server error', status: 500 } });

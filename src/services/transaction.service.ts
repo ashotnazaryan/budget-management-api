@@ -50,14 +50,17 @@ const addTransaction = async (request: Request<{}, {}, TransactionRequestRequest
 
   await createTransaction({ ...payload, userId, accountId, icon });
 
+  await calculateAccountBalance(accountId, amount, type);
+
+  const balance = await calculateSummaryBalance(userId);
+
   if (type === CategoryType.income) {
     incomes = incomes + amount;
 
     result = {
       ...result,
       incomes,
-      // TODO: calculate balance by all accounts balance
-      balance: incomes - expenses
+      balance
     };
   } else {
     expenses = expenses + amount;
@@ -65,7 +68,7 @@ const addTransaction = async (request: Request<{}, {}, TransactionRequestRequest
     result = {
       ...result,
       expenses,
-      balance: incomes - expenses
+      balance
     };
   }
 
@@ -84,8 +87,6 @@ const addTransaction = async (request: Request<{}, {}, TransactionRequestRequest
       percentValue: parseInt(((transaction.amount / incomes) * 100).toFixed(0))
     }))
   };
-
-  await calculateBalance(accountId, amount, type);
 
   try {
     let summaryCreated;
@@ -112,7 +113,7 @@ const addTransaction = async (request: Request<{}, {}, TransactionRequestRequest
   }
 };
 
-const calculateBalance = async (accountId: string, amount: number, type: CategoryType) => {
+const calculateAccountBalance = async (accountId: string, amount: number, type: CategoryType): Promise<void> => {
   const account = await Account.findById(accountId);
 
   if (account) {
@@ -122,8 +123,20 @@ const calculateBalance = async (accountId: string, amount: number, type: Categor
   }
 };
 
+const calculateSummaryBalance = async (userId: string): Promise<number> => {
+  const userAccounts = await Account.find({ userId });
+
+  if (userAccounts.length) {
+    return userAccounts.reduce<number>((acc, curr) => {
+      return acc + curr.balance;
+    }, 0);
+  }
+
+  return 0;
+};
+
 const createTransaction = async (transaction: TransactionRequestRequestDTO & { userId: string }) => {
   await Transaction.create(transaction);
 };
 
-export { getTransactions, addTransaction };
+export { getTransactions, addTransaction, calculateAccountBalance, calculateSummaryBalance };
