@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Summary, SummaryDocument, Transaction, CategoryType, TransactionRequestRequestDTO, SummaryDTO, Account } from '../models';
+import { Summary, SummaryInput, SummaryDocument, Transaction, CategoryType, TransactionRequestRequestDTO, Account } from '../models';
 import { mapTransactionsWithAccounts } from '../helpers';
 
 const getTransactions = async (request: Request, response: Response) => {
@@ -41,7 +41,7 @@ const addTransaction = async (request: Request<{}, {}, TransactionRequestRequest
     }))
     : type === CategoryType.income ? [...summary.categoryIncomeTransactions, payload] : summary.categoryIncomeTransactions;
 
-  let result: SummaryDTO = {
+  let result: SummaryInput = {
     ...summary,
     userId,
   };

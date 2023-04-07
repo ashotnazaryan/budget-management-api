@@ -52,7 +52,7 @@ const transactionSchema = new Schema(
       required: true
     },
     type: {
-      type: Schema.Types.Number as unknown as CategoryType,
+      type: Schema.Types.Number,
       required: true
     },
     amount: {

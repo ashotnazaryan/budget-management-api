@@ -2,15 +2,6 @@ import mongoose, { Schema, Model, Document } from 'mongoose';
 import { CONFIG } from '../core/configs';
 import { TransactionInput } from './transaction';
 
-interface SummaryDTO {
-  incomes: number;
-  expenses: number;
-  balance: number;
-  categoryExpenseTransactions: TransactionInput[];
-  categoryIncomeTransactions: TransactionInput[];
-  userId?: string;
-}
-
 interface SummaryDocument extends Document {
   incomes: number;
   expenses: number;
@@ -48,11 +39,11 @@ const summarysSchema = new Schema(
       required: true
     },
     categoryExpenseTransactions: {
-      type: Schema.Types.Array as unknown as SummaryDocument['categoryExpenseTransactions'],
+      type: Schema.Types.Array,
       required: true
     },
     categoryIncomeTransactions: {
-      type: Schema.Types.Array as unknown as SummaryDocument['categoryExpenseTransactions'],
+      type: Schema.Types.Array,
       required: true
     }
   },
@@ -64,4 +55,4 @@ const summarysSchema = new Schema(
 
 const Summary: Model<SummaryDocument> = mongoose.model<SummaryDocument>(CONFIG.collections.summary, summarysSchema);
 
-export { Summary, SummaryInput, SummaryDTO, SummaryDocument };
+export { Summary, SummaryInput, SummaryDocument };
