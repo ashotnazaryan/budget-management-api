@@ -23,8 +23,8 @@ const getNewAccessToken = async (request: Request<{}, {}, UserInput>, response: 
     if (credentials) {
       return response.status(200).json({ data: credentials });
     }
-  } catch {
-    response.status(401).redirect(`/api/auth${CONFIG.routes.loginFailed}`);
+  } catch (error) {
+    console.log(error);
   }
 };
 

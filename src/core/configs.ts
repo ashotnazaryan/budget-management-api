@@ -37,7 +37,7 @@ export const CONFIG = {
     getSettings: '/',
     addSetting: '/setting',
     deleteAll: '/:userId/delete-all',
-    accessToken: '/access-token',
+    accessToken: '/access-token'
   },
   collections: {
     user: 'user',

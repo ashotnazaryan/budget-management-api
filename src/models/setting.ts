@@ -24,13 +24,6 @@ interface SettingInput {
   isDarkTheme: boolean;
 }
 
-interface SettingDTO {
-  defaultCurrency: Currency['iso'];
-  defaultAccount: string;
-  showDecimals: boolean;
-  isDarkTheme: boolean;
-}
-
 const settingSchema = new Schema(
   {
     defaultCurrency: {
@@ -61,4 +54,4 @@ const settingSchema = new Schema(
 
 const Setting = mongoose.model<SettingDocument>(CONFIG.collections.setting, settingSchema);
 
-export { Setting, SettingDocument, SettingInput, SettingDTO, Currency };
+export { Setting, SettingDocument, SettingInput, Currency };

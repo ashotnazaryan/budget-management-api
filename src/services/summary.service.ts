@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { Summary, SummaryDTO } from '../models';
+import { Summary, SummaryInput } from '../models';
 
-const initialSummary: SummaryDTO = {
+const initialSummary: Omit<SummaryInput, 'userId'> = {
   incomes: 0,
   expenses: 0,
   balance: 0,

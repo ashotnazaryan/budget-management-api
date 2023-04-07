@@ -32,14 +32,23 @@ const addSetting = async (request: Request<{}, {}, SettingInput>, response: Resp
   const { defaultCurrency, defaultAccount, showDecimals, isDarkTheme } = request.body;
 
   try {
-    await Setting.updateOne({ userId }, {
-      $set: {
-        defaultCurrency,
-        defaultAccount,
-        showDecimals,
-        isDarkTheme
-      }
-    });
+    const setting = await Setting.findOne({ userId });
+
+    if (setting) {
+      await Setting.updateOne({ userId }, {
+        $set: {
+          defaultCurrency,
+          defaultAccount,
+          showDecimals,
+          isDarkTheme
+        }
+      });
+
+      return response.status(200).json({ data: null });
+    }
+
+    const newSetting = { ...initialSetting, ...request.body, userId };
+    await Setting.create(newSetting);
 
     return response.status(201).json({ data: null });
   } catch {
