@@ -1,6 +1,7 @@
 import mongoose, { Document } from 'mongoose';
 import { CONFIG } from '../core/configs';
-import { CategoryType } from './category';
+import { CategoryInput, CategoryType } from './category';
+import { AccountInput } from './account';
 
 const Schema = mongoose.Schema;
 
@@ -14,33 +15,33 @@ interface TransactionRequestRequestDTO {
 }
 
 interface TransactionInput {
-  categoryId: string;
   userId: string;
+  categoryId: string;
+  accountId: string;
   type: CategoryType;
   name: string;
   amount: number;
   percentValue: number;
   createdAt: Date;
   icon: string;
-  accountId: string;
   id?: string;
-  accountName?: string;
-  accountIcon?: string;
+  accountName?: AccountInput['name'];
+  accountIcon?: AccountInput['icon'];
 }
 
 interface TransactionDocument extends Document {
-  categoryId: string;
   userId: string;
+  categoryId: string;
+  accountId: string;
   type: CategoryType;
   name: string;
   amount: number;
   percentValue: number;
   createdAt: Date;
   icon: string;
-  accountId: string;
   id?: string;
-  accountName?: string;
-  accountIcon?: string;
+  accountName?: AccountInput['name'];
+  accountIcon?: AccountInput['icon'];
 };
 
 const transactionSchema = new Schema(

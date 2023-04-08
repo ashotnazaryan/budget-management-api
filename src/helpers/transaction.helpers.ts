@@ -1,4 +1,4 @@
-import { TransactionDocument, TransactionInput } from '../models';
+import { CategoryInput, TransactionDocument, TransactionInput } from '../models';
 
 export const mapTransactions = (transactions: TransactionDocument[]): TransactionInput[] => {
   return transactions.map(mapTransaction);
@@ -18,5 +18,14 @@ export const mapTransaction = (transaction: TransactionDocument): TransactionInp
     accountId: transaction.accountId,
     accountName: transaction.accountName,
     accountIcon: transaction.accountIcon
+  };
+};
+
+export const mapCategoryTransaction = (transaction: TransactionInput, category: CategoryInput): TransactionInput => {
+  return {
+    ...transaction,
+    name: category.name,
+    type: category.type,
+    icon: category.icon
   };
 };

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { Summary, SummaryInput, SummaryDocument, Transaction, CategoryType, TransactionRequestRequestDTO, Account, TransactionInput, TransactionDocument } from '../models';
-import { mapTransaction, mapTransactions } from '../helpers';
+import { Summary, SummaryInput, SummaryDocument, Transaction, CategoryType, TransactionRequestRequestDTO, Account, TransactionInput, TransactionDocument, CategoryInput, AccountInput } from '../models';
+import { mapCategoryTransaction, mapTransaction, mapTransactions } from '../helpers';
 
 const getTransactions = async (request: Request, response: Response) => {
   const userId = (request.user as any)?.userId;
@@ -93,6 +93,7 @@ const addTransaction = async (request: Request<{}, {}, TransactionRequestRequest
 
       return response.status(201).json({ data: summaryCreated });
     } else {
+      // TODO: use findByIdAndUpdate
       await Summary.findOneAndUpdate({ userId }, {
         $set: {
           incomes: result.incomes,
@@ -145,4 +146,45 @@ const createTransaction = async (transaction: TransactionInput & { userId: strin
   await Transaction.create(mappedTransaction);
 };
 
-export { getTransactions, addTransaction, calculateAccountBalance, calculateSummaryBalance };
+const updateSummaryCategoryTransactions = async (userId: string, category: CategoryInput): Promise<void> => {
+  const summary = await Summary.findOne({ userId });
+
+  const categoryTransactions = category.type === CategoryType.expense
+    ? summary?.categoryExpenseTransactions.map((transaction) => mapCategoryTransaction(transaction, category))
+    : summary?.categoryIncomeTransactions.map((transaction) => mapCategoryTransaction(transaction, category));
+  const updatedSummary = category.type === CategoryType.expense
+    ? { $set: { categoryExpenseTransactions: categoryTransactions } }
+    : { $set: { categoryIncomeTransactions: categoryTransactions } };
+
+  await Summary.updateOne({ userId }, updatedSummary);
+};
+
+const updateAccountTransactions = async (userId: string, accountId: string, account: AccountInput): Promise<void> => {
+  await Transaction.updateMany({ userId, accountId },
+    {
+      $set: {
+        accountName: account.name,
+        accountIcon: account.icon
+      }
+    });
+};
+
+const updateCategoryTransactions = async (userId: string, categoryId: string, category: CategoryInput): Promise<void> => {
+  await Transaction.updateMany({ userId, categoryId },
+    {
+      $set: {
+        name: category.name,
+        icon: category.icon
+      }
+    });
+};
+
+export {
+  getTransactions,
+  addTransaction,
+  calculateAccountBalance,
+  calculateSummaryBalance,
+  updateSummaryCategoryTransactions,
+  updateAccountTransactions,
+  updateCategoryTransactions
+};
