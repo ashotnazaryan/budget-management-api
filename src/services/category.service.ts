@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import { CONFIG } from '../core/configs';
-import { Category, CategoryInput, DefaultCategory } from '../models';
+import { Category, CategoryInput, CategoryType, DefaultCategory, Summary } from '../models';
 import { mapCategories } from '../helpers';
+import { updateCategoryTransactions, updateSummaryCategoryTransactions } from './transaction.service';
 
 const getCategories = async (request: Request, response: Response) => {
   const userId = (request.user as any)?.userId;
@@ -70,11 +71,21 @@ const createCategory = async (request: Request<{}, {}, CategoryInput>, response:
 const editCategory = async (request: Request<{ categoryId: string }, {}, CategoryInput>, response: Response) => {
   const categoryId = request.params.categoryId;
   const category = request.body;
+  const userId = (request.user as any)?.userId;
 
   try {
-    await Category.findByIdAndUpdate(categoryId, category);
+    const categories = await Category.find({ userId });
+    const categoryAvailable = categories.some((item) => item.name === category.name);
 
-    return response.status(201).json({ data: null });
+    if (categoryAvailable) {
+      return response.status(409).json({ error: { message: 'Category already exists', status: 409 } });
+    }
+
+    await Category.findByIdAndUpdate(categoryId, category);
+    await updateSummaryCategoryTransactions(userId, category);
+    await updateCategoryTransactions(userId, categoryId, category);
+
+    return response.status(200).json({ data: null });
   } catch {
     return response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
   }

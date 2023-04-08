@@ -20,6 +20,7 @@ export interface CategoryInput {
   name: string;
   icon: string;
   type: CategoryType;
+  id?: string;
   userId?: string;
   isDefaultCategory?: boolean;
 }

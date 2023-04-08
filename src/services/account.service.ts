@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { CONFIG } from '../core/configs';
 import { Account, AccountInput, DefaultAccount } from '../models';
 import { mapAccounts } from '../helpers';
+import { updateAccountTransactions } from './transaction.service';
 
 const getAccounts = async (request: Request, response: Response) => {
   const userId = (request.user as any)?.userId;
@@ -70,8 +71,16 @@ const createAccount = async (request: Request<{}, {}, AccountInput>, response: R
 const editAccount = async (request: Request<{ accountId: string }, {}, AccountInput>, response: Response) => {
   const accountId = request.params.accountId;
   let updatedAccount = request.body;
+  const userId = (request.user as any)?.userId;
 
   try {
+    const accounts = await Account.find({ userId });
+    const accountAvailable = accounts.some((item) => item.name === updatedAccount.name);
+
+    if (accountAvailable) {
+      return response.status(409).json({ error: { message: 'Account already exists', status: 409 } });
+    }
+
     const account = await Account.findById(accountId);
 
     if (account) {
@@ -83,8 +92,9 @@ const editAccount = async (request: Request<{ accountId: string }, {}, AccountIn
       };
 
       await Account.findByIdAndUpdate(accountId, updatedAccount);
+      await updateAccountTransactions(userId, accountId, updatedAccount);
 
-      return response.status(201).json({ data: null });
+      return response.status(200).json({ data: null });
     }
 
     return response.status(404).json({ error: { message: 'Account not found', status: 404 } });
