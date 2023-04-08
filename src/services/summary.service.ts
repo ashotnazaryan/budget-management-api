@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { Summary, SummaryInput } from '../models';
-import { calculateSummaryBalance } from './transaction.service';
+import { CategoryType, Summary, SummaryDocument, SummaryInput, TransactionInput } from '../models';
+import { calculateAccountBalance, calculateSummaryBalance } from './transaction.service';
 import { mapSummary } from '../helpers';
 
 const initialSummary: Omit<SummaryInput, 'userId'> = {
@@ -49,4 +49,69 @@ const getBalanceInfo = async (request: Request, response: Response) => {
   }
 };
 
-export { getSummary, getBalanceInfo };
+const calculateSummary = async (payload: TransactionInput, userId: string): Promise<SummaryInput> => {
+  const summary = await Summary.findOne({ userId }) as SummaryDocument;
+  const categoryExpenseAvailable = summary.categoryExpenseTransactions.some((transaction) => transaction.categoryId === payload.categoryId);
+  const categoryIncomeAvailable = summary.categoryIncomeTransactions.some((transaction) => transaction.categoryId === payload.categoryId);
+  const categoryExpenseTransactions = categoryExpenseAvailable
+    ? summary.categoryExpenseTransactions.map((transaction) => ({
+      ...transaction,
+      amount: payload.categoryId === transaction.categoryId ? transaction.amount + payload.amount : transaction.amount
+    }))
+    : payload.type === CategoryType.expense ? [...summary.categoryExpenseTransactions, payload] : summary.categoryExpenseTransactions;
+  const categoryIncomeTransactions = categoryIncomeAvailable
+    ? summary.categoryIncomeTransactions.map((transaction) => ({
+      ...transaction,
+      amount: payload.categoryId === transaction.categoryId ? transaction.amount + payload.amount : transaction.amount
+    }))
+    : payload.type === CategoryType.income ? [...summary.categoryIncomeTransactions, payload] : summary.categoryIncomeTransactions;
+
+  let result: SummaryInput = {
+    ...summary,
+    userId,
+  };
+  let incomes = summary.incomes;
+  let expenses = summary.expenses;
+
+  await calculateAccountBalance(payload.accountId, payload.amount, payload.type);
+
+  const balance = await calculateSummaryBalance(userId);
+
+  if (payload.type === CategoryType.income) {
+    incomes = incomes + payload.amount;
+
+    result = {
+      ...result,
+      incomes,
+      balance
+    };
+  } else {
+    expenses = expenses + payload.amount;
+
+    result = {
+      ...result,
+      expenses,
+      balance
+    };
+  }
+
+  result = {
+    ...result,
+    categoryExpenseTransactions: categoryExpenseTransactions.map((transaction) => ({
+      ...transaction,
+      userId,
+      accountId: payload.accountId,
+      percentValue: parseInt(((transaction.amount / expenses) * 100).toFixed(0))
+    })),
+    categoryIncomeTransactions: categoryIncomeTransactions.map((transaction) => ({
+      ...transaction,
+      userId,
+      accountId: payload.accountId,
+      percentValue: parseInt(((transaction.amount / incomes) * 100).toFixed(0))
+    }))
+  };
+
+  return result;
+};
+
+export { getSummary, getBalanceInfo, calculateSummary };

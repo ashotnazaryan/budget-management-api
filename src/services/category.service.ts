@@ -28,6 +28,7 @@ const getCategories = async (request: Request, response: Response) => {
 };
 
 const getCategoryById = async (request: Request, response: Response) => {
+   // TODO: set request param types
   const categoryId = request.params.categoryId;
 
   try {
@@ -82,7 +83,7 @@ const editCategory = async (request: Request<{ categoryId: string }, {}, Categor
     }
 
     await Category.findByIdAndUpdate(categoryId, category);
-    await updateSummaryCategoryTransactions(userId, category);
+    await updateSummaryCategoryTransactions(userId, categoryId, category);
     await updateCategoryTransactions(userId, categoryId, category);
 
     return response.status(200).json({ data: null });
