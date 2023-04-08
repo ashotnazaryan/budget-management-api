@@ -22,8 +22,6 @@ export const CONFIG = {
     googleCallback: '/google/callback',
     getSummary: '/',
     getBalance: '/balance',
-    getDefaultCategories: '/default-categories',
-    getDefaultAccounts: '/default-accounts',
     getTransactions: '/',
     addTransaction: '/transaction',
     createAccount: '/account',

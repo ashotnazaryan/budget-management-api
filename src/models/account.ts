@@ -7,7 +7,6 @@ const Schema = mongoose.Schema;
 export interface AccountDocument extends Document {
   name: string;
   icon: string;
-  initialAmount: number;
   balance: number;
   currencyIso: Currency['iso'];
   userId?: string;
@@ -17,7 +16,6 @@ export interface AccountDocument extends Document {
 export interface AccountInput {
   name: string;
   icon: string;
-  initialAmount: number;
   balance: number;
   currencyIso: Currency['iso'];
   userId?: string;
@@ -36,10 +34,6 @@ const defaultAccountSchema = new Schema(
     },
     currencyIso: {
       type: Schema.Types.String,
-      required: true
-    },
-    initialAmount: {
-      type: Schema.Types.Number,
       required: true
     },
     balance: {
@@ -72,10 +66,6 @@ const accountSchema = new Schema(
     },
     currencyIso: {
       type: Schema.Types.String,
-      required: true
-    },
-    initialAmount: {
-      type: Schema.Types.Number,
       required: true
     },
     balance: {

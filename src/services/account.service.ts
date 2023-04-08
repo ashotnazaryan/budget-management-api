@@ -3,41 +3,26 @@ import { CONFIG } from '../core/configs';
 import { Account, AccountInput, DefaultAccount } from '../models';
 import { mapAccounts } from '../helpers';
 
-const getDefaultAccounts = async (request: Request, response: Response) => {
-  const userId = (request.user as any)?.userId;
-
-  try {
-    const defaultAccounts = await DefaultAccount.find();
-    let accounts = await Account.find({ userId });
-    const defaultAccountList: AccountInput[] = mapAccounts(defaultAccounts, userId);
-
-    if (!accounts.length) {
-      await Account.insertMany(defaultAccountList);
-    }
-
-    accounts = await Account.find({ userId });
-    const mappedAccounts = mapAccounts(accounts, userId);
-
-    return response.status(200).json({ data: mappedAccounts });
-  } catch {
-    response.status(200).json({ data: null });
-  }
-};
-
 const getAccounts = async (request: Request, response: Response) => {
   const userId = (request.user as any)?.userId;
 
   try {
-    const accounts = await Account.find({ userId });
-    const mappedAccounts = mapAccounts(accounts, userId);
+    let accounts = await Account.find({ userId });
+    let mappedAccounts = mapAccounts(accounts, userId);
 
-    if (!accounts.length) {
-      return response.redirect(`/api/accounts${CONFIG.routes.getDefaultAccounts}`);
+    if (accounts.length) {
+      return response.status(200).json({ data: mappedAccounts });
     }
+
+    const defaultAccounts = await DefaultAccount.find();
+    const defaultAccountList: AccountInput[] = mapAccounts(defaultAccounts, userId);
+    await Account.insertMany(defaultAccountList);
+    accounts = await Account.find({ userId });
+    mappedAccounts = mapAccounts(accounts, userId);
 
     return response.status(200).json({ data: mappedAccounts });
   } catch {
-    response.status(200).json({ data: null });
+    return response.status(200).json({ data: null });
   }
 };
 
@@ -53,7 +38,7 @@ const getAccountById = async (request: Request, response: Response) => {
 
     return response.status(404).json({ error: { message: 'Account not found', status: 404 } });
   } catch {
-    response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
+    return response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
   }
 };
 
@@ -62,7 +47,7 @@ const createAccount = async (request: Request<{}, {}, AccountInput>, response: R
   const newAccount: AccountInput = {
     ...request.body,
     userId,
-    balance: request.body.initialAmount
+    isDefaultAccount: false
   };
 
   try {
@@ -78,7 +63,7 @@ const createAccount = async (request: Request<{}, {}, AccountInput>, response: R
     return response.status(409).json({ error: { message: 'Account already exists', status: 409 } });
 
   } catch (error) {
-    response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
+    return response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
   }
 };
 
@@ -90,20 +75,22 @@ const editAccount = async (request: Request<{ accountId: string }, {}, AccountIn
     const account = await Account.findById(accountId);
 
     if (account) {
-      const initialAmountDiff = updatedAccount.initialAmount - account.initialAmount;
+      const balanceDiff = updatedAccount.balance - account.balance;
 
       updatedAccount = {
         ...updatedAccount,
-        balance: account.balance + initialAmountDiff
+        balance: account.balance + balanceDiff
       };
+
+      await Account.findByIdAndUpdate(accountId, updatedAccount);
+
+      return response.status(201).json({ data: null });
     }
 
-    await Account.findByIdAndUpdate(accountId, updatedAccount);
-
-    return response.status(201).json({ data: null });
+    return response.status(404).json({ error: { message: 'Account not found', status: 404 } });
   } catch {
-    response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
+    return response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
   }
 };
 
-export { getDefaultAccounts, getAccounts, createAccount, getAccountById, editAccount };
+export { getAccounts, createAccount, getAccountById, editAccount };
