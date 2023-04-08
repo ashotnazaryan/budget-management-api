@@ -1,22 +1,22 @@
-import { AccountDocument, TransactionDocument, TransactionInput } from '../models';
+import { TransactionDocument, TransactionInput } from '../models';
 
-export const mapTransactionsWithAccounts = (transactions: TransactionDocument[], accounts: AccountDocument[]): TransactionInput[] => {
-  return transactions.map((transaction) => {
-    const { name, icon } = accounts.find(({ id }) => id === transaction.accountId) || {};
+export const mapTransactions = (transactions: TransactionDocument[]): TransactionInput[] => {
+  return transactions.map(mapTransaction);
+};
 
-    return {
-      id: transaction.id,
-      accountName: name,
-      accountIcon: icon,
-      accountId: transaction.accountId,
-      categoryId: transaction.categoryId,
-      userId: transaction.userId,
-      type: transaction.type,
-      name: transaction.name,
-      amount: transaction.amount,
-      percentValue: transaction.percentValue,
-      createdAt: transaction.createdAt,
-      icon: transaction.icon,
-    };
-  });
+export const mapTransaction = (transaction: TransactionDocument): TransactionInput => {
+  return {
+    id: transaction.id,
+    categoryId: transaction.categoryId,
+    userId: transaction.userId,
+    type: transaction.type,
+    name: transaction.name,
+    amount: transaction.amount,
+    percentValue: transaction.percentValue,
+    createdAt: transaction.createdAt,
+    icon: transaction.icon,
+    accountId: transaction.accountId,
+    accountName: transaction.accountName,
+    accountIcon: transaction.accountIcon
+  };
 };

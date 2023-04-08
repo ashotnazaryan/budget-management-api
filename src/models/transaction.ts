@@ -23,6 +23,9 @@ interface TransactionInput {
   createdAt: Date;
   icon: string;
   accountId: string;
+  id?: string;
+  accountName?: string;
+  accountIcon?: string;
 }
 
 interface TransactionDocument extends Document {
@@ -35,6 +38,9 @@ interface TransactionDocument extends Document {
   createdAt: Date;
   icon: string;
   accountId: string;
+  id?: string;
+  accountName?: string;
+  accountIcon?: string;
 };
 
 const transactionSchema = new Schema(
@@ -74,6 +80,12 @@ const transactionSchema = new Schema(
     accountId: {
       type: Schema.Types.String,
       required: true
+    },
+    accountName: {
+      type: Schema.Types.String
+    },
+    accountIcon: {
+      type: Schema.Types.String
     }
   },
   {

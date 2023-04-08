@@ -1,14 +1,12 @@
 import { Request, Response } from 'express';
-import { Summary, SummaryInput, SummaryDocument, Transaction, CategoryType, TransactionRequestRequestDTO, Account } from '../models';
-import { mapTransactionsWithAccounts } from '../helpers';
+import { Summary, SummaryInput, SummaryDocument, Transaction, CategoryType, TransactionRequestRequestDTO, Account, TransactionInput, TransactionDocument } from '../models';
+import { mapTransaction, mapTransactions } from '../helpers';
 
 const getTransactions = async (request: Request, response: Response) => {
   const userId = (request.user as any)?.userId;
   try {
     const transactions = await Transaction.find({ userId }).sort({ createdAt: -1 });
-    const accounts = await Account.find({ userId });
-
-    const mappedTransactions = mapTransactionsWithAccounts(transactions, accounts);
+    const mappedTransactions = mapTransactions(transactions);
 
     return response.status(200).json({ data: mappedTransactions });
   } catch {
@@ -48,7 +46,7 @@ const addTransaction = async (request: Request<{}, {}, TransactionRequestRequest
   let incomes = summary.incomes;
   let expenses = summary.expenses;
 
-  await createTransaction({ ...payload, userId, accountId, icon });
+  await createTransaction({ ...payload, userId, accountId, icon } as TransactionInput);
 
   await calculateAccountBalance(accountId, amount, type);
 
@@ -135,8 +133,16 @@ const calculateSummaryBalance = async (userId: string): Promise<number> => {
   return 0;
 };
 
-const createTransaction = async (transaction: TransactionRequestRequestDTO & { userId: string }) => {
-  await Transaction.create(transaction);
+const createTransaction = async (transaction: TransactionInput & { userId: string }) => {
+  const account = await Account.findById(transaction.accountId);
+  const extendedTransaction = {
+    ...transaction,
+    accountName: account?.name,
+    accountIcon: account?.icon
+  } as TransactionDocument;
+
+  const mappedTransaction = mapTransaction(extendedTransaction);
+  await Transaction.create(mappedTransaction);
 };
 
 export { getTransactions, addTransaction, calculateAccountBalance, calculateSummaryBalance };
