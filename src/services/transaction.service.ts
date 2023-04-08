@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
-import { Summary, SummaryInput, SummaryDocument, Transaction, CategoryType, TransactionRequestRequestDTO, Account, TransactionInput, TransactionDocument, CategoryInput, AccountInput } from '../models';
+import { Summary, Transaction, CategoryType, TransactionRequestRequestDTO, Account, TransactionInput, TransactionDocument, CategoryInput, AccountInput } from '../models';
 import { mapCategoryTransaction, mapTransaction, mapTransactions } from '../helpers';
+import { calculateSummary } from './summary.service';
 
 const getTransactions = async (request: Request, response: Response) => {
   const userId = (request.user as any)?.userId;
@@ -14,6 +15,23 @@ const getTransactions = async (request: Request, response: Response) => {
   }
 };
 
+const getTransactionById = async (request: Request, response: Response) => {
+  // TODO: set request param types
+  const transactionId = request.params.transactionId;
+
+  try {
+    const transaction = await Transaction.findById(transactionId);
+
+    if (transaction) {
+      return response.status(200).json({ data: transaction });
+    }
+
+    return response.status(404).json({ error: { message: 'Transaction not found', status: 404 } });
+  } catch {
+    return response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
+  }
+};
+
 const addTransaction = async (request: Request<{}, {}, TransactionRequestRequestDTO>, response: Response) => {
   const { amount, categoryId, name, type, icon, accountId } = request.body;
   const userId = (request.user as any)?.userId;
@@ -22,91 +40,49 @@ const addTransaction = async (request: Request<{}, {}, TransactionRequestRequest
     return response.status(422).json({ error: { message: 'Missing fields', status: 422 } });
   }
 
-  const payload = { amount, categoryId, name, type, icon, createdAt: new Date() };
-  const summary = await Summary.findOne({ userId }) as SummaryDocument;
-  const categoryExpenseAvailable = summary.categoryExpenseTransactions.some((transaction) => transaction.categoryId === categoryId);
-  const categoryIncomeAvailable = summary.categoryIncomeTransactions.some((transaction) => transaction.categoryId === categoryId);
-  const categoryExpenseTransactions = categoryExpenseAvailable
-    ? summary.categoryExpenseTransactions.map((transaction) => ({
-      ...transaction,
-      amount: categoryId === transaction.categoryId ? transaction.amount + amount : transaction.amount
-    }))
-    : type === CategoryType.expense ? [...summary.categoryExpenseTransactions, payload] : summary.categoryExpenseTransactions;
-  const categoryIncomeTransactions = categoryIncomeAvailable
-    ? summary.categoryIncomeTransactions.map((transaction) => ({
-      ...transaction,
-      amount: categoryId === transaction.categoryId ? transaction.amount + amount : transaction.amount
-    }))
-    : type === CategoryType.income ? [...summary.categoryIncomeTransactions, payload] : summary.categoryIncomeTransactions;
-
-  let result: SummaryInput = {
-    ...summary,
-    userId,
-  };
-  let incomes = summary.incomes;
-  let expenses = summary.expenses;
-
-  await createTransaction({ ...payload, userId, accountId, icon } as TransactionInput);
-
-  await calculateAccountBalance(accountId, amount, type);
-
-  const balance = await calculateSummaryBalance(userId);
-
-  if (type === CategoryType.income) {
-    incomes = incomes + amount;
-
-    result = {
-      ...result,
-      incomes,
-      balance
-    };
-  } else {
-    expenses = expenses + amount;
-
-    result = {
-      ...result,
-      expenses,
-      balance
-    };
-  }
-
-  result = {
-    ...result,
-    categoryExpenseTransactions: categoryExpenseTransactions.map((transaction) => ({
-      ...transaction,
-      userId,
-      accountId,
-      percentValue: parseInt(((transaction.amount / expenses) * 100).toFixed(0))
-    })),
-    categoryIncomeTransactions: categoryIncomeTransactions.map((transaction) => ({
-      ...transaction,
-      userId,
-      accountId,
-      percentValue: parseInt(((transaction.amount / incomes) * 100).toFixed(0))
-    }))
-  };
+  const payload = { amount, categoryId, name, type, icon, accountId, createdAt: new Date() } as TransactionInput;
 
   try {
-    let summaryCreated;
-    if (!summary.userId) {
-      summaryCreated = await Summary.create(result);
+    await createTransaction({ ...payload, userId } as TransactionInput);
+    const result = await calculateSummary(payload, userId);
+    await Summary.findOneAndUpdate({ userId }, {
+      $set: {
+        incomes: result.incomes,
+        expenses: result.expenses,
+        balance: result.balance,
+        categoryExpenseTransactions: result.categoryExpenseTransactions,
+        categoryIncomeTransactions: result.categoryIncomeTransactions
+      }
+    });
 
-      return response.status(201).json({ data: summaryCreated });
-    } else {
-      // TODO: use findByIdAndUpdate
-      await Summary.findOneAndUpdate({ userId }, {
-        $set: {
-          incomes: result.incomes,
-          expenses: result.expenses,
-          balance: result.balance,
-          categoryExpenseTransactions: result.categoryExpenseTransactions,
-          categoryIncomeTransactions: result.categoryIncomeTransactions
-        }
-      });
+    return response.status(201).json({ data: null });
 
-      return response.status(201).json({ data: null });
-    }
+  } catch {
+    return response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
+  }
+};
 
+const editTransaction = async (request: Request<{ transactionId: string }, {}, TransactionInput>, response: Response) => {
+  const transactionId = request.params.transactionId;
+  const transaction = request.body;
+  const userId = (request.user as any)?.userId;
+  const { amount, categoryId, name, type, icon, accountId } = request.body;
+  const payload = { amount, categoryId, name, type, icon, accountId } as TransactionInput;
+
+  try {
+    await Transaction.findByIdAndUpdate(transactionId, transaction);
+    const result = await calculateSummary(payload, userId);
+    await Summary.findOneAndUpdate({ userId }, {
+      $set: {
+        incomes: result.incomes,
+        expenses: result.expenses,
+        balance: result.balance,
+        categoryExpenseTransactions: result.categoryExpenseTransactions,
+        categoryIncomeTransactions: result.categoryIncomeTransactions
+      }
+    });
+
+    return response.status(200).json({ data: null });
   } catch {
     return response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
   }
@@ -146,27 +122,25 @@ const createTransaction = async (transaction: TransactionInput & { userId: strin
   await Transaction.create(mappedTransaction);
 };
 
-const updateSummaryCategoryTransactions = async (userId: string, category: CategoryInput): Promise<void> => {
+const updateSummaryCategoryTransactions = async (userId: string, categoryId: string, category: CategoryInput): Promise<void> => {
   const summary = await Summary.findOne({ userId });
 
   const categoryTransactions = category.type === CategoryType.expense
-    ? summary?.categoryExpenseTransactions.map((transaction) => mapCategoryTransaction(transaction, category))
-    : summary?.categoryIncomeTransactions.map((transaction) => mapCategoryTransaction(transaction, category));
+    ? summary?.categoryExpenseTransactions.map((transaction) => {
+      return transaction.categoryId === categoryId
+        ? mapCategoryTransaction(transaction, category)
+        : transaction
+    })
+    : summary?.categoryIncomeTransactions.map((transaction) => {
+      return transaction.categoryId === categoryId
+        ? mapCategoryTransaction(transaction, category)
+        : transaction
+    });
   const updatedSummary = category.type === CategoryType.expense
     ? { $set: { categoryExpenseTransactions: categoryTransactions } }
     : { $set: { categoryIncomeTransactions: categoryTransactions } };
 
   await Summary.updateOne({ userId }, updatedSummary);
-};
-
-const updateAccountTransactions = async (userId: string, accountId: string, account: AccountInput): Promise<void> => {
-  await Transaction.updateMany({ userId, accountId },
-    {
-      $set: {
-        accountName: account.name,
-        accountIcon: account.icon
-      }
-    });
 };
 
 const updateCategoryTransactions = async (userId: string, categoryId: string, category: CategoryInput): Promise<void> => {
@@ -179,12 +153,24 @@ const updateCategoryTransactions = async (userId: string, categoryId: string, ca
     });
 };
 
+const updateAccountTransactions = async (userId: string, accountId: string, account: Pick<AccountInput, 'name' | 'icon'>): Promise<void> => {
+  await Transaction.updateMany({ userId, accountId },
+    {
+      $set: {
+        accountName: account.name,
+        accountIcon: account.icon
+      }
+    });
+};
+
 export {
   getTransactions,
+  getTransactionById,
   addTransaction,
+  editTransaction,
   calculateAccountBalance,
   calculateSummaryBalance,
   updateSummaryCategoryTransactions,
-  updateAccountTransactions,
-  updateCategoryTransactions
+  updateCategoryTransactions,
+  updateAccountTransactions
 };

@@ -28,6 +28,7 @@ const getAccounts = async (request: Request, response: Response) => {
 };
 
 const getAccountById = async (request: Request, response: Response) => {
+   // TODO: set request param types
   const accountId = request.params.accountId;
 
   try {

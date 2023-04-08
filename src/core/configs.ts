@@ -23,6 +23,8 @@ export const CONFIG = {
     getSummary: '/',
     getBalance: '/balance',
     getTransactions: '/',
+    getTransactionById: '/:transactionId',
+    editTransaction: '/:transactionId',
     addTransaction: '/transaction',
     createAccount: '/account',
     getCategories: '/',

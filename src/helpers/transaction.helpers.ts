@@ -21,7 +21,7 @@ export const mapTransaction = (transaction: TransactionDocument): TransactionInp
   };
 };
 
-export const mapCategoryTransaction = (transaction: TransactionInput, category: CategoryInput): TransactionInput => {
+export const mapCategoryTransaction = (transaction: TransactionInput, category: Pick<CategoryInput, 'name' | 'type' | 'icon'>): TransactionInput => {
   return {
     ...transaction,
     name: category.name,
