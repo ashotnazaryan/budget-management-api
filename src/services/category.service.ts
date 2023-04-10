@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
-import { CONFIG } from '../core/configs';
-import { Category, CategoryInput, CategoryType, DefaultCategory, Summary } from '../models';
+import { Category, CategoryInput, DefaultCategory } from '../models';
 import { mapCategories } from '../helpers';
-import { updateCategoryTransactions, updateSummaryCategoryTransactions } from './transaction.service';
+import { updateCategoryTransactions, updateSummaryCategoryTransactions } from '../services';
 
 const getCategories = async (request: Request, response: Response) => {
   const userId = (request.user as any)?.userId;
@@ -27,8 +26,7 @@ const getCategories = async (request: Request, response: Response) => {
   }
 };
 
-const getCategoryById = async (request: Request, response: Response) => {
-   // TODO: set request param types
+const getCategoryById = async (request: Request<{ categoryId: string }, {}, CategoryInput>, response: Response) => {
   const categoryId = request.params.categoryId;
 
   try {
@@ -76,7 +74,7 @@ const editCategory = async (request: Request<{ categoryId: string }, {}, Categor
 
   try {
     const categories = await Category.find({ userId });
-    const categoryAvailable = categories.some((item) => item.name === category.name);
+    const categoryAvailable = categories.some((item) => item.name === category.name && item.id !== categoryId);
 
     if (categoryAvailable) {
       return response.status(409).json({ error: { message: 'Category already exists', status: 409 } });
@@ -92,4 +90,9 @@ const editCategory = async (request: Request<{ categoryId: string }, {}, Categor
   }
 };
 
-export { getCategories, getCategoryById, createCategory, editCategory };
+export {
+  getCategories,
+  getCategoryById,
+  createCategory,
+  editCategory
+};

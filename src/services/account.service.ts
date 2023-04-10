@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
-import { CONFIG } from '../core/configs';
-import { Account, AccountInput, DefaultAccount } from '../models';
-import { mapAccounts } from '../helpers';
-import { updateAccountTransactions } from './transaction.service';
+import { Account, AccountInput, CategoryInput, CategoryType, DefaultAccount, Transaction } from '../models';
+import { calculateAmountByField, calculateTransactionsAmount, mapAccounts, mapTransactions } from '../helpers';
+import { updateAccountTransactions } from '../services';
 
 const getAccounts = async (request: Request, response: Response) => {
   const userId = (request.user as any)?.userId;
@@ -27,8 +26,7 @@ const getAccounts = async (request: Request, response: Response) => {
   }
 };
 
-const getAccountById = async (request: Request, response: Response) => {
-   // TODO: set request param types
+const getAccountById = async (request: Request<{ accountId: string }, {}, AccountInput>, response: Response) => {
   const accountId = request.params.accountId;
 
   try {
@@ -76,7 +74,7 @@ const editAccount = async (request: Request<{ accountId: string }, {}, AccountIn
 
   try {
     const accounts = await Account.find({ userId });
-    const accountAvailable = accounts.some((item) => item.name === updatedAccount.name);
+    const accountAvailable = accounts.some((item) => item.name === updatedAccount.name && item.id !== accountId);
 
     if (accountAvailable) {
       return response.status(409).json({ error: { message: 'Account already exists', status: 409 } });
@@ -104,4 +102,36 @@ const editAccount = async (request: Request<{ accountId: string }, {}, AccountIn
   }
 };
 
-export { getAccounts, createAccount, getAccountById, editAccount };
+const calculateAccountBalance = async (
+  accountId: AccountInput['id'],
+  amount: number,
+  type: CategoryType,
+  mode: 'create' | 'edit',
+  userId?: string
+): Promise<void> => {
+  const account = await Account.findById(accountId);
+
+  if (account) {
+    let balance = account.balance;
+
+    if (mode === 'create') {
+      balance = type === CategoryType.income ? account.balance + amount : account.balance - amount;
+    } else {
+      const accountTransactions = await Transaction.find({ userId, accountId });
+
+      if (accountTransactions?.length) {
+        balance = calculateTransactionsAmount(accountTransactions);
+      }
+    }
+
+    await Account.findByIdAndUpdate(accountId, { balance });
+  }
+};
+
+export {
+  getAccounts,
+  createAccount,
+  getAccountById,
+  editAccount,
+  calculateAccountBalance
+};
