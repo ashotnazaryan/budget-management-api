@@ -1,4 +1,4 @@
-import { CategoryInput, TransactionDocument, TransactionInput } from '../models';
+import { CategoryInput, CategoryType, TransactionDocument, TransactionInput } from '../models';
 
 export const mapTransactions = (transactions: TransactionDocument[]): TransactionInput[] => {
   return transactions.map(mapTransaction);
@@ -28,4 +28,12 @@ export const mapCategoryTransaction = (transaction: TransactionInput, category: 
     type: category.type,
     icon: category.icon
   };
+};
+
+export const calculateTransactionsAmount = (transactions: TransactionDocument[]): number => {
+  return transactions.reduce<number>((acc, { type, amount }) => {
+    return type === CategoryType.expense
+      ? acc - amount
+      : acc + amount
+  }, 0);
 };

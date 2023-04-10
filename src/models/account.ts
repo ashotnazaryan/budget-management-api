@@ -18,6 +18,7 @@ export interface AccountInput {
   icon: string;
   balance: number;
   currencyIso: Currency['iso'];
+  id?: string;
   userId?: string;
   isDefaultAccount?: boolean;
 }

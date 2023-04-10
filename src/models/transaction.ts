@@ -5,15 +5,6 @@ import { AccountInput } from './account';
 
 const Schema = mongoose.Schema;
 
-interface TransactionRequestRequestDTO {
-  amount: number;
-  categoryId: string;
-  name: string;
-  type: CategoryType;
-  icon: string;
-  accountId: string;
-}
-
 interface TransactionInput {
   userId: string;
   categoryId: string;
@@ -97,4 +88,4 @@ const transactionSchema = new Schema(
 
 const Transaction = mongoose.model<TransactionDocument>(CONFIG.collections.transactions, transactionSchema);
 
-export { Transaction, TransactionDocument, TransactionInput, TransactionRequestRequestDTO };
+export { Transaction, TransactionDocument, TransactionInput };
