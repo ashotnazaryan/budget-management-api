@@ -12,6 +12,7 @@ export interface CategoryDocument extends Document {
   name: string;
   icon: string;
   type: CategoryType;
+  id: string;
   userId?: string;
   isDefaultCategory?: boolean;
 };
@@ -20,7 +21,7 @@ export interface CategoryInput {
   name: string;
   icon: string;
   type: CategoryType;
-  id?: string;
+  id: string;
   userId?: string;
   isDefaultCategory?: boolean;
 }

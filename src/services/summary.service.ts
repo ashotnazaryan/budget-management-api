@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { CategoryInput, CategoryType, Summary, SummaryDocument, SummaryInput, Transaction, TransactionInput } from '../models';
+import { CategoryInput, CategoryType, Summary, SummaryInput, Transaction } from '../models';
 import { calculateSummaryBalance } from '../services';
-import { calculateAmountByField, mapCategoryTransaction, mapSummary, mapSummaryBalance, mapTransactions } from '../helpers';
+import { calculateAmountByField, getTransactionsByCategory, mapCategoryTransaction, mapSummary, mapSummaryBalance, mapTransactions } from '../helpers';
 
 const initialSummary: Omit<SummaryInput, 'userId'> = {
   incomes: 0,
@@ -49,105 +49,21 @@ const getBalanceInfo = async (request: Request, response: Response) => {
   }
 };
 
-const calculateSummary = async (
-  mode: 'create' | 'edit',
-  payload: TransactionInput
-): Promise<SummaryInput> => {
-  const { userId, categoryId, type, amount, accountId } = payload;
-  const summary = mapSummary(await Summary.findOne({ userId }) as SummaryDocument, userId);
-  let expenses = summary.expenses;
-  let incomes = summary.incomes;
-  let categoryExpenseTransactions = summary.categoryExpenseTransactions;
-  let categoryIncomeTransactions = summary.categoryIncomeTransactions;
-
-  if (mode === 'create') {
-    expenses = type === CategoryType.expense ? summary.expenses + amount : summary.expenses;
-    incomes = type === CategoryType.income ? summary.incomes + amount : summary.incomes;
-    const categoryExpenseAvailable = summary.categoryExpenseTransactions.some((transaction) => transaction.categoryId === categoryId);
-    const categoryIncomeAvailable = summary.categoryIncomeTransactions.some((transaction) => transaction.categoryId === categoryId);
-
-    if (type === CategoryType.expense && !categoryExpenseAvailable) {
-      categoryExpenseTransactions = [...categoryExpenseTransactions, payload];
-    }
-
-    if (type === CategoryType.income && !categoryIncomeAvailable) {
-      categoryIncomeTransactions = [...categoryIncomeTransactions, payload];
-    }
-
-    categoryExpenseTransactions = categoryExpenseTransactions.map((transaction) => {
-      return {
-        ...transaction,
-        userId,
-        accountId,
-        amount: (categoryExpenseAvailable && categoryId === transaction.categoryId) ? transaction.amount + amount : transaction.amount
-      };
-    });
-
-    categoryIncomeTransactions = categoryIncomeTransactions.map((transaction) => {
-      return {
-        ...transaction,
-        userId,
-        accountId,
-        amount: (categoryIncomeAvailable && categoryId === transaction.categoryId) ? transaction.amount + amount : transaction.amount
-      };
-    });
-  } else {
-    const categoryTransactions = mapTransactions(await Transaction.find({ userId, categoryId }));
-    const categoryTransactionsAmount = calculateAmountByField(categoryTransactions, 'amount');
-
-    if (type === CategoryType.expense) {
-      const categoryExpenseTransactionsAmountUpdated = calculateAmountByField(categoryTransactions, 'amount');
-      const categoryExpenseTransactionAmount = categoryExpenseTransactions.find((transaction) => transaction.categoryId === categoryId)?.amount || 0;
-      const amountDiff = categoryExpenseTransactionsAmountUpdated - categoryExpenseTransactionAmount;
-
-      categoryExpenseTransactions = categoryExpenseTransactions.map((transaction) => {
-        return {
-          ...transaction,
-          amount: categoryId === transaction.categoryId ? categoryTransactionsAmount : transaction.amount
-        }
-      });
-
-      expenses = expenses + amountDiff;
-    }
-
-    if (type === CategoryType.income) {
-      const categoryIncomeTransactionsAmountUpdated = calculateAmountByField(categoryTransactions, 'amount');
-      const categoryIncomeTransactionAmount = categoryIncomeTransactions.find((transaction) => transaction.categoryId === categoryId)?.amount || 0;
-      const amountDiff = categoryIncomeTransactionsAmountUpdated - categoryIncomeTransactionAmount;
-
-      categoryIncomeTransactions = categoryIncomeTransactions.map((transaction) => {
-        return {
-          ...transaction,
-          amount: categoryId === transaction.categoryId ? categoryTransactionsAmount : transaction.amount
-        }
-      });
-
-      incomes = incomes + amountDiff;
-    }
-  }
-
-  categoryExpenseTransactions = categoryExpenseTransactions.map((transaction) => {
-    return {
-      ...transaction,
-      percentValue: parseInt(((transaction.amount / expenses) * 100).toFixed(0))
-    };
-  });
-
-  categoryIncomeTransactions = categoryIncomeTransactions.map((transaction) => {
-    return {
-      ...transaction,
-      percentValue: parseInt(((transaction.amount / incomes) * 100).toFixed(0))
-    };
-  });
-  
-  // TODO: fix balance
+const syncSummary = async (userId: string): Promise<SummaryInput> => {
+  const allUserTransactions = await Transaction.find({ userId });
+  const expenseTransactions = mapTransactions(allUserTransactions.filter(({ type }) => type === CategoryType.expense));
+  const incomeTransactions = mapTransactions(allUserTransactions.filter(({ type }) => type === CategoryType.income));
+  const expenses = calculateAmountByField(expenseTransactions, 'amount');
+  const incomes = calculateAmountByField(incomeTransactions, 'amount');
   const balance = await calculateSummaryBalance(userId);
+  const categoryExpenseTransactions = getTransactionsByCategory(expenseTransactions, expenses, incomes);
+  const categoryIncomeTransactions = getTransactionsByCategory(incomeTransactions, expenses, incomes);
 
   return {
     userId,
-    balance,
-    expenses,
     incomes,
+    expenses,
+    balance,
     categoryExpenseTransactions,
     categoryIncomeTransactions
   };
@@ -177,6 +93,6 @@ const updateSummaryCategoryTransactions = async (userId: string, categoryId: str
 export {
   getSummary,
   getBalanceInfo,
-  calculateSummary,
+  syncSummary,
   updateSummaryCategoryTransactions
 };
