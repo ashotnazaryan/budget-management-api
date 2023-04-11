@@ -40,7 +40,7 @@ const addTransaction = async (request: Request<{}, {}, TransactionInput>, respon
   }
 
   try {
-    await createTransaction({ ...payload, userId });
+    await createTransaction(payload);
     const result = await syncSummary(userId);
 
     await Summary.findOneAndUpdate({ userId }, {
@@ -64,12 +64,12 @@ const addTransaction = async (request: Request<{}, {}, TransactionInput>, respon
 
 const editTransaction = async (request: Request<{ id: TransactionInput['id'] }, {}, TransactionInput>, response: Response) => {
   const id = request.params.id;
-  const transaction = request.body;
+  const { amount, categoryId, name, type, icon, accountId } = request.body;
   const userId = (request.user as any)?.userId;
-  const { amount, type, accountId } = request.body;
+  const payload = { userId, amount, categoryId, name, type, icon, accountId, createdAt: new Date() } as TransactionInput;
 
   try {
-    await Transaction.findByIdAndUpdate(id, transaction);
+    await updateTransaction(id, payload);
     await calculateAccountBalance(accountId, amount, type, 'edit', userId);
     const result = await syncSummary(userId);
 
@@ -106,6 +106,18 @@ const createTransaction = async (transaction: TransactionInput & { userId: strin
 
   const mappedTransaction = mapTransaction(extendedTransaction);
   await Transaction.create(mappedTransaction);
+};
+
+const updateTransaction = async (id: TransactionInput['id'], transaction: TransactionInput & { userId: string }) => {
+  const account = await Account.findById(transaction.accountId);
+  const extendedTransaction = {
+    ...transaction,
+    accountName: account?.name,
+    accountIcon: account?.icon
+  } as TransactionDocument;
+
+  const mappedTransaction = mapTransaction(extendedTransaction);
+  await Transaction.findByIdAndUpdate(id, mappedTransaction);
 };
 
 const updateCategoryTransactions = async (userId: string, categoryId: string, category: CategoryInput): Promise<void> => {
