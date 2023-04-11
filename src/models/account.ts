@@ -9,6 +9,7 @@ export interface AccountDocument extends Document {
   icon: string;
   balance: number;
   currencyIso: Currency['iso'];
+  id: string;
   userId?: string;
   isDefaultAccount?: boolean;
 };
@@ -18,7 +19,7 @@ export interface AccountInput {
   icon: string;
   balance: number;
   currencyIso: Currency['iso'];
-  id?: string;
+  id: string;
   userId?: string;
   isDefaultAccount?: boolean;
 }

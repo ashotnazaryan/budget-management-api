@@ -26,11 +26,11 @@ const getCategories = async (request: Request, response: Response) => {
   }
 };
 
-const getCategoryById = async (request: Request<{ categoryId: string }, {}, CategoryInput>, response: Response) => {
-  const categoryId = request.params.categoryId;
+const getCategoryById = async (request: Request<{ id: CategoryInput['id'] }, {}, CategoryInput>, response: Response) => {
+  const id = request.params.id;
 
   try {
-    const category = await Category.findById(categoryId);
+    const category = await Category.findById(id);
 
     if (category) {
       return response.status(200).json({ data: category });
@@ -67,22 +67,22 @@ const createCategory = async (request: Request<{}, {}, CategoryInput>, response:
   }
 };
 
-const editCategory = async (request: Request<{ categoryId: string }, {}, CategoryInput>, response: Response) => {
-  const categoryId = request.params.categoryId;
+const editCategory = async (request: Request<{ id: CategoryInput['id'] }, {}, CategoryInput>, response: Response) => {
+  const id = request.params.id;
   const category = request.body;
   const userId = (request.user as any)?.userId;
 
   try {
     const categories = await Category.find({ userId });
-    const categoryAvailable = categories.some((item) => item.name === category.name && item.id !== categoryId);
+    const categoryAvailable = categories.some((item) => item.name === category.name && item.id !== id);
 
     if (categoryAvailable) {
       return response.status(409).json({ error: { message: 'Category already exists', status: 409 } });
     }
 
-    await Category.findByIdAndUpdate(categoryId, category);
-    await updateSummaryCategoryTransactions(userId, categoryId, category);
-    await updateCategoryTransactions(userId, categoryId, category);
+    await Category.findByIdAndUpdate(id, category);
+    await updateSummaryCategoryTransactions(userId, id!, category);
+    await updateCategoryTransactions(userId, id!, category);
 
     return response.status(200).json({ data: null });
   } catch {

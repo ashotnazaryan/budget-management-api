@@ -15,7 +15,7 @@ interface TransactionInput {
   percentValue: number;
   createdAt: Date;
   icon: string;
-  id?: string;
+  id: string;
   accountName?: AccountInput['name'];
   accountIcon?: AccountInput['icon'];
 }
@@ -30,7 +30,7 @@ interface TransactionDocument extends Document {
   percentValue: number;
   createdAt: Date;
   icon: string;
-  id?: string;
+  id: string;
   accountName?: AccountInput['name'];
   accountIcon?: AccountInput['icon'];
 };

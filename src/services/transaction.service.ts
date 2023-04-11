@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { Summary, Transaction, Account, TransactionInput, TransactionDocument, CategoryInput, AccountInput } from '../models';
 import { calculateAmountByField, mapTransaction, mapTransactions } from '../helpers';
-import { calculateAccountBalance, calculateSummary } from '../services';
+import { calculateAccountBalance, syncSummary } from '../services';
 
 const getTransactions = async (request: Request, response: Response) => {
   const userId = (request.user as any)?.userId;
@@ -15,11 +15,10 @@ const getTransactions = async (request: Request, response: Response) => {
   }
 };
 
-const getTransactionById = async (request: Request<{ transactionId: string }, {}, TransactionInput>, response: Response) => {
-  const transactionId = request.params.transactionId;
-
+const getTransactionById = async (request: Request<{ id: TransactionInput['id'] }, {}, TransactionInput>, response: Response) => {
+  const id = request.params.id
   try {
-    const transaction = await Transaction.findById(transactionId);
+    const transaction = await Transaction.findById(id);
 
     if (transaction) {
       return response.status(200).json({ data: transaction });
@@ -42,7 +41,7 @@ const addTransaction = async (request: Request<{}, {}, TransactionInput>, respon
 
   try {
     await createTransaction({ ...payload, userId });
-    const result = await calculateSummary('create', payload);
+    const result = await syncSummary(userId);
 
     await Summary.findOneAndUpdate({ userId }, {
       $set: {
@@ -63,19 +62,17 @@ const addTransaction = async (request: Request<{}, {}, TransactionInput>, respon
   }
 };
 
-const editTransaction = async (request: Request<{ transactionId: string }, {}, TransactionInput>, response: Response) => {
-  const transactionId = request.params.transactionId;
+const editTransaction = async (request: Request<{ id: TransactionInput['id'] }, {}, TransactionInput>, response: Response) => {
+  const id = request.params.id;
   const transaction = request.body;
   const userId = (request.user as any)?.userId;
-  const { amount, categoryId, name, type, icon, accountId } = request.body;
-  const payload = { userId, amount, categoryId, name, type, icon, accountId } as TransactionInput;
+  const { amount, type, accountId } = request.body;
 
   try {
-    await Transaction.findByIdAndUpdate(transactionId, transaction);
+    await Transaction.findByIdAndUpdate(id, transaction);
     await calculateAccountBalance(accountId, amount, type, 'edit', userId);
-    const result = await calculateSummary('edit', payload);
+    const result = await syncSummary(userId);
 
-    // TODO: try Summary.findByIdAndUpdate({ userId }, result);
     await Summary.findOneAndUpdate({ userId }, {
       $set: {
         incomes: result.incomes,

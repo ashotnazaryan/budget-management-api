@@ -26,11 +26,11 @@ const getAccounts = async (request: Request, response: Response) => {
   }
 };
 
-const getAccountById = async (request: Request<{ accountId: string }, {}, AccountInput>, response: Response) => {
-  const accountId = request.params.accountId;
+const getAccountById = async (request: Request<{ id: AccountInput['id'] }, {}, AccountInput>, response: Response) => {
+  const id = request.params.id;
 
   try {
-    const account = await Account.findById(accountId);
+    const account = await Account.findById(id);
 
     if (account) {
       return response.status(200).json({ data: account });
@@ -67,20 +67,20 @@ const createAccount = async (request: Request<{}, {}, AccountInput>, response: R
   }
 };
 
-const editAccount = async (request: Request<{ accountId: string }, {}, AccountInput>, response: Response) => {
-  const accountId = request.params.accountId;
+const editAccount = async (request: Request<{ id: AccountInput['id'] }, {}, AccountInput>, response: Response) => {
+  const id = request.params.id;
   let updatedAccount = request.body;
   const userId = (request.user as any)?.userId;
 
   try {
     const accounts = await Account.find({ userId });
-    const accountAvailable = accounts.some((item) => item.name === updatedAccount.name && item.id !== accountId);
+    const accountAvailable = accounts.some((item) => item.name === updatedAccount.name && item.id !== id);
 
     if (accountAvailable) {
       return response.status(409).json({ error: { message: 'Account already exists', status: 409 } });
     }
 
-    const account = await Account.findById(accountId);
+    const account = await Account.findById(id);
 
     if (account) {
       const balanceDiff = updatedAccount.balance - account.balance;
@@ -90,8 +90,8 @@ const editAccount = async (request: Request<{ accountId: string }, {}, AccountIn
         balance: account.balance + balanceDiff
       };
 
-      await Account.findByIdAndUpdate(accountId, updatedAccount);
-      await updateAccountTransactions(userId, accountId, updatedAccount);
+      await Account.findByIdAndUpdate(id, updatedAccount);
+      await updateAccountTransactions(userId, id, updatedAccount);
 
       return response.status(200).json({ data: null });
     }
@@ -119,7 +119,7 @@ const calculateAccountBalance = async (
     } else {
       const accountTransactions = await Transaction.find({ userId, accountId });
 
-      if (accountTransactions?.length) {
+      if (accountTransactions.length) {
         balance = calculateTransactionsAmount(accountTransactions);
       }
     }
