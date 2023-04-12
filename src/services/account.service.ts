@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { Account, AccountInput, CategoryInput, CategoryType, DefaultAccount, Transaction } from '../models';
-import { calculateAmountByField, calculateTransactionsAmount, mapAccounts, mapTransactions } from '../helpers';
+import { Account, AccountInput, CategoryType, DefaultAccount, Transaction, TransactionInput } from '../models';
+import { calculateTransactionsAmount, mapAccounts } from '../helpers';
 import { updateAccountTransactions } from '../services';
 
 const getAccounts = async (request: Request, response: Response) => {
@@ -107,7 +107,8 @@ const calculateAccountBalance = async (
   amount: number,
   type: CategoryType,
   mode: 'create' | 'edit',
-  userId?: string
+  userId?: string,
+  oldTransaction?: TransactionInput
 ): Promise<void> => {
   const account = await Account.findById(accountId);
 
@@ -115,13 +116,13 @@ const calculateAccountBalance = async (
     let balance = account.balance;
 
     if (mode === 'create') {
-      balance = type === CategoryType.income ? account.balance + amount : account.balance - amount;
+      balance = type === CategoryType.expense ? account.balance - amount : account.balance + amount;
     } else {
       const accountTransactions = await Transaction.find({ userId, accountId });
-
-      if (accountTransactions.length) {
-        balance = calculateTransactionsAmount(accountTransactions);
-      }
+      const oldAccountTransactions = await Transaction.find({ userId, accountId: oldTransaction!.accountId });
+      const oldAccountBalance = calculateTransactionsAmount(oldAccountTransactions);
+      await Account.findByIdAndUpdate(oldTransaction?.accountId, { balance: oldAccountBalance });
+      balance = calculateTransactionsAmount(accountTransactions);
     }
 
     await Account.findByIdAndUpdate(accountId, { balance });

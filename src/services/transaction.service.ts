@@ -40,20 +40,7 @@ const addTransaction = async (request: Request<{}, {}, TransactionInput>, respon
   }
 
   try {
-    await createTransaction(payload);
-    const result = await syncSummary(userId);
-
-    await Summary.findOneAndUpdate({ userId }, {
-      $set: {
-        incomes: result.incomes,
-        expenses: result.expenses,
-        balance: result.balance,
-        categoryExpenseTransactions: result.categoryExpenseTransactions,
-        categoryIncomeTransactions: result.categoryIncomeTransactions
-      }
-    });
-
-    await calculateAccountBalance(accountId, amount, type, 'create');
+    await createOrUpdateTransaction(payload);
 
     return response.status(201).json({ data: null });
 
@@ -69,19 +56,7 @@ const editTransaction = async (request: Request<{ id: TransactionInput['id'] }, 
   const payload = { userId, amount, categoryId, name, type, icon, accountId, createdAt: new Date() } as TransactionInput;
 
   try {
-    await updateTransaction(id, payload);
-    await calculateAccountBalance(accountId, amount, type, 'edit', userId);
-    const result = await syncSummary(userId);
-
-    await Summary.findOneAndUpdate({ userId }, {
-      $set: {
-        incomes: result.incomes,
-        expenses: result.expenses,
-        balance: result.balance,
-        categoryExpenseTransactions: result.categoryExpenseTransactions,
-        categoryIncomeTransactions: result.categoryIncomeTransactions
-      }
-    });
+    await createOrUpdateTransaction(payload, id);
 
     return response.status(200).json({ data: null });
   } catch {
@@ -89,35 +64,44 @@ const editTransaction = async (request: Request<{ id: TransactionInput['id'] }, 
   }
 };
 
+const createOrUpdateTransaction = async (payload: TransactionInput, id?: TransactionInput['id']) => {
+  const { userId, accountId, amount, type } = payload;
+
+  const account = await Account.findById(payload.accountId);
+  const extendedTransaction = {
+    ...payload,
+    accountName: account?.name,
+    accountIcon: account?.icon
+  } as TransactionDocument;
+  const mappedTransaction = mapTransaction(extendedTransaction);
+
+  if (!id) {
+    await Transaction.create(mappedTransaction);
+    await calculateAccountBalance(accountId, amount, type, 'create');
+  } else {
+    const oldTransaction = mapTransaction(await Transaction.findById(id) as TransactionDocument);
+    await Transaction.findByIdAndUpdate(id, mappedTransaction);
+    await calculateAccountBalance(accountId, amount, type, 'edit', userId, oldTransaction);
+  }
+
+  const result = await syncSummary(userId);
+
+  await Summary.findOneAndUpdate({ userId }, {
+    $set: {
+      incomes: result.incomes,
+      expenses: result.expenses,
+      balance: result.balance,
+      categoryExpenseTransactions: result.categoryExpenseTransactions,
+      categoryIncomeTransactions: result.categoryIncomeTransactions
+    }
+  });
+};
+
 const calculateSummaryBalance = async (userId: string): Promise<number> => {
   const userAccounts = await Account.find({ userId });
 
   // TODO: use parseInt(balance.toFixed(2))
   return calculateAmountByField(userAccounts, 'balance');
-};
-
-const createTransaction = async (transaction: TransactionInput & { userId: string }) => {
-  const account = await Account.findById(transaction.accountId);
-  const extendedTransaction = {
-    ...transaction,
-    accountName: account?.name,
-    accountIcon: account?.icon
-  } as TransactionDocument;
-
-  const mappedTransaction = mapTransaction(extendedTransaction);
-  await Transaction.create(mappedTransaction);
-};
-
-const updateTransaction = async (id: TransactionInput['id'], transaction: TransactionInput & { userId: string }) => {
-  const account = await Account.findById(transaction.accountId);
-  const extendedTransaction = {
-    ...transaction,
-    accountName: account?.name,
-    accountIcon: account?.icon
-  } as TransactionDocument;
-
-  const mappedTransaction = mapTransaction(extendedTransaction);
-  await Transaction.findByIdAndUpdate(id, mappedTransaction);
 };
 
 const updateCategoryTransactions = async (userId: string, categoryId: string, category: CategoryInput): Promise<void> => {
