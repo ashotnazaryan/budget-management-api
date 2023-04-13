@@ -51,9 +51,9 @@ const addTransaction = async (request: Request<{}, {}, TransactionInput>, respon
 
 const editTransaction = async (request: Request<{ id: TransactionInput['id'] }, {}, TransactionInput>, response: Response) => {
   const id = request.params.id;
-  const { amount, categoryId, name, type, icon, accountId } = request.body;
+  const { amount, categoryId, name, type, icon, accountId, createdAt } = request.body;
   const userId = (request.user as any)?.userId;
-  const payload = { userId, amount, categoryId, name, type, icon, accountId, createdAt: new Date() } as TransactionInput;
+  const payload = { userId, amount, categoryId, name, type, icon, accountId, createdAt } as TransactionInput;
 
   try {
     await createOrUpdateTransaction(payload, id);
