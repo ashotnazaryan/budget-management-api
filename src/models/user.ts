@@ -4,11 +4,20 @@ import { CONFIG } from '../core/configs';
 const Schema = mongoose.Schema;
 
 interface UserDocument extends Document {
+  id: string;
   userId: string;
   fullName: string;
+  avatar: string;
 };
 
 interface UserInput {
+  id: string;
+  userId: string;
+  fullName: string;
+  avatar: string;
+}
+
+interface PassportUser {
   id: string;
   userId: string;
   accessToken: string;
@@ -24,6 +33,10 @@ const userSchema = new Schema(
     fullName: {
       type: Schema.Types.String,
       required: true
+    },
+    avatar: {
+      type: Schema.Types.String,
+      required: true
     }
   },
   {
@@ -34,4 +47,4 @@ const userSchema = new Schema(
 
 const User = mongoose.model<UserDocument>(CONFIG.collections.user, userSchema);
 
-export { User, UserDocument, UserInput };
+export { User, UserDocument, UserInput, PassportUser };

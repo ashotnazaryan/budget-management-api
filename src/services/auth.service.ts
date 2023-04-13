@@ -1,7 +1,7 @@
 import passport from 'passport';
 import { NextFunction, Request, Response } from 'express';
 import { CONFIG, GOOGLE_STRATEGY_OPTIONS } from '../core/configs';
-import { UserInput } from '../models';
+import { PassportUser } from '../models';
 import { getGoogleAccessToken } from '../helpers';
 
 const loginSuccess = (request: Request, response: Response) => {
@@ -14,7 +14,7 @@ const loginSuccess = (request: Request, response: Response) => {
   response.status(401).redirect(`/api/auth${CONFIG.routes.loginFailed}`);
 };
 
-const getNewAccessToken = async (request: Request<{}, {}, UserInput>, response: Response) => {
+const getNewAccessToken = async (request: Request<{}, {}, PassportUser>, response: Response) => {
   const { refreshToken } = request.body;
 
   try {

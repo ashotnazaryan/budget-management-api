@@ -1,25 +1,26 @@
 import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
-import { User, UserInput } from '../models';
+import { User, PassportUser } from '../models';
 import { GOOGLE_STRATEGY_OPTIONS } from './configs';
 
 passport.use(new GoogleStrategy({
   ...GOOGLE_STRATEGY_OPTIONS
-}, async (accessToken, refreshToken, { id, name }, done) => {
-  const fullName = `${name?.givenName || ''} ${name?.familyName || ''}`;
-  const user = await User.findOne({ userId: id });
+}, async (accessToken, refreshToken, profile, done) => {
+  const user = await User.findOne({ userId: profile.id });
+  const avatar = profile.photos?.length ? profile.photos[0].value : null;
 
   if (!user) {
     const newUser = await User.create({
-      fullName,
-      userId: id,
+      avatar,
+      fullName: profile.displayName,
+      userId: profile.id
     });
 
     const newUserWithToken = {
       id: newUser.id,
-      userId: id,
+      userId: profile.id,
       accessToken,
-      refreshToken
+      refreshToken,
     };
 
     if (newUser) {
@@ -42,7 +43,7 @@ passport.serializeUser((user: any, done) => {
   done(null, { id: user.id, userId: user.userId, accessToken: user.accessToken, refreshToken: user.refreshToken });
 });
 
-passport.deserializeUser<UserInput>((user, done) => {
+passport.deserializeUser<PassportUser>((user, done) => {
   const userWithToken = {
     id: user.id,
     userId: user.userId,

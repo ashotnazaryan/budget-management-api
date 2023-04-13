@@ -20,6 +20,7 @@ export const CONFIG = {
     logout: '/logout',
     google: '/google',
     googleCallback: '/google/callback',
+    getUser: '/',
     getSummary: '/',
     getBalance: '/balance',
     getTransactions: '/',
