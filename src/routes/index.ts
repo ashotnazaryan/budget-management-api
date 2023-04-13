@@ -1,4 +1,5 @@
-export * from './auth.routes';
+export * from './auth.route';
+export * from './user.route';
 export * from './summary.route';
 export * from './transaction.route';
 export * from './category.route';
