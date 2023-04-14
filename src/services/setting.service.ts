@@ -4,6 +4,7 @@ import { Account, Category, Setting, SettingInput, Summary, Transaction } from '
 const initialSetting: SettingInput = {
   defaultCurrency: 'USD',
   defaultAccount: '',
+  language: 'en',
   showDecimals: false,
   isDarkTheme: false
 };
@@ -29,7 +30,7 @@ const getSettings = async (request: Request, response: Response) => {
 
 const addSetting = async (request: Request<{}, {}, SettingInput>, response: Response) => {
   const userId = (request.user as any)?.userId;
-  const { defaultCurrency, defaultAccount, showDecimals, isDarkTheme } = request.body;
+  const { defaultCurrency, defaultAccount, showDecimals, isDarkTheme, language } = request.body;
 
   try {
     const setting = await Setting.findOne({ userId });
@@ -40,7 +41,8 @@ const addSetting = async (request: Request<{}, {}, SettingInput>, response: Resp
           defaultCurrency,
           defaultAccount,
           showDecimals,
-          isDarkTheme
+          isDarkTheme,
+          language
         }
       });
 

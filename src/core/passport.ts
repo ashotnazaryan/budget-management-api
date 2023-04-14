@@ -27,6 +27,14 @@ passport.use(new GoogleStrategy({
       done(null, newUserWithToken);
     }
   } else {
+    await User.findOneAndUpdate({ userId: user.userId }, {
+      $set: {
+        avatar,
+        fullName: user.fullName,
+        userId: user.userId
+      }
+    });
+
     const userWithToken = {
       id: user.id,
       userId: user.userId,

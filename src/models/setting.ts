@@ -3,35 +3,39 @@ import { CONFIG } from '../core/configs';
 
 const Schema = mongoose.Schema;
 
-interface Currency {
-  iso: 'USD' | 'EUR' | 'PLN' | 'UAH' | 'AMD';
-  name: 'US Dollar' | 'Euro' | 'Polish Zloty' | 'Ukrainian Hryvnia' | 'Armenian Dram';
-  symbol: '$' | '€' | 'zł' | '₴' | '֏';
-}
+type CurrencyIso = 'USD' | 'EUR' | 'PLN' | 'UAH' | 'AMD';
+type LanguageIso = 'en' | 'ru';
 
 interface SettingDocument extends Document {
-  defaultCurrency: Currency['iso'];
+  userId: string;
   defaultAccount: string;
   showDecimals: boolean;
   isDarkTheme: boolean;
-  userId: string;
+  defaultCurrency: CurrencyIso;
+  language: LanguageIso;
 };
 
 interface SettingInput {
-  defaultCurrency: Currency['iso'];
   defaultAccount: string;
   showDecimals: boolean;
   isDarkTheme: boolean;
+  defaultCurrency: CurrencyIso;
+  language: LanguageIso;
 }
 
 const settingSchema = new Schema(
   {
+    userId: {
+      type: Schema.Types.String,
+      required: true
+    },
     defaultCurrency: {
       type: Schema.Types.String,
       required: true
     },
-    defaultAccount: {
-      type: Schema.Types.String
+    language: {
+      type: Schema.Types.String,
+      required: true
     },
     showDecimals: {
       type: Schema.Types.Boolean,
@@ -41,9 +45,8 @@ const settingSchema = new Schema(
       type: Schema.Types.Boolean,
       required: true
     },
-    userId: {
-      type: Schema.Types.String,
-      required: true
+    defaultAccount: {
+      type: Schema.Types.String
     },
   },
   {
@@ -54,4 +57,4 @@ const settingSchema = new Schema(
 
 const Setting = mongoose.model<SettingDocument>(CONFIG.collections.setting, settingSchema);
 
-export { Setting, SettingDocument, SettingInput, Currency };
+export { Setting, SettingDocument, SettingInput, CurrencyIso };

@@ -1,6 +1,6 @@
 import mongoose, { Document } from 'mongoose';
 import { CONFIG } from '../core/configs';
-import { Currency } from './setting';
+import { CurrencyIso } from './setting';
 
 const Schema = mongoose.Schema;
 
@@ -8,7 +8,7 @@ export interface AccountDocument extends Document {
   name: string;
   icon: string;
   balance: number;
-  currencyIso: Currency['iso'];
+  currencyIso: CurrencyIso;
   id: string;
   userId?: string;
   isDefaultAccount?: boolean;
@@ -18,7 +18,7 @@ export interface AccountInput {
   name: string;
   icon: string;
   balance: number;
-  currencyIso: Currency['iso'];
+  currencyIso: CurrencyIso;
   id: string;
   userId?: string;
   isDefaultAccount?: boolean;
