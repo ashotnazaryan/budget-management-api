@@ -60,7 +60,7 @@ const createCategory = async (request: Request<{}, {}, CategoryInput>, response:
       return response.status(201).json({ data: null });
     }
 
-    return response.status(409).json({ error: { message: 'Category already exists', status: 409 } });
+    return response.status(409).json({ error: { message: 'Category already exists', messageKey: 'CATEGORIES.ERRORS.CATEGORY_EXISTS', status: 409 } });
 
   } catch (error) {
     return response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
@@ -77,7 +77,7 @@ const editCategory = async (request: Request<{ id: CategoryInput['id'] }, {}, Ca
     const categoryAvailable = categories.some((item) => item.name === category.name && item.id !== id);
 
     if (categoryAvailable) {
-      return response.status(409).json({ error: { message: 'Category already exists', status: 409 } });
+      return response.status(409).json({ error: { message: 'Category already exists', messageKey: 'CATEGORIES.ERRORS.CATEGORY_EXISTS', status: 409 } });
     }
 
     await Category.findByIdAndUpdate(id, category);

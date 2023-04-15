@@ -8,7 +8,8 @@ export const mapCategories = (categories: CategoryDocument[], userId: string): C
       name: category.name,
       icon: category.icon,
       type: category.type,
-      isDefaultCategory: category.isDefaultCategory
+      isDefaultCategory: category.isDefaultCategory,
+      nameKey: category.nameKey
     };
   });
 };

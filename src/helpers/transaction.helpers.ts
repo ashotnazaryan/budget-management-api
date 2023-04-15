@@ -12,12 +12,14 @@ export const mapTransaction = (transaction: TransactionDocument): TransactionInp
     type: transaction.type,
     name: transaction.name,
     amount: transaction.amount,
+    currencyIso: transaction.currencyIso,
     percentValue: transaction.percentValue,
     createdAt: transaction.createdAt,
     icon: transaction.icon,
     accountId: transaction.accountId,
     accountName: transaction.accountName,
-    accountIcon: transaction.accountIcon
+    accountIcon: transaction.accountIcon,
+    nameKey: transaction.nameKey
   };
 };
 

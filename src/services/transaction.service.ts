@@ -7,9 +7,8 @@ const getTransactions = async (request: Request, response: Response) => {
   const userId = (request.user as any)?.userId;
   try {
     const transactions = await Transaction.find({ userId }).sort({ createdAt: -1 });
-    const mappedTransactions = mapTransactions(transactions);
 
-    return response.status(200).json({ data: mappedTransactions });
+    return response.status(200).json({ data: mapTransactions(transactions) });
   } catch {
     response.status(200).json({ data: null });
   }
@@ -21,7 +20,7 @@ const getTransactionById = async (request: Request<{ id: TransactionInput['id'] 
     const transaction = await Transaction.findById(id);
 
     if (transaction) {
-      return response.status(200).json({ data: transaction });
+      return response.status(200).json({ data: mapTransaction(transaction) });
     }
 
     return response.status(404).json({ error: { message: 'Transaction not found', status: 404 } });
@@ -31,9 +30,9 @@ const getTransactionById = async (request: Request<{ id: TransactionInput['id'] 
 };
 
 const addTransaction = async (request: Request<{}, {}, TransactionInput>, response: Response) => {
-  const { amount, categoryId, name, type, icon, accountId } = request.body;
+  const { amount, categoryId, name, nameKey, currencyIso, type, icon, accountId, createdAt } = request.body;
   const userId = (request.user as any)?.userId;
-  const payload = { userId, amount, categoryId, name, type, icon, accountId, createdAt: new Date() } as TransactionInput;
+  const payload = { userId, amount, currencyIso, categoryId, name, nameKey, type, icon, accountId, createdAt } as TransactionInput;
 
   if (!amount || !categoryId || !name) {
     return response.status(422).json({ error: { message: 'Missing fields', status: 422 } });
@@ -51,9 +50,9 @@ const addTransaction = async (request: Request<{}, {}, TransactionInput>, respon
 
 const editTransaction = async (request: Request<{ id: TransactionInput['id'] }, {}, TransactionInput>, response: Response) => {
   const id = request.params.id;
-  const { amount, categoryId, name, type, icon, accountId, createdAt } = request.body;
+  const { amount, currencyIso, categoryId, name, nameKey, type, icon, accountId, createdAt } = request.body;
   const userId = (request.user as any)?.userId;
-  const payload = { userId, amount, categoryId, name, type, icon, accountId, createdAt } as TransactionInput;
+  const payload = { userId, amount, currencyIso, categoryId, name, nameKey, type, icon, accountId, createdAt } as TransactionInput;
 
   try {
     await createOrUpdateTransaction(payload, id);

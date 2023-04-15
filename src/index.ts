@@ -4,6 +4,7 @@ import cookieSession from 'cookie-session';
 import passport from 'passport';
 import { connectToDatabase } from './core/db-connection';
 import { authRoute, userRoute, summaryRoute, transactionRoute, categoryRoute, settingRoute, accountRoute } from './routes';
+import { createDefaultCollections } from './services';
 import { CONFIG } from './core/configs';
 import './core/passport';
 import { setResponseHeaders } from './middleware';
@@ -49,5 +50,6 @@ app.get('/', (req, res) => {
 
 app.listen(CONFIG.port, async () => {
   await connectToDatabase();
+  await createDefaultCollections();
   console.log(`⚡️[server]: Server is running at http://localhost:${CONFIG.port}`);
 });

@@ -12,6 +12,7 @@ export interface AccountDocument extends Document {
   id: string;
   userId?: string;
   isDefaultAccount?: boolean;
+  nameKey?: string;
 };
 
 export interface AccountInput {
@@ -22,6 +23,7 @@ export interface AccountInput {
   id: string;
   userId?: string;
   isDefaultAccount?: boolean;
+  nameKey?: string;
 }
 
 const defaultAccountSchema = new Schema(
@@ -44,6 +46,9 @@ const defaultAccountSchema = new Schema(
     },
     isDefaultAccount: {
       type: Schema.Types.Boolean
+    },
+    nameKey: {
+      type: Schema.Types.String
     }
   },
   {
@@ -76,6 +81,9 @@ const accountSchema = new Schema(
     },
     isDefaultAccount: {
       type: Schema.Types.Boolean
+    },
+    nameKey: {
+      type: Schema.Types.String
     }
   },
   {
