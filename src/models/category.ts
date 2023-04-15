@@ -15,6 +15,7 @@ export interface CategoryDocument extends Document {
   id: string;
   userId?: string;
   isDefaultCategory?: boolean;
+  nameKey?: string;
 };
 
 export interface CategoryInput {
@@ -24,6 +25,7 @@ export interface CategoryInput {
   id: string;
   userId?: string;
   isDefaultCategory?: boolean;
+  nameKey?: string;
 }
 
 const defaultCategorySchema = new Schema(
@@ -42,6 +44,9 @@ const defaultCategorySchema = new Schema(
     },
     isDefaultCategory: {
       type: Schema.Types.Boolean
+    },
+    nameKey: {
+      type: Schema.Types.String
     }
   },
   {
@@ -70,6 +75,9 @@ const categorySchema = new Schema(
     },
     isDefaultCategory: {
       type: Schema.Types.Boolean
+    },
+    nameKey: {
+      type: Schema.Types.String
     }
   },
   {

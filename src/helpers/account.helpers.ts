@@ -9,7 +9,8 @@ export const mapAccounts = (accounts: AccountDocument[], userId: string): Accoun
       icon: account.icon,
       currencyIso: account.currencyIso,
       balance: account.balance,
-      isDefaultAccount: account.isDefaultAccount
+      isDefaultAccount: account.isDefaultAccount,
+      nameKey: account.nameKey
     };
   });
 };

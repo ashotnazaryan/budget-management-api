@@ -1,7 +1,8 @@
 import mongoose, { Document } from 'mongoose';
 import { CONFIG } from '../core/configs';
-import { CategoryInput, CategoryType } from './category';
+import { CategoryType } from './category';
 import { AccountInput } from './account';
+import { CurrencyIso } from './setting';
 
 const Schema = mongoose.Schema;
 
@@ -12,12 +13,15 @@ interface TransactionInput {
   type: CategoryType;
   name: string;
   amount: number;
+  currencyIso: CurrencyIso;
   percentValue: number;
   createdAt: Date;
   icon: string;
   id: string;
   accountName?: AccountInput['name'];
   accountIcon?: AccountInput['icon'];
+  nameKey?: string;
+  accountNameKey?: AccountInput['nameKey'];
 }
 
 interface TransactionDocument extends Document {
@@ -27,12 +31,15 @@ interface TransactionDocument extends Document {
   type: CategoryType;
   name: string;
   amount: number;
+  currencyIso: CurrencyIso;
   percentValue: number;
   createdAt: Date;
   icon: string;
   id: string;
   accountName?: AccountInput['name'];
   accountIcon?: AccountInput['icon'];
+  nameKey?: string;
+  accountNameKey?: AccountInput['nameKey'];
 };
 
 const transactionSchema = new Schema(
@@ -57,6 +64,10 @@ const transactionSchema = new Schema(
       type: Schema.Types.Number,
       required: true
     },
+    currencyIso: {
+      type: Schema.Types.String,
+      required: true
+    },
     percentValue: {
       type: Schema.Types.Number,
       required: false
@@ -77,6 +88,12 @@ const transactionSchema = new Schema(
       type: Schema.Types.String
     },
     accountIcon: {
+      type: Schema.Types.String
+    },
+    nameKey: {
+      type: Schema.Types.String
+    },
+    accountNameKey: {
       type: Schema.Types.String
     }
   },

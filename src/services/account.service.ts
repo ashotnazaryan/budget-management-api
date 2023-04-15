@@ -60,7 +60,7 @@ const createAccount = async (request: Request<{}, {}, AccountInput>, response: R
       return response.status(201).json({ data: null });
     }
 
-    return response.status(409).json({ error: { message: 'Account already exists', status: 409 } });
+    return response.status(409).json({ error: { message: 'Account already exists', messageKey: 'ACCOUNTS.ERRORS.ACCOUNT_EXISTS', status: 409 } });
 
   } catch (error) {
     return response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
@@ -77,7 +77,7 @@ const editAccount = async (request: Request<{ id: AccountInput['id'] }, {}, Acco
     const accountAvailable = accounts.some((item) => item.name === updatedAccount.name && item.id !== id);
 
     if (accountAvailable) {
-      return response.status(409).json({ error: { message: 'Account already exists', status: 409 } });
+      return response.status(409).json({ error: { message: 'Account already exists', messageKey: 'ACCOUNTS.ERRORS.ACCOUNT_EXISTS', status: 409 } });
     }
 
     const account = await Account.findById(id);
