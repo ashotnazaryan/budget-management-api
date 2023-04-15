@@ -70,7 +70,8 @@ const createOrUpdateTransaction = async (payload: TransactionInput, id?: Transac
   const extendedTransaction = {
     ...payload,
     accountName: account?.name,
-    accountIcon: account?.icon
+    accountIcon: account?.icon,
+    accountNameKey: account?.nameKey
   } as TransactionDocument;
   const mappedTransaction = mapTransaction(extendedTransaction);
 

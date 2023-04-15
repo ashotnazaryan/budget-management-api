@@ -11,6 +11,7 @@ export const mapTransaction = (transaction: TransactionDocument): TransactionInp
     userId: transaction.userId,
     type: transaction.type,
     name: transaction.name,
+    nameKey: transaction.nameKey,
     amount: transaction.amount,
     currencyIso: transaction.currencyIso,
     percentValue: transaction.percentValue,
@@ -19,7 +20,7 @@ export const mapTransaction = (transaction: TransactionDocument): TransactionInp
     accountId: transaction.accountId,
     accountName: transaction.accountName,
     accountIcon: transaction.accountIcon,
-    nameKey: transaction.nameKey
+    accountNameKey: transaction.accountNameKey
   };
 };
 
