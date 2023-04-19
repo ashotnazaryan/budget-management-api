@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { CategoryInput, CategoryType, Summary, SummaryInput, Transaction } from '../models';
-import { calculateSummaryBalance } from '../services';
+import { CategoryInput, CategoryType, PassportUser, Summary, SummaryInput, Transaction } from '../models';
+import { calculateAccountsTotalBalance } from '../services';
 import { calculateAmountByField, getTransactionsByCategory, mapCategoryTransaction, mapSummary, mapSummaryBalance, mapTransactions } from '../helpers';
 
 const initialSummary: Omit<SummaryInput, 'userId'> = {
@@ -12,11 +12,11 @@ const initialSummary: Omit<SummaryInput, 'userId'> = {
 };
 
 const getSummary = async (request: Request, response: Response) => {
-  const userId = (request.user as any)?.userId;
+  const userId = (request.user as PassportUser)?.userId;
 
   try {
     const summary = await Summary.findOne({ userId });
-    const balance = await calculateSummaryBalance(userId);
+    const balance = await calculateAccountsTotalBalance(userId);
 
     if (summary) {
       const mappedSummary = mapSummaryBalance(summary, balance, userId);
@@ -34,10 +34,10 @@ const getSummary = async (request: Request, response: Response) => {
 };
 
 const getBalanceInfo = async (request: Request, response: Response) => {
-  const userId = (request.user as any)?.userId;
+  const userId = (request.user as PassportUser)?.userId;
 
   try {
-    const balance = await calculateSummaryBalance(userId);
+    const balance = await calculateAccountsTotalBalance(userId);
 
     if (!!balance || balance === 0) {
       return response.status(200).json({ data: balance });
@@ -55,7 +55,7 @@ const syncSummary = async (userId: string): Promise<SummaryInput> => {
   const incomeTransactions = mapTransactions(allUserTransactions.filter(({ type }) => type === CategoryType.income));
   const expenses = calculateAmountByField(expenseTransactions, 'amount');
   const incomes = calculateAmountByField(incomeTransactions, 'amount');
-  const balance = await calculateSummaryBalance(userId);
+  const balance = await calculateAccountsTotalBalance(userId);
   const categoryExpenseTransactions = getTransactionsByCategory(expenseTransactions, expenses, incomes);
   const categoryIncomeTransactions = getTransactionsByCategory(incomeTransactions, expenses, incomes);
 
@@ -69,7 +69,21 @@ const syncSummary = async (userId: string): Promise<SummaryInput> => {
   };
 };
 
-const updateSummaryCategoryTransactions = async (userId: string, categoryId: string, category: CategoryInput): Promise<void> => {
+const updateSummary = async (userId: string): Promise<void> => {
+  const result = await syncSummary(userId);
+
+  await Summary.findOneAndUpdate({ userId }, {
+    $set: {
+      incomes: result.incomes,
+      expenses: result.expenses,
+      balance: result.balance,
+      categoryExpenseTransactions: result.categoryExpenseTransactions,
+      categoryIncomeTransactions: result.categoryIncomeTransactions
+    }
+  });
+};
+
+const updateSummaryCategoryTransactions = async (userId: string, categoryId: CategoryInput['id'], category: CategoryInput): Promise<void> => {
   const summary = await Summary.findOne({ userId });
 
   const categoryTransactions = category.type === CategoryType.expense
@@ -94,5 +108,6 @@ export {
   getSummary,
   getBalanceInfo,
   syncSummary,
+  updateSummary,
   updateSummaryCategoryTransactions
 };
