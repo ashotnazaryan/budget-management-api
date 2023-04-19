@@ -21,7 +21,7 @@ interface TransactionInput {
   accountName?: AccountInput['name'];
   accountIcon?: AccountInput['icon'];
   nameKey?: string;
-  accountNameKey?: AccountInput['nameKey'];
+  accountNameKey?: AccountInput['nameKey'] | null;
 }
 
 interface TransactionDocument extends Document {

@@ -30,9 +30,9 @@ const getTransactionById = async (request: Request<{ id: TransactionInput['id'] 
 };
 
 const addTransaction = async (request: Request<{}, {}, TransactionInput>, response: Response) => {
-  const { amount, categoryId, name, nameKey, currencyIso, type, icon, accountId, createdAt } = request.body;
+  const { amount, categoryId, name, nameKey, type, icon, accountId, createdAt } = request.body;
   const userId = (request.user as PassportUser)?.userId;
-  const payload = { userId, amount, currencyIso, categoryId, name, nameKey, type, icon, accountId, createdAt } as TransactionInput;
+  const payload = { userId, amount, categoryId, name, nameKey, type, icon, accountId, createdAt } as TransactionInput;
 
   if (!amount || !categoryId || !name) {
     return response.status(422).json({ error: { message: 'Missing fields', status: 422 } });
@@ -50,9 +50,9 @@ const addTransaction = async (request: Request<{}, {}, TransactionInput>, respon
 
 const editTransaction = async (request: Request<{ id: TransactionInput['id'] }, {}, TransactionInput>, response: Response) => {
   const id = request.params.id;
-  const { amount, currencyIso, categoryId, name, nameKey, type, icon, accountId, createdAt } = request.body;
+  const { amount, categoryId, name, nameKey, type, icon, accountId, createdAt } = request.body;
   const userId = (request.user as PassportUser)?.userId;
-  const payload = { userId, amount, currencyIso, categoryId, name, nameKey, type, icon, accountId, createdAt } as TransactionInput;
+  const payload = { userId, amount, categoryId, name, nameKey, type, icon, accountId, createdAt } as TransactionInput;
 
   try {
     await createUpdateTransaction(payload, id);
@@ -95,7 +95,8 @@ const createUpdateTransaction = async (payload: TransactionInput, id?: Transacti
     ...payload,
     accountName: account?.name,
     accountIcon: account?.icon,
-    accountNameKey: account?.nameKey
+    accountNameKey: account?.nameKey,
+    currencyIso: account?.currencyIso
   } as TransactionDocument;
   const mappedTransaction = mapTransaction(extendedTransaction);
 
