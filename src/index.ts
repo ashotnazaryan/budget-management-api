@@ -5,9 +5,9 @@ import passport from 'passport';
 import { connectToDatabase } from './core/db-connection';
 import { authRoute, userRoute, summaryRoute, transactionRoute, categoryRoute, settingRoute, accountRoute } from './routes';
 import { createDefaultCollections } from './services';
+import { setResponseHeaders } from './middleware';
 import { CONFIG } from './core/configs';
 import './core/passport';
-import { setResponseHeaders } from './middleware';
 
 const app = express();
 const corsOptions = {

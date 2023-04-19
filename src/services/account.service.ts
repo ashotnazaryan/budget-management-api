@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import { Account, AccountInput, CategoryType, DefaultAccount, Transaction, TransactionInput } from '../models';
-import { calculateTransactionsAmount, mapAccounts } from '../helpers';
-import { updateAccountTransactions } from '../services';
+import { Account, AccountDocument, AccountInput, CategoryType, DefaultAccount, PassportUser, Transaction, TransactionInput } from '../models';
+import { calculateAmountByField, calculateTransactionsAmount, mapAccounts } from '../helpers';
+import { deleteAccountTransactions, updateAccountTransactions, updateSummary } from '../services';
 
 const getAccounts = async (request: Request, response: Response) => {
-  const userId = (request.user as any)?.userId;
+  const userId = (request.user as PassportUser)?.userId;
 
   try {
     let accounts = await Account.find({ userId });
@@ -43,7 +43,7 @@ const getAccountById = async (request: Request<{ id: AccountInput['id'] }, {}, A
 };
 
 const createAccount = async (request: Request<{}, {}, AccountInput>, response: Response) => {
-  const userId = (request.user as any)?.userId;
+  const userId = (request.user as PassportUser)?.userId;
   const newAccount: AccountInput = {
     ...request.body,
     userId,
@@ -70,7 +70,7 @@ const createAccount = async (request: Request<{}, {}, AccountInput>, response: R
 const editAccount = async (request: Request<{ id: AccountInput['id'] }, {}, AccountInput>, response: Response) => {
   const id = request.params.id;
   let updatedAccount = request.body;
-  const userId = (request.user as any)?.userId;
+  const userId = (request.user as PassportUser)?.userId;
 
   try {
     const accounts = await Account.find({ userId });
@@ -102,6 +102,27 @@ const editAccount = async (request: Request<{ id: AccountInput['id'] }, {}, Acco
   }
 };
 
+const deleteAccount = async (request: Request<{ id: AccountInput['id'] }, {}, {}>, response: Response) => {
+  const id = request.params.id;
+  const userId = (request.user as PassportUser)?.userId;
+
+  try {
+    const account = await Account.findById(id);
+
+    if (account) {
+      await Account.findByIdAndDelete(id);
+      await deleteAccountTransactions(userId, id);
+      await updateSummary(userId);
+
+      return response.status(204).json({ data: null });
+    }
+
+    return response.status(404).json({ error: { message: 'Account not found', status: 404 } });
+  } catch {
+    return response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
+  }
+};
+
 const calculateAccountBalance = async (
   accountId: AccountInput['id'],
   amount: number,
@@ -117,7 +138,7 @@ const calculateAccountBalance = async (
 
     if (mode === 'create') {
       balance = type === CategoryType.expense ? account.balance - amount : account.balance + amount;
-    } else {
+    } else if (mode === 'edit') {
       const accountTransactions = await Transaction.find({ userId, accountId });
       const oldAccountTransactions = await Transaction.find({ userId, accountId: oldTransaction!.accountId });
       const oldAccountBalance = calculateTransactionsAmount(oldAccountTransactions);
@@ -129,10 +150,29 @@ const calculateAccountBalance = async (
   }
 };
 
+const calculateAccountsTotalBalance = async (userId: string): Promise<number> => {
+  const userAccounts = await Account.find({ userId });
+
+  // TODO: use parseInt(balance.toFixed(2))
+  return calculateAmountByField(userAccounts, 'balance');
+};
+
+const updateAccountBalance = async (accounts: AccountDocument[], userId: string): Promise<void> => {
+  for (const account of accounts) {
+    const accountTransactions = await Transaction.find({ userId, accountId: account.id });
+    const accountTransactionsAmount = calculateTransactionsAmount(accountTransactions);
+
+    await Account.findByIdAndUpdate(account.id, { balance: accountTransactionsAmount });
+  }
+}
+
 export {
   getAccounts,
   createAccount,
   getAccountById,
   editAccount,
-  calculateAccountBalance
+  deleteAccount,
+  calculateAccountBalance,
+  updateAccountBalance,
+  calculateAccountsTotalBalance,
 };

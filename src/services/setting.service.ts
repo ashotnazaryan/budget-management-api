@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Account, Category, Setting, SettingInput, Summary, Transaction } from '../models';
+import { Account, Category, PassportUser, Setting, SettingInput, Summary, Transaction } from '../models';
 
 const initialSetting: SettingInput = {
   defaultCurrency: 'USD',
@@ -10,7 +10,7 @@ const initialSetting: SettingInput = {
 };
 
 const getSettings = async (request: Request, response: Response) => {
-  const userId = (request.user as any)?.userId;
+  const userId = (request.user as PassportUser)?.userId;
 
   try {
     const setting = await Setting.findOne({ userId });
@@ -29,7 +29,7 @@ const getSettings = async (request: Request, response: Response) => {
 };
 
 const addSetting = async (request: Request<{}, {}, SettingInput>, response: Response) => {
-  const userId = (request.user as any)?.userId;
+  const userId = (request.user as PassportUser)?.userId;
   const { defaultCurrency, defaultAccount, showDecimals, isDarkTheme, language } = request.body;
 
   try {
@@ -58,7 +58,7 @@ const addSetting = async (request: Request<{}, {}, SettingInput>, response: Resp
   }
 };
 
-const deleteAllData = async (request: Request, response: Response) => {
+const reset = async (request: Request, response: Response) => {
   const userId = request.params.userId;
 
   try {
@@ -74,4 +74,4 @@ const deleteAllData = async (request: Request, response: Response) => {
   }
 };
 
-export { getSettings, addSetting, deleteAllData };
+export { getSettings, addSetting, reset };
