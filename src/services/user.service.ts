@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import { PassportUser, User } from '../models';
+import { User } from '../models';
 import { mapUser } from '../helpers';
 
 const getUser = async (request: Request, response: Response) => {
-  const userId = (request.user as PassportUser)?.userId;
+  const userId = request.user!.userId;
 
   try {
     const user = await User.findOne({ userId });

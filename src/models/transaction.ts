@@ -22,6 +22,7 @@ interface TransactionInput {
   accountIcon?: AccountInput['icon'];
   nameKey?: string;
   accountNameKey?: AccountInput['nameKey'] | null;
+  note?: string;
 }
 
 interface TransactionDocument extends Document {
@@ -40,6 +41,7 @@ interface TransactionDocument extends Document {
   accountIcon?: AccountInput['icon'];
   nameKey?: string;
   accountNameKey?: AccountInput['nameKey'];
+  note?: string;
 };
 
 const transactionSchema = new Schema(
@@ -94,6 +96,9 @@ const transactionSchema = new Schema(
       type: Schema.Types.String
     },
     accountNameKey: {
+      type: Schema.Types.String
+    },
+    note: {
       type: Schema.Types.String
     }
   },

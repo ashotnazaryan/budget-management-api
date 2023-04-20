@@ -5,4 +5,5 @@ export * from './transaction.service';
 export * from './category.service';
 export * from './account.service';
 export * from './setting.service';
+export * from './transfer.service';
 export * from './defaults.service';

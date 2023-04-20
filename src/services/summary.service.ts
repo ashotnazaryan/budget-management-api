@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
-import { CategoryInput, CategoryType, PassportUser, Summary, SummaryInput, Transaction } from '../models';
+import { CategoryInput, CategoryType, Summary, SummaryInput, Transaction } from '../models';
 import { calculateAccountsTotalBalance } from '../services';
-import { calculateAmountByField, getTransactionsByCategory, mapCategoryTransaction, mapSummary, mapSummaryBalance, mapTransactions } from '../helpers';
+import { getTransactionsByCategory, mapCategoryTransaction, mapSummaryBalance, mapTransactions } from '../helpers';
+import { calculateAmountByField } from '../helpers';
 
 const initialSummary: Omit<SummaryInput, 'userId'> = {
   incomes: 0,
@@ -12,7 +13,7 @@ const initialSummary: Omit<SummaryInput, 'userId'> = {
 };
 
 const getSummary = async (request: Request, response: Response) => {
-  const userId = (request.user as PassportUser)?.userId;
+  const userId = request.user!.userId;
 
   try {
     const summary = await Summary.findOne({ userId });
@@ -34,7 +35,7 @@ const getSummary = async (request: Request, response: Response) => {
 };
 
 const getBalanceInfo = async (request: Request, response: Response) => {
-  const userId = (request.user as PassportUser)?.userId;
+  const userId = request.user!.userId;
 
   try {
     const balance = await calculateAccountsTotalBalance(userId);

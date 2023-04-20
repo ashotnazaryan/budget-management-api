@@ -20,7 +20,8 @@ export const mapTransaction = (transaction: TransactionDocument): TransactionInp
     accountId: transaction.accountId,
     accountName: transaction.accountName,
     accountIcon: transaction.accountIcon,
-    accountNameKey: transaction.accountNameKey || null
+    accountNameKey: transaction.accountNameKey || null,
+    note: transaction.note
   };
 };
 
