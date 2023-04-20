@@ -5,3 +5,4 @@ export * from './transaction.route';
 export * from './category.route';
 export * from './account.route';
 export * from './setting.route';
+export * from './transfer.route';

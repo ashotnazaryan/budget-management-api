@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import { Account, Category, CategoryInput, DefaultCategory, PassportUser } from '../models';
+import { Account, Category, CategoryInput, DefaultCategory } from '../models';
 import { mapCategories } from '../helpers';
-import { deleteCategoryTransactions, updateAccountBalance, updateCategoryTransactions, updateSummary, updateSummaryCategoryTransactions } from '../services';
+import { deleteCategoryTransactions, updateAccountBalance, updateCategoryTransactions, updateSummary } from '../services';
 
 const getCategories = async (request: Request, response: Response) => {
-  const userId = (request.user as PassportUser)?.userId;
+  const userId = request.user!.userId;
 
   try {
     let categories = await Category.find({ userId });
@@ -43,7 +43,7 @@ const getCategoryById = async (request: Request<{ id: CategoryInput['id'] }, {},
 };
 
 const createCategory = async (request: Request<{}, {}, CategoryInput>, response: Response) => {
-  const userId = (request.user as PassportUser)?.userId;
+  const userId = request.user!.userId;
   const newCategory: CategoryInput = {
     ...request.body,
     userId,
@@ -70,7 +70,7 @@ const createCategory = async (request: Request<{}, {}, CategoryInput>, response:
 const editCategory = async (request: Request<{ id: CategoryInput['id'] }, {}, CategoryInput>, response: Response) => {
   const id = request.params.id;
   const category = request.body;
-  const userId = (request.user as PassportUser)?.userId;
+  const userId = request.user!.userId;
 
   try {
     const categories = await Category.find({ userId });
@@ -93,7 +93,7 @@ const editCategory = async (request: Request<{ id: CategoryInput['id'] }, {}, Ca
 
 const deleteCategory = async (request: Request<{ id: CategoryInput['id'] }, {}, {}>, response: Response) => {
   const id = request.params.id;
-  const userId = (request.user as PassportUser)?.userId;
+  const userId = request.user!.userId;
 
   try {
     const category = await Category.findById(id);

@@ -3,7 +3,7 @@ import cors from 'cors';
 import cookieSession from 'cookie-session';
 import passport from 'passport';
 import { connectToDatabase } from './core/db-connection';
-import { authRoute, userRoute, summaryRoute, transactionRoute, categoryRoute, settingRoute, accountRoute } from './routes';
+import { authRoute, userRoute, summaryRoute, transactionRoute, categoryRoute, settingRoute, accountRoute, transferRoute } from './routes';
 import { createDefaultCollections } from './services';
 import { setResponseHeaders } from './middleware';
 import { CONFIG } from './core/configs';
@@ -41,6 +41,7 @@ app.use('/api/user', userRoute());
 app.use('/api/summary', summaryRoute());
 app.use('/api/categories', categoryRoute());
 app.use('/api/accounts', accountRoute());
+app.use('/api/transfers', transferRoute());
 app.use('/api/transactions', transactionRoute());
 app.use('/api/settings', settingRoute());
 

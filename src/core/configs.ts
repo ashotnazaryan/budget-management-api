@@ -38,6 +38,8 @@ export const CONFIG = {
     editAccount: '/:id',
     deleteAccount: '/:id',
     getAccountById: '/:id',
+    getTransfers: '/',
+    createTransfer: '/transfer',
     getSettings: '/',
     addSetting: '/setting',
     reset: '/:userId/reset',
@@ -52,6 +54,7 @@ export const CONFIG = {
     categories: 'categories',
     accounts: 'accounts',
     transactions: 'transactions',
+    transfers: 'transfers'
   }
 };
 

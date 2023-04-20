@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import { Account, AccountDocument, AccountInput, CategoryType, DefaultAccount, PassportUser, Transaction, TransactionInput } from '../models';
+import { Account, AccountDocument, AccountInput, CategoryType, DefaultAccount, Transaction, TransactionInput } from '../models';
 import { calculateAmountByField, calculateTransactionsAmount, mapAccounts } from '../helpers';
 import { deleteAccountTransactions, updateAccountTransactions, updateSummary } from '../services';
 
 const getAccounts = async (request: Request, response: Response) => {
-  const userId = (request.user as PassportUser)?.userId;
+  const userId = request.user!.userId;
 
   try {
     let accounts = await Account.find({ userId });
@@ -43,7 +43,7 @@ const getAccountById = async (request: Request<{ id: AccountInput['id'] }, {}, A
 };
 
 const createAccount = async (request: Request<{}, {}, AccountInput>, response: Response) => {
-  const userId = (request.user as PassportUser)?.userId;
+  const userId = request.user!.userId;
   const newAccount: AccountInput = {
     ...request.body,
     userId,
@@ -70,7 +70,7 @@ const createAccount = async (request: Request<{}, {}, AccountInput>, response: R
 const editAccount = async (request: Request<{ id: AccountInput['id'] }, {}, AccountInput>, response: Response) => {
   const id = request.params.id;
   let updatedAccount = request.body;
-  const userId = (request.user as PassportUser)?.userId;
+  const userId = request.user!.userId;
 
   try {
     const accounts = await Account.find({ userId });
@@ -104,7 +104,7 @@ const editAccount = async (request: Request<{ id: AccountInput['id'] }, {}, Acco
 
 const deleteAccount = async (request: Request<{ id: AccountInput['id'] }, {}, {}>, response: Response) => {
   const id = request.params.id;
-  const userId = (request.user as PassportUser)?.userId;
+  const userId = request.user!.userId;
 
   try {
     const account = await Account.findById(id);

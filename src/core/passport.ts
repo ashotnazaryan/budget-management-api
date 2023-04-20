@@ -1,6 +1,6 @@
 import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
-import { User, PassportUser } from '../models';
+import { PassportUser, User } from '../models';
 import { GOOGLE_STRATEGY_OPTIONS } from './configs';
 
 passport.use(new GoogleStrategy({
@@ -47,7 +47,7 @@ passport.use(new GoogleStrategy({
 }));
 
 // TODO: fix any type
-passport.serializeUser((user: any, done) => {
+passport.serializeUser((user: PassportUser, done) => {
   done(null, { id: user.id, userId: user.userId, accessToken: user.accessToken, refreshToken: user.refreshToken });
 });
 

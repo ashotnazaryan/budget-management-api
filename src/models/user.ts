@@ -3,6 +3,12 @@ import { CONFIG } from '../core/configs';
 
 const Schema = mongoose.Schema;
 
+declare global {
+  namespace Express {
+    interface User extends PassportUser { }
+  }
+}
+
 interface UserDocument extends Document {
   id: string;
   userId: string;

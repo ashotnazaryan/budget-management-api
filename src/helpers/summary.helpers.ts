@@ -1,13 +1,14 @@
 import { CategoryType, SummaryDocument, SummaryInput, TransactionDocument, TransactionInput } from '../models';
+import { calculateAmountByField } from './common.helpers';
 
 export const mapSummary = (summary: SummaryDocument, userId: string): SummaryInput => {
   return {
     userId,
-    balance: summary?.balance,
-    incomes: summary?.incomes,
-    expenses: summary?.expenses,
-    categoryExpenseTransactions: summary?.categoryExpenseTransactions,
-    categoryIncomeTransactions: summary?.categoryIncomeTransactions
+    balance: summary.balance,
+    incomes: summary.incomes,
+    expenses: summary.expenses,
+    categoryExpenseTransactions: summary.categoryExpenseTransactions,
+    categoryIncomeTransactions: summary.categoryIncomeTransactions
   };
 };
 
@@ -15,20 +16,11 @@ export const mapSummaryBalance = (summary: SummaryDocument, balance: number, use
   return {
     userId,
     balance,
-    incomes: summary?.incomes,
-    expenses: summary?.expenses,
-    categoryExpenseTransactions: summary?.categoryExpenseTransactions,
-    categoryIncomeTransactions: summary?.categoryIncomeTransactions
+    incomes: summary.incomes,
+    expenses: summary.expenses,
+    categoryExpenseTransactions: summary.categoryExpenseTransactions,
+    categoryIncomeTransactions: summary.categoryIncomeTransactions
   };
-};
-
-// TODO: move to common helpers
-export const calculateAmountByField = (arr: any[], field: string): number => {
-  return arr.length
-    ? arr.reduce<number>((acc, curr) => {
-      return acc + curr[field];
-    }, 0)
-    : 0;
 };
 
 export const getTransactionsByCategory = (transactions: TransactionInput[], expenses: number, incomes: number): TransactionInput[] => {
