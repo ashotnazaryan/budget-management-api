@@ -131,6 +131,7 @@ const calculateAccountBalance = async (
   userId?: string,
   oldTransaction?: TransactionInput
 ): Promise<void> => {
+  // TODO: no reason to findById, it is being found in the beginning of the createUpdateTransaction method
   const account = await Account.findById(accountId);
 
   if (account) {
