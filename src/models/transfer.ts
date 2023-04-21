@@ -37,7 +37,7 @@ const transferSchema = new Schema(
       required: true
     },
     amount: {
-      type: Schema.Types.Decimal128,
+      type: Schema.Types.Number,
       required: true
     },
     createdAt: {
