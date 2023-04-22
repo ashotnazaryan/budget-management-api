@@ -1,12 +1,13 @@
 import { Request, Response } from 'express';
 import { CategoryInput, CategoryType, Summary, SummaryInput, Transaction } from '../models';
 import { calculateAccountsTotalBalance } from '../services';
-import { getTransactionsByCategory, mapCategoryTransaction, mapSummaryBalance, mapTransactions } from '../helpers';
+import { getTransactionsByCategory, mapCategoryTransaction, mapSummaryProfit, mapTransactions } from '../helpers';
 import { calculateAmountByField } from '../helpers';
 
 const initialSummary: Omit<SummaryInput, 'userId'> = {
   incomes: 0,
   expenses: 0,
+  profit: 0,
   balance: 0,
   categoryExpenseTransactions: [],
   categoryIncomeTransactions: []
@@ -20,7 +21,7 @@ const getSummary = async (request: Request, response: Response) => {
     const balance = await calculateAccountsTotalBalance(userId);
 
     if (summary) {
-      const mappedSummary = mapSummaryBalance(summary, balance, userId);
+      const mappedSummary = mapSummaryProfit(summary, balance, userId);
 
       return response.status(200).json({ data: mappedSummary });
     }
@@ -56,6 +57,7 @@ const syncSummary = async (userId: string): Promise<SummaryInput> => {
   const incomeTransactions = mapTransactions(allUserTransactions.filter(({ type }) => type === CategoryType.income));
   const expenses = calculateAmountByField(expenseTransactions, 'amount');
   const incomes = calculateAmountByField(incomeTransactions, 'amount');
+  const profit = incomes - expenses;
   const balance = await calculateAccountsTotalBalance(userId);
   const categoryExpenseTransactions = getTransactionsByCategory(expenseTransactions, expenses, incomes);
   const categoryIncomeTransactions = getTransactionsByCategory(incomeTransactions, expenses, incomes);
@@ -64,6 +66,7 @@ const syncSummary = async (userId: string): Promise<SummaryInput> => {
     userId,
     incomes,
     expenses,
+    profit,
     balance,
     categoryExpenseTransactions,
     categoryIncomeTransactions
@@ -77,6 +80,7 @@ const updateSummary = async (userId: string): Promise<void> => {
     $set: {
       incomes: result.incomes,
       expenses: result.expenses,
+      profit: result.profit,
       balance: result.balance,
       categoryExpenseTransactions: result.categoryExpenseTransactions,
       categoryIncomeTransactions: result.categoryIncomeTransactions
