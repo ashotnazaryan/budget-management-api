@@ -46,7 +46,6 @@ passport.use(new GoogleStrategy({
   }
 }));
 
-// TODO: fix any type
 passport.serializeUser((user: PassportUser, done) => {
   done(null, { id: user.id, userId: user.userId, accessToken: user.accessToken, refreshToken: user.refreshToken });
 });

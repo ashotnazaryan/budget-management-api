@@ -5,6 +5,7 @@ import { TransactionInput } from './transaction';
 interface SummaryDocument extends Document {
   incomes: number;
   expenses: number;
+  profit: number;
   balance: number;
   categoryExpenseTransactions: TransactionInput[];
   categoryIncomeTransactions: TransactionInput[];
@@ -15,6 +16,7 @@ interface SummaryInput {
   userId: SummaryDocument['userId'];
   incomes: SummaryDocument['incomes'];
   expenses: SummaryDocument['expenses'];
+  profit: SummaryDocument['profit'];
   balance: SummaryDocument['balance'];
   categoryExpenseTransactions: SummaryDocument['categoryExpenseTransactions'];
   categoryIncomeTransactions: SummaryDocument['categoryIncomeTransactions'];
@@ -31,6 +33,10 @@ const summarysSchema = new Schema(
       required: true
     },
     expenses: {
+      type: Schema.Types.Number,
+      required: true
+    },
+    profit: {
       type: Schema.Types.Number,
       required: true
     },

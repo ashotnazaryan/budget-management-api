@@ -4,6 +4,7 @@ import { calculateAmountByField } from './common.helpers';
 export const mapSummary = (summary: SummaryDocument, userId: string): SummaryInput => {
   return {
     userId,
+    profit: summary.profit,
     balance: summary.balance,
     incomes: summary.incomes,
     expenses: summary.expenses,
@@ -12,10 +13,11 @@ export const mapSummary = (summary: SummaryDocument, userId: string): SummaryInp
   };
 };
 
-export const mapSummaryBalance = (summary: SummaryDocument, balance: number, userId: string): SummaryInput => {
+export const mapSummaryProfit = (summary: SummaryDocument, profit: number, userId: string): SummaryInput => {
   return {
     userId,
-    balance,
+    profit,
+    balance: summary.balance,
     incomes: summary.incomes,
     expenses: summary.expenses,
     categoryExpenseTransactions: summary.categoryExpenseTransactions,
