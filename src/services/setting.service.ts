@@ -5,8 +5,7 @@ const initialSetting: SettingInput = {
   defaultCurrency: 'USD',
   defaultAccount: '',
   language: 'en',
-  showDecimals: false,
-  isDarkTheme: false
+  showDecimals: false
 };
 
 const getSettings = async (request: Request, response: Response) => {

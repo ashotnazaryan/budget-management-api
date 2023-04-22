@@ -10,17 +10,17 @@ interface SettingDocument extends Document {
   userId: string;
   defaultAccount: string;
   showDecimals: boolean;
-  isDarkTheme: boolean;
   defaultCurrency: CurrencyIso;
   language: LanguageIso;
+  isDarkTheme?: boolean;
 };
 
 interface SettingInput {
   defaultAccount: string;
   showDecimals: boolean;
-  isDarkTheme: boolean;
   defaultCurrency: CurrencyIso;
   language: LanguageIso;
+  isDarkTheme?: boolean;
 }
 
 const settingSchema = new Schema(
@@ -42,8 +42,7 @@ const settingSchema = new Schema(
       required: true
     },
     isDarkTheme: {
-      type: Schema.Types.Boolean,
-      required: true
+      type: Schema.Types.Boolean
     },
     defaultAccount: {
       type: Schema.Types.String
