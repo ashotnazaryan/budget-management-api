@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { CategoryInput, CategoryType, Summary, SummaryInput, Transaction } from '../models';
+import { CategoryInput, CategoryType, DateRange, Summary, SummaryDocument, SummaryInput, Transaction } from '../models';
 import { calculateAccountsTotalBalance } from '../services';
-import { getTransactionsByCategory, mapCategoryTransaction, mapSummaryProfit, mapTransactions } from '../helpers';
+import { getTransactionsByCategory, mapCategoryTransaction, mapSummary, mapTransactions } from '../helpers';
 import { calculateAmountByField } from '../helpers';
 
 const initialSummary: Omit<SummaryInput, 'userId'> = {
@@ -13,17 +13,17 @@ const initialSummary: Omit<SummaryInput, 'userId'> = {
   categoryIncomeTransactions: []
 };
 
-const getSummary = async (request: Request, response: Response) => {
+const getSummary = async (request: Request<{}, {}, {}, qs.ParsedQs>, response: Response) => {
   const userId = request.user!.userId;
+  const { fromDate, toDate } = request.query as unknown as DateRange;
+  const from = new Date(fromDate);
+  const to = new Date(toDate);
 
   try {
-    const summary = await Summary.findOne({ userId });
-    const balance = await calculateAccountsTotalBalance(userId);
+    const summary = await calculateSummary(userId, from, to);
 
     if (summary) {
-      const mappedSummary = mapSummaryProfit(summary, balance, userId);
-
-      return response.status(200).json({ data: mappedSummary });
+      return response.status(200).json({ data: summary });
     }
 
     const emptySummary = { ...initialSummary, userId };
@@ -51,8 +51,8 @@ const getBalanceInfo = async (request: Request, response: Response) => {
   }
 };
 
-const syncSummary = async (userId: string): Promise<SummaryInput> => {
-  const allUserTransactions = await Transaction.find({ userId });
+const calculateSummary = async (userId: string, fromDate?: Date, toDate?: Date): Promise<SummaryInput> => {
+  const allUserTransactions = await Transaction.find({ userId, createdAt: { $gte: fromDate, $lte: toDate } });
   const expenseTransactions = mapTransactions(allUserTransactions.filter(({ type }) => type === CategoryType.expense));
   const incomeTransactions = mapTransactions(allUserTransactions.filter(({ type }) => type === CategoryType.income));
   const expenses = calculateAmountByField(expenseTransactions, 'amount');
@@ -74,7 +74,7 @@ const syncSummary = async (userId: string): Promise<SummaryInput> => {
 };
 
 const updateSummary = async (userId: string): Promise<void> => {
-  const result = await syncSummary(userId);
+  const result = await calculateSummary(userId);
 
   await Summary.findOneAndUpdate({ userId }, {
     $set: {
@@ -112,7 +112,7 @@ const updateSummaryCategoryTransactions = async (userId: string, categoryId: Cat
 export {
   getSummary,
   getBalanceInfo,
-  syncSummary,
+  calculateSummary,
   updateSummary,
   updateSummaryCategoryTransactions
 };

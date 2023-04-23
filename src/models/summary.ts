@@ -22,6 +22,11 @@ interface SummaryInput {
   categoryIncomeTransactions: SummaryDocument['categoryIncomeTransactions'];
 };
 
+interface DateRange {
+  fromDate: string;
+  toDate: string;
+}
+
 const summarysSchema = new Schema(
   {
     userId: {
@@ -61,4 +66,4 @@ const summarysSchema = new Schema(
 
 const Summary: Model<SummaryDocument> = mongoose.model<SummaryDocument>(CONFIG.collections.summary, summarysSchema);
 
-export { Summary, SummaryInput, SummaryDocument };
+export { Summary, SummaryInput, SummaryDocument, DateRange };
