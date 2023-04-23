@@ -6,11 +6,20 @@ const Schema = mongoose.Schema;
 type CurrencyIso = 'USD' | 'EUR' | 'PLN' | 'UAH' | 'AMD';
 type LanguageIso = 'en' | 'ru';
 
+export enum Period {
+  day = 'day',
+  week = 'week',
+  month = 'month',
+  year = 'year',
+  allTime = 'allTime'
+}
+
 interface SettingDocument extends Document {
   userId: string;
   defaultAccount: string;
   showDecimals: boolean;
   defaultCurrency: CurrencyIso;
+  defaultPeriod: Period;
   language: LanguageIso;
   isDarkTheme?: boolean;
 };
@@ -19,6 +28,7 @@ interface SettingInput {
   defaultAccount: string;
   showDecimals: boolean;
   defaultCurrency: CurrencyIso;
+  defaultPeriod: Period;
   language: LanguageIso;
   isDarkTheme?: boolean;
 }
@@ -45,6 +55,9 @@ const settingSchema = new Schema(
       type: Schema.Types.Boolean
     },
     defaultAccount: {
+      type: Schema.Types.String
+    },
+    defaultPeriod: {
       type: Schema.Types.String
     },
   },

@@ -1,9 +1,10 @@
 import { Request, Response } from 'express';
-import { Account, Category, Setting, SettingInput, Summary, Transaction, Transfer } from '../models';
+import { Account, Category, Period, Setting, SettingInput, Summary, Transaction, Transfer } from '../models';
 
 const initialSetting: SettingInput = {
   defaultCurrency: 'USD',
   defaultAccount: '',
+  defaultPeriod: Period.month,
   language: 'en',
   showDecimals: false
 };
@@ -29,7 +30,7 @@ const getSettings = async (request: Request, response: Response) => {
 
 const addSetting = async (request: Request<{}, {}, SettingInput>, response: Response) => {
   const userId = request.user!.userId;
-  const { defaultCurrency, defaultAccount, showDecimals, isDarkTheme, language } = request.body;
+  const { defaultCurrency, defaultAccount, defaultPeriod, showDecimals, isDarkTheme, language } = request.body;
 
   try {
     const setting = await Setting.findOne({ userId });
@@ -39,6 +40,7 @@ const addSetting = async (request: Request<{}, {}, SettingInput>, response: Resp
         $set: {
           defaultCurrency,
           defaultAccount,
+          defaultPeriod,
           showDecimals,
           isDarkTheme,
           language
