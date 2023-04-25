@@ -91,26 +91,33 @@ const deleteTransaction = async (request: Request<{ id: TransactionInput['id'] }
 const createUpdateTransaction = async (payload: TransactionInput, id?: TransactionInput['id']) => {
   const { userId, accountId, amount, type } = payload;
 
-  const account = await Account.findById(payload.accountId);
-  const extendedTransaction = {
-    ...payload,
-    accountName: account?.name,
-    accountIcon: account?.icon,
-    accountNameKey: account?.nameKey,
-    currencyIso: account?.currencyIso
-  } as TransactionDocument;
-  const mappedTransaction = mapTransaction(extendedTransaction);
+  try {
+    const account = await Account.findById(accountId);
 
-  if (!id) {
-    await Transaction.create(mappedTransaction);
-    await calculateAccountBalance(accountId, amount, type, 'create');
-  } else {
-    const oldTransaction = mapTransaction(await Transaction.findById(id) as TransactionDocument);
-    await Transaction.findByIdAndUpdate(id, mappedTransaction);
-    await calculateAccountBalance(accountId, amount, type, 'edit', userId, oldTransaction);
+    if (account) {
+      const extendedTransaction = {
+        ...payload,
+        accountName: account?.name,
+        accountIcon: account?.icon,
+        accountNameKey: account?.nameKey,
+        currencyIso: account?.currencyIso
+      } as TransactionDocument;
+      const mappedTransaction = mapTransaction(extendedTransaction);
+
+      if (!id) {
+        await Transaction.create(mappedTransaction);
+        await calculateAccountBalance(account, amount, type, 'create');
+      } else {
+        const oldTransaction = mapTransaction(await Transaction.findById(id) as TransactionDocument);
+        await Transaction.findByIdAndUpdate(id, mappedTransaction);
+        await calculateAccountBalance(account, amount, type, 'edit', userId, oldTransaction);
+      }
+    }
+
+    await updateSummary(userId);
+  } catch (error) {
+    throw error;
   }
-
-  await updateSummary(userId);
 };
 
 const updateCategoryTransactions = async (userId: string, categoryId: CategoryInput['id'], category: CategoryInput): Promise<void> => {

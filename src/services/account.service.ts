@@ -124,18 +124,16 @@ const deleteAccount = async (request: Request<{ id: AccountInput['id'] }, {}, {}
 };
 
 const calculateAccountBalance = async (
-  accountId: AccountInput['id'],
+  account: AccountDocument,
   amount: number,
   type: CategoryType,
   mode: 'create' | 'edit',
   userId?: string,
   oldTransaction?: TransactionInput
 ): Promise<void> => {
-  // TODO: no reason to findById, it is being found in the beginning of the createUpdateTransaction method
-  const account = await Account.findById(accountId);
-
   if (account) {
     let balance = account.balance;
+    const accountId = account.id;
 
     if (mode === 'create') {
       balance = type === CategoryType.expense ? account.balance - amount : account.balance + amount;

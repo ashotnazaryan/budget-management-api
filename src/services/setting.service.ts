@@ -6,7 +6,7 @@ const initialSetting: SettingInput = {
   defaultAccount: '',
   defaultPeriod: Period.month,
   language: 'en',
-  showDecimals: false
+  showDecimals: true
 };
 
 const getSettings = async (request: Request, response: Response) => {
