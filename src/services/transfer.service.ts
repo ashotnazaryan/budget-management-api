@@ -1,9 +1,10 @@
 import { Request, Response } from 'express';
 import { Account, Transfer, TransferInput } from '../models';
-import { mapTransfers } from '../helpers/transfer.helpers';
+import { mapTransfer, mapTransfers } from '../helpers';
 
 const getTransfers = async (request: Request, response: Response) => {
   const userId = request.user!.userId;
+
   try {
     const transfers = await Transfer.find({ userId }).sort({ createdAt: -1 });
 
@@ -15,12 +16,13 @@ const getTransfers = async (request: Request, response: Response) => {
 
 const getTransferById = async (request: Request<{ id: TransferInput['id'] }, {}, TransferInput>, response: Response) => {
   const id = request.params.id;
+  const userId = request.user!.userId;
 
   try {
     const transfer = await Transfer.findById(id);
 
     if (transfer) {
-      return response.status(200).json({ data: transfer });
+      return response.status(200).json({ data: mapTransfer(transfer, userId) });
     }
 
     return response.status(404).json({ error: { message: 'Transfer not found', status: 404 } });
@@ -54,8 +56,7 @@ const createTransfer = async (request: Request<{}, {}, TransferInput>, response:
 
 const editTransfer = async (request: Request<{ id: TransferInput['id'] }, {}, TransferInput>, response: Response) => {
   const id = request.params.id;
-  const userId = request.user!.userId;
-  const { fromAccount, toAccount, amount, createdAt } = request.body;
+  const { fromAccount, toAccount, amount } = request.body;
 
   if (fromAccount === toAccount) {
     return response.status(409).json({ error: { message: 'You cannot transfer between same accounts.', messageKey: 'TRANSFERS.ERRORS.SAME_ACCOUNT', status: 409 } });
@@ -63,12 +64,23 @@ const editTransfer = async (request: Request<{ id: TransferInput['id'] }, {}, Tr
 
   try {
     const oldTransfer = await Transfer.findById(id);
+    let oldTransferAmount = oldTransfer!.amount;
     const fromAccountDocument = await Account.findById(fromAccount);
     const toAccountDocument = await Account.findById(toAccount);
-    const diffAmount = oldTransfer!.amount - amount;
+
+    const fromAccountBalance = oldTransfer!.fromAccount === fromAccount
+      ? fromAccountDocument!.balance + oldTransferAmount - amount
+      : toAccountDocument!.balance + oldTransferAmount - amount;
+
+    const toAccountBalance = oldTransfer!.toAccount === toAccount
+      ? toAccountDocument!.balance - oldTransferAmount + amount
+      : fromAccountDocument!.balance - oldTransferAmount + amount;
+
+    // TODO: fix when multiple transfers per from/to account
+
     await Transfer.findByIdAndUpdate(id, request.body);
-    await Account.findByIdAndUpdate(fromAccount, { balance: fromAccountDocument!.balance + diffAmount });
-    await Account.findByIdAndUpdate(toAccount, { balance: toAccountDocument!.balance - diffAmount });
+    await Account.findByIdAndUpdate(fromAccount, { balance: fromAccountBalance });
+    await Account.findByIdAndUpdate(toAccount, { balance: toAccountBalance });
 
     return response.status(200).json({ data: null });
   } catch {
