@@ -5,7 +5,7 @@ const initialSetting: SettingInput = {
   defaultCurrency: 'USD',
   defaultAccount: '',
   defaultPeriod: Period.month,
-  language: 'en',
+  locale: 'en',
   showDecimals: true
 };
 
@@ -30,7 +30,7 @@ const getSettings = async (request: Request, response: Response) => {
 
 const addSetting = async (request: Request<{}, {}, SettingInput>, response: Response) => {
   const userId = request.user!.userId;
-  const { defaultCurrency, defaultAccount, defaultPeriod, showDecimals, isDarkTheme, language } = request.body;
+  const { defaultCurrency, defaultAccount, defaultPeriod, showDecimals, isDarkTheme, locale } = request.body;
 
   try {
     const setting = await Setting.findOne({ userId });
@@ -43,7 +43,7 @@ const addSetting = async (request: Request<{}, {}, SettingInput>, response: Resp
           defaultPeriod,
           showDecimals,
           isDarkTheme,
-          language
+          locale
         }
       });
 

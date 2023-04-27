@@ -4,7 +4,7 @@ import { CONFIG } from '../core/configs';
 const Schema = mongoose.Schema;
 
 type CurrencyIso = 'USD' | 'EUR' | 'PLN' | 'UAH' | 'AMD';
-type LanguageIso = 'en' | 'ru';
+type LocaleIso = 'en' | 'ru';
 
 export enum Period {
   day = 'day',
@@ -20,7 +20,7 @@ interface SettingDocument extends Document {
   showDecimals: boolean;
   defaultCurrency: CurrencyIso;
   defaultPeriod: Period;
-  language: LanguageIso;
+  locale: LocaleIso;
   isDarkTheme?: boolean;
 };
 
@@ -29,7 +29,7 @@ interface SettingInput {
   showDecimals: boolean;
   defaultCurrency: CurrencyIso;
   defaultPeriod: Period;
-  language: LanguageIso;
+  locale: LocaleIso;
   isDarkTheme?: boolean;
 }
 
@@ -43,7 +43,7 @@ const settingSchema = new Schema(
       type: Schema.Types.String,
       required: true
     },
-    language: {
+    locale: {
       type: Schema.Types.String,
       required: true
     },
