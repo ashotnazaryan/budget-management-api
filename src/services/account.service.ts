@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { Account, AccountDocument, AccountInput, CategoryType, DefaultAccount, Transaction, TransactionInput } from '../models';
-import { calculateAmountByField, calculateTransactionsAmount, mapAccounts } from '../helpers';
+import { Account, AccountDocument, AccountInput, CategoryType, DefaultAccount, Setting, Transaction, TransactionInput } from '../models';
+import { calculateAmountByField, calculateTransactionsAmount, mapAccount, mapAccounts } from '../helpers';
 import { deleteAccountTransactions, updateAccountTransactions, updateSummary } from '../services';
 
 const getAccounts = async (request: Request, response: Response) => {
@@ -28,12 +28,13 @@ const getAccounts = async (request: Request, response: Response) => {
 
 const getAccountById = async (request: Request<{ id: AccountInput['id'] }, {}, AccountInput>, response: Response) => {
   const id = request.params.id;
+  const userId = request.user!.userId;
 
   try {
     const account = await Account.findById(id);
 
     if (account) {
-      return response.status(200).json({ data: account });
+      return response.status(200).json({ data: mapAccount(account, userId) });
     }
 
     return response.status(404).json({ error: { message: 'Account not found', status: 404 } });
@@ -108,6 +109,11 @@ const deleteAccount = async (request: Request<{ id: AccountInput['id'] }, {}, {}
 
   try {
     const account = await Account.findById(id);
+    const userSetting = await Setting.findOne({ userId });
+
+    if (userSetting?.defaultAccount === id) {
+      return response.status(403).json({ error: { message: 'You cannot delete the default account', messageKey: 'ACCOUNTS.ERRORS.DELETE_DEFAULT_ACCOUNT', status: 403 } });
+    }
 
     if (account) {
       await Account.findByIdAndDelete(id);

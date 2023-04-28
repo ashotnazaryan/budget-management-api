@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { Account, Category, CategoryInput, DefaultCategory } from '../models';
-import { mapCategories } from '../helpers';
+import { mapCategories, mapCategory } from '../helpers';
 import { deleteCategoryTransactions, updateAccountBalance, updateCategoryTransactions, updateSummary } from '../services';
 
 const getCategories = async (request: Request, response: Response) => {
@@ -28,12 +28,13 @@ const getCategories = async (request: Request, response: Response) => {
 
 const getCategoryById = async (request: Request<{ id: CategoryInput['id'] }, {}, CategoryInput>, response: Response) => {
   const id = request.params.id;
+  const userId = request.user!.userId;
 
   try {
     const category = await Category.findById(id);
 
     if (category) {
-      return response.status(200).json({ data: category });
+      return response.status(200).json({ data: mapCategory(category, userId) });
     }
 
     return response.status(404).json({ error: { message: 'Category not found', status: 404 } });
