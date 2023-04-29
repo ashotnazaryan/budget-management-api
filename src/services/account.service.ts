@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { Account, AccountDocument, AccountInput, CategoryType, DefaultAccount, Setting, Transaction, TransactionInput } from '../models';
 import { calculateAmountByField, calculateTransactionsAmount, mapAccount, mapAccounts } from '../helpers';
-import { deleteAccountTransactions, updateAccountTransactions, updateSummary } from '../services';
+import { deleteAccountTransactions, deleteAccountTransfers, updateAccountTransactions, updateSummary } from '../services';
 
 const getAccounts = async (request: Request, response: Response) => {
   const userId = request.user!.userId;
@@ -118,6 +118,7 @@ const deleteAccount = async (request: Request<{ id: AccountInput['id'] }, {}, {}
     if (account) {
       await Account.findByIdAndDelete(id);
       await deleteAccountTransactions(userId, id);
+      await deleteAccountTransfers(userId, id);
       await updateSummary(userId);
 
       return response.status(204).json({ data: null });
