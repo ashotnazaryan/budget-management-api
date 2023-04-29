@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Account, Transfer, TransferInput } from '../models';
+import { Account, AccountInput, Transfer, TransferInput } from '../models';
 import { mapTransfer, mapTransfers } from '../helpers';
 
 const getTransfers = async (request: Request, response: Response) => {
@@ -111,4 +111,13 @@ const deleteTransfer = async (request: Request<{ id: TransferInput['id'] }, {}, 
   }
 };
 
-export { getTransfers, createTransfer, getTransferById, editTransfer, deleteTransfer };
+const deleteAccountTransfers = async (userId: string, accountId: AccountInput['id']): Promise<void> => {
+  await Transfer.deleteMany({
+    userId, $or: [
+      { fromAccount: { $in: accountId } },
+      { toAccount: { $in: accountId } }
+    ]
+  });
+};
+
+export { getTransfers, createTransfer, getTransferById, editTransfer, deleteTransfer, deleteAccountTransfers };
