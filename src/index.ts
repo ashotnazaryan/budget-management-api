@@ -12,7 +12,7 @@ import './core/passport';
 
 const app = express();
 const corsOptions = {
-  origin: [CONFIG.domain, 'http://localhost:3001', 'https://budget-management.up.railway.app'],
+  origin: ['http://localhost:3000'],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true
 };
