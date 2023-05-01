@@ -1,4 +1,5 @@
 import express from 'express';
+import path from 'path';
 import cors from 'cors';
 import cookieSession from 'cookie-session';
 import passport from 'passport';
@@ -16,9 +17,15 @@ const corsOptions = {
   credentials: true
 };
 
-app.set('trust proxy', true);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.use(express.static(path.join(__dirname, '../public')));
+
+app.get(/^\/(?!api).*/, (req, res) => {
+  res.setHeader('Content-Type', 'text/html');
+  res.sendFile(path.join(__dirname, '../public', 'index.html'));
+});
 
 app.use(
   cookieSession({
@@ -36,6 +43,7 @@ app.use(passport.session());
 
 app.use(cors(corsOptions));
 app.use(setResponseHeaders);
+
 app.use('/api/auth', authRoute());
 app.use('/api/user', userRoute());
 app.use('/api/summary', summaryRoute());
@@ -45,12 +53,7 @@ app.use('/api/transfers', transferRoute());
 app.use('/api/transactions', transactionRoute());
 app.use('/api/settings', settingRoute());
 
-app.get('/', (req, res) => {
-  return res.json({ message: 'Hello World!' });
-});
-
 app.listen(CONFIG.port, async () => {
   await connectToDatabase();
   await createDefaultCollections();
-  console.log(`⚡️[server]: Server is running at http://localhost:${CONFIG.port}`);
 });
