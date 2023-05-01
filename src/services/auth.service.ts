@@ -65,7 +65,7 @@ const googleCallback = (request: Request, response: Response, next: NextFunction
         return next(error);
       }
 
-      response.redirect(CONFIG.clientUrl);
+      response.redirect('/');
     });
   })(request, response, next);
 };

@@ -8,7 +8,7 @@ export const CONFIG = {
   env: process.env.NODE_ENV,
   googleClientID: process.env.GOOGLE_OUATH_CLIENT_ID || '',
   googleClientSecret: process.env.GOOGLE_OUATH_CLIENT_SECRET || '',
-  clientUrl: process.env.CLIENT_URL || 'http://localhost:3000',
+  clientUrl: process.env.CLIENT_URL || 'http://localhost:3000', // TODO: remove
   cookieSessionSecretName: process.env.COOKIE_SECRET_NAME || '',
   cookieSessionSecretKey: process.env.COOKIE_SECRET_KEY || 'key',
   mongoUser: process.env.MONGO_ATLAS_CLUSTER_USERNAME || '',
