@@ -1,0 +1,159 @@
+{
+  "PRODUCT_NAME": "Zarządzanie budżetem",
+  "COMMON": {
+    "YES": "Tak",
+    "NO": "Nie",
+    "CANCEL": "Anuluj",
+    "SAVE": "Zapisz",
+    "DELETE": "Usuń",
+    "EXPENSE": "Wydatek",
+    "INCOME": "Przychód",
+    "BACK": "Wstecz",
+    "AMOUNT": "Kwota",
+    "ACCOUNT": "Konto",
+    "CATEGORY": "Kategoria",
+    "DATE": "Data",
+    "NAME": "Nazwa",
+    "BALANCE": "Saldo",
+    "CURRENCY": "Waluta",
+    "ICON": "Ikona",
+    "TYPE": "Typ",
+    "NOTE": "Notatka",
+    "FROM": "Od",
+    "TO": "Do",
+    "DAY": "Dzień",
+    "WEEK": "Tydzień",
+    "MONTH": "Miesiąc",
+    "YEAR": "Rok",
+    "ALL_TIME": "Cały czas"
+  },
+  "CURRENCIES": {
+    "USD": "Dolar amerykański",
+    "EUR": "Euro",
+    "PLN": "Złoty polski",
+    "UAH": "Hrywna ukraińska",
+    "AMD": "Dram armeński"
+  },
+  "SIDEBAR": {
+    "LOGOUT": "Wyloguj",
+    "LOGOUT_DIALOG_TITLE": "Wyloguj",
+    "LOGOUT_DIALOG_CONFIRM": "Czy na pewno chcesz się wylogować?"
+  },
+  "ROUTES": {
+    "LOGIN": "Logowanie",
+    "HOME": "Strona główna",
+    "DASHBOARD": "Panel",
+    "SETTINGS": "Ustawienia",
+    "CATEGORIES": "Kategorie",
+    "ACCOUNTS": "Konta",
+    "TRANSFERS": "Przelewy",
+    "TRANSACTIONS": "Transakcje"
+  },
+  "LOGIN": {
+    "TITLE": "Zaloguj się",
+    "BUTTON_PREFIX": "Kontynuuj z"
+  },
+  "DASHBOARD": {
+    "SUMMARY": "Podsumowanie",
+    "TOTAL_INCOME": "Całkowity przychód",
+    "TOTAL_EXPENSES": "Całkowite wydatki",
+    "PROFIT": "Zysk"
+  },
+  "SETTINGS": {
+    "PAGE_TITLE": "Ustawienia",
+    "DEFAULT_CURRENCY": "Domyślna waluta",
+    "DEFAULT_ACCOUNT": "Domyślne konto",
+    "DEFAULT_PERIOD": "Domyślny okres",
+    "LANGUAGE": "Język",
+    "SHOW_DECIMALS": "Pokaż miejsca dziesiętne (np. 1.23)",
+    "DARK_THEME": "Ciemny motyw",
+    "RESET": "Resetuj",
+    "RESET_DIALOG_CONFIRM": "Czy na pewno chcesz usunąć wszystkie dane? Tej operacji nie można cofnąć.",
+    "RESET_DIALOG_TITLE": "Usuń wszystkie dane"
+  },
+  "ACCOUNTS": {
+    "PAGE_TITLE": "Konta",
+    "NEW_ACCOUNT": "Nowe konto",
+    "EDIT_ACCOUNT": "Edytuj konto",
+    "VIEW_ACCOUNT": "Zobacz konto",
+    "EMPTY_TEXT": "Brak dostępnych kont",
+    "EMPTY_TEXT_RENDER_CONTENT": "Nie znaleziono konta",
+    "FROM_ACCOUNT": "Z konta",
+    "TO_ACCOUNT": "Na konto",
+    "ITEMS": {
+      "WALLET": "Portfel"
+    },
+    "ERRORS": {
+      "REQUIRED_BALANCE": "Wymagany stan konta",
+      "INVALID_BALANCE": "Nieprawidłowy stan konta",
+      "REQUIRED_NAME": "Wymagana nazwa",
+      "REQUIRED_ICON": "Wymagana ikona",
+      "REQUIRED_CURRENCY": "Wymagana waluta",
+      "ACCOUNT_EXISTS": "Konto już istnieje",
+      "DELETE_DEFAULT_ACCOUNT": "Nie możesz usunąć domyślnego konta."
+    },
+    "DELETE_DIALOG_TITLE": "Usuń konto",
+    "DELETE_DIALOG_CONFIRM": "Czy na pewno chcesz usunąć to konto? Spowoduje to usunięcie wszystkich transakcji dokonanych na tym koncie.",
+    "DELETE_SUCCESS": "Konto zostało pomyślnie usunięte."
+  },
+  "CATEGORIES": {
+    "PAGE_TITLE": "Kategorie",
+    "NEW_CATEGORY": "Nowa kategoria",
+    "EDIT_CATEGORY": "Edytuj kategorię",
+    "VIEW_CATEGORY": "Zobacz kategorię",
+    "EMPTY_TEXT": "Brak dostępnych kategorii",
+    "EMPTY_TEXT_RENDER_CONTENT": "Nie znaleziono kategorii",
+    "ITEMS": {
+      "RENT": "Czynsz",
+      "GROCERIES": "Artykuły spożywcze",
+      "MEDIA": "Media",
+      "TRANSPORTATION": "Transport",
+      "OTHER_EXPENSE": "Inne",
+      "SALARY": "Wynagrodzenie",
+      "OTHER_INCOME": "Inne"
+    },
+    "ERRORS": {
+      "REQUIRED_NAME": "Wymagana nazwa",
+      "REQUIRED_ICON": "Wymagana ikona",
+      "REQUIRED_TYPE": "Wymagany typ",
+      "CATEGORY_EXISTS": "Kategoria już istnieje"
+    },
+    "DELETE_DIALOG_TITLE": "Usuń kategorię",
+    "DELETE_DIALOG_CONFIRM": "Czy na pewno chcesz usunąć tę kategorię? Spowoduje to usunięcie wszystkich transakcji dokonanych w tej kategorii."
+  },
+  "TRANSACTIONS": {
+    "PAGE_TITLE": "Transakcje",
+    "NEW_TRANSACTION": "Nowa transakcja",
+    "EDIT_TRANSACTION": "Edytuj transakcję",
+    "EMPTY_TEXT": "Brak dostępnych transakcji",
+    "EMPTY_TEXT_RENDER_CONTENT": "Nie znaleziono transakcji",
+    "ERRORS": {
+    "REQUIRED_AMOUNT": "Wymagana kwota",
+    "INVALID_AMOUNT": "Nieprawidłowa kwota",
+    "REQUIRED_CATEGORY": "Wymagana kategoria",
+    "REQUIRED_ACCOUNT": "Wymagane konto",
+    "REQUIRED_TYPE": "Wymagany typ",
+    "FUTURE_DATE": "Wybrana data nie może być w przyszłości."
+    },
+    "DELETE_DIALOG_TITLE": "Usuń transakcję",
+    "DELETE_DIALOG_CONFIRM": "Czy na pewno chcesz usunąć tę transakcję?"
+    },
+    "PRZELEWY": {
+    "PAGE_TITLE": "Przelewy",
+    "NEW_TRANSFER": "Nowy przelew",
+    "EDIT_TRANSFER": "Edytuj przelew",
+    "VIEW_TRANSFER": "Wyświetl przelew",
+    "TRANSFER_HISTORY": "Historia przelewów",
+    "EMPTY_TEXT": "Brak dostępnych przelewów",
+    "EMPTY_TEXT_RENDER_CONTENT": "Nie znaleziono przelewu",
+    "ERRORS": {
+    "REQUIRED_FROM_ACCOUNT": "Wymagane konto źródłowe",
+    "REQUIRED_TO_ACCOUNT": "Wymagane konto docelowe",
+    "REQUIRED_AMOUNT": "Wymagana kwota",
+    "INVALID_AMOUNT": "Nieprawidłowa kwota",
+    "SAME_ACCOUNT": "Nie można przelać między tymi samymi kontami."
+    },
+    "DELETE_DIALOG_TITLE": "Usuń przelew",
+    "DELETE_DIALOG_CONFIRM": "Czy na pewno chcesz usunąć ten przelew? Salda kont zostaną przeliczone."
+    }
+}
