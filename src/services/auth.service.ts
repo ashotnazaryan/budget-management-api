@@ -57,15 +57,17 @@ const googleCallback = (request: Request, response: Response, next: NextFunction
     if (error) {
       return next(error);
     }
+
     if (!user) {
       response.status(401).redirect(`/api/auth${CONFIG.routes.loginFailed}`);
     }
+
     request.logIn(user, (error) => {
       if (error) {
         return next(error);
       }
 
-      response.redirect(CONFIG.clientUrl);
+      response.redirect('/');
     });
   })(request, response, next);
 };
