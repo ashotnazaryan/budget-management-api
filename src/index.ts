@@ -34,6 +34,7 @@ app.use(
     secure: CONFIG.env === 'production',
     httpOnly: true,
     sameSite: CONFIG.env === 'production' ? 'none' : 'lax',
+    domain: 'https://budget-management-production.up.railway.app',
     path: '/'
   })
 );
