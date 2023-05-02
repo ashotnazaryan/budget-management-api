@@ -12,7 +12,7 @@ import './core/passport';
 
 const app = express();
 const corsOptions = {
-  origin: ['http://localhost:3000'],
+  origin: [CONFIG.clientURL],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true
 };
