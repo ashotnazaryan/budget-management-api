@@ -62,7 +62,7 @@ export const CONFIG = {
 };
 
 export const GOOGLE_STRATEGY_OPTIONS: GoogleStrategyOptions = {
-  callbackURL: `${CONFIG.clientURL}/api/auth${CONFIG.routes.googleCallback}`,
+  callbackURL: `/api/auth${CONFIG.routes.googleCallback}`,
   scope: ['profile'],
   clientID: CONFIG.googleClientID,
   clientSecret: CONFIG.googleClientSecret,
