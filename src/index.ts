@@ -23,7 +23,6 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '../public')));
 
 app.get(/^\/(?!api).*/, (req, res) => {
-  res.setHeader('Content-Type', 'text/html');
   res.sendFile(path.join(__dirname, '../public', 'index.html'));
 });
 
