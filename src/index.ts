@@ -31,7 +31,7 @@ app.use(
     keys: [CONFIG.cookieSessionSecretKey],
     maxAge: 24 * 60 * 60 * 100,
     secure: CONFIG.env === 'production',
-    httpOnly: true,
+    httpOnly: false,
     sameSite: 'strict'
   })
 );
