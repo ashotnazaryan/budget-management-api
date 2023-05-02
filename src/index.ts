@@ -32,7 +32,7 @@ app.use(
     keys: [CONFIG.cookieSessionSecretKey],
     maxAge: 24 * 60 * 60 * 1000, // 1 day
     sameSite: 'lax',
-    secure: process.env.NODE_ENV === 'production'
+    secure: CONFIG.env === 'production'
   })
 );
 
