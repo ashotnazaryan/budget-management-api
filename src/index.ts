@@ -1,6 +1,6 @@
 import express from 'express';
-import path from 'path';
 import cors from 'cors';
+import path from 'path';
 import cookieSession from 'cookie-session';
 import passport from 'passport';
 import { connectToDatabase } from './core/db-connection';
@@ -20,6 +20,12 @@ const corsOptions = {
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.use(express.static(path.join(__dirname, '../client')));
+
+app.get(/^\/(?!api).*/, (req, res) => {
+  res.sendFile(path.join(__dirname, '../client', 'index.html'));
+});
+
 app.use(
   cookieSession({
     name: CONFIG.cookieSessionSecretName,
@@ -27,7 +33,7 @@ app.use(
     maxAge: 24 * 60 * 60 * 100,
     secure: CONFIG.env === 'production',
     httpOnly: true,
-    sameSite: CONFIG.env === 'production' ? 'none' : 'lax'
+    sameSite: 'lax'
   })
 );
 
