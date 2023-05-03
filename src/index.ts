@@ -17,10 +17,8 @@ const corsOptions = {
   credentials: true
 };
 
-app.use(setResponseHeaders);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
 app.use(express.static(path.join(__dirname, '../client')));
 
 app.get(/^\/(?!api).*/, (req, res) => {
@@ -40,8 +38,8 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-
 app.use(cors(corsOptions));
+app.use(setResponseHeaders);
 
 app.use('/api/auth', authRoute());
 app.use('/api/user', userRoute());
