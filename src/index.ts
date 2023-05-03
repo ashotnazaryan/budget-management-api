@@ -25,14 +25,15 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.get(/^\/(?!api).*/, (req, res) => {
   res.sendFile(path.join(__dirname, '../public', 'index.html'));
 });
+
 app.use(
   cookieSession({
     name: CONFIG.cookieSessionSecretName,
     keys: [CONFIG.cookieSessionSecretKey],
     maxAge: 24 * 60 * 60 * 100,
     secure: CONFIG.env === 'production',
-    httpOnly: false,
-    sameSite: 'strict'
+    httpOnly: true,
+    sameSite: CONFIG.env === 'production' ? 'none' : 'lax'
   })
 );
 
