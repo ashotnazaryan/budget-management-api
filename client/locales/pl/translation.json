@@ -128,17 +128,17 @@
     "EMPTY_TEXT": "Brak dostępnych transakcji",
     "EMPTY_TEXT_RENDER_CONTENT": "Nie znaleziono transakcji",
     "ERRORS": {
-    "REQUIRED_AMOUNT": "Wymagana kwota",
-    "INVALID_AMOUNT": "Nieprawidłowa kwota",
-    "REQUIRED_CATEGORY": "Wymagana kategoria",
-    "REQUIRED_ACCOUNT": "Wymagane konto",
-    "REQUIRED_TYPE": "Wymagany typ",
-    "FUTURE_DATE": "Wybrana data nie może być w przyszłości."
+      "REQUIRED_AMOUNT": "Wymagana kwota",
+      "INVALID_AMOUNT": "Nieprawidłowa kwota",
+      "REQUIRED_CATEGORY": "Wymagana kategoria",
+      "REQUIRED_ACCOUNT": "Wymagane konto",
+      "REQUIRED_TYPE": "Wymagany typ",
+      "FUTURE_DATE": "Wybrana data nie może być w przyszłości."
     },
     "DELETE_DIALOG_TITLE": "Usuń transakcję",
     "DELETE_DIALOG_CONFIRM": "Czy na pewno chcesz usunąć tę transakcję?"
-    },
-    "PRZELEWY": {
+  },
+  "TRANSFERS": {
     "PAGE_TITLE": "Przelewy",
     "NEW_TRANSFER": "Nowy przelew",
     "EDIT_TRANSFER": "Edytuj przelew",
@@ -147,13 +147,13 @@
     "EMPTY_TEXT": "Brak dostępnych przelewów",
     "EMPTY_TEXT_RENDER_CONTENT": "Nie znaleziono przelewu",
     "ERRORS": {
-    "REQUIRED_FROM_ACCOUNT": "Wymagane konto źródłowe",
-    "REQUIRED_TO_ACCOUNT": "Wymagane konto docelowe",
-    "REQUIRED_AMOUNT": "Wymagana kwota",
-    "INVALID_AMOUNT": "Nieprawidłowa kwota",
-    "SAME_ACCOUNT": "Nie można przelać między tymi samymi kontami."
+      "REQUIRED_FROM_ACCOUNT": "Wymagane konto źródłowe",
+      "REQUIRED_TO_ACCOUNT": "Wymagane konto docelowe",
+      "REQUIRED_AMOUNT": "Wymagana kwota",
+      "INVALID_AMOUNT": "Nieprawidłowa kwota",
+      "SAME_ACCOUNT": "Nie można przelać między tymi samymi kontami."
     },
     "DELETE_DIALOG_TITLE": "Usuń przelew",
     "DELETE_DIALOG_CONFIRM": "Czy na pewno chcesz usunąć ten przelew? Salda kont zostaną przeliczone."
-    }
+  }
 }
