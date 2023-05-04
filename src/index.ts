@@ -17,6 +17,7 @@ const corsOptions = {
   credentials: true
 };
 
+app.set('trust proxy', true);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../client')));
@@ -29,13 +30,12 @@ app.use(session({
   secret: CONFIG.cookieSessionSecretName,
   resave: true,
   saveUninitialized: false,
-  proxy: true,
   cookie: {
     maxAge: 24 * 60 * 60 * 100,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
     httpOnly: true,
-    domain: process.env.NODE_ENV === 'production' ? CONFIG.clientURL : undefined,
+    domain: process.env.NODE_ENV === 'production' ? '.up.railway.app' : 'localhost',
   }
 }));
 
