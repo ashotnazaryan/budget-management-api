@@ -32,7 +32,8 @@ app.use(
     maxAge: 24 * 60 * 60 * 100,
     secure: CONFIG.env === 'production',
     httpOnly: true,
-    sameSite: 'lax'
+    sameSite: 'lax',
+    domain: CONFIG.env === 'production' ? CONFIG.clientURL : undefined
   })
 );
 
