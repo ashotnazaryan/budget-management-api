@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import path from 'path';
 import cookieSession from 'cookie-session';
+import session from 'express-session';
 import passport from 'passport';
 import { connectToDatabase } from './core/db-connection';
 import { authRoute, userRoute, summaryRoute, transactionRoute, categoryRoute, settingRoute, accountRoute, transferRoute } from './routes';
@@ -26,14 +27,17 @@ app.get(/^\/(?!api).*/, (req, res) => {
 });
 
 app.use(
-  cookieSession({
-    name: CONFIG.cookieSessionSecretName,
-    keys: [CONFIG.cookieSessionSecretKey],
-    maxAge: 24 * 60 * 60 * 100,
-    secure: CONFIG.env === 'production',
-    httpOnly: true,
-    sameSite: 'lax',
-    domain: CONFIG.env === 'production' ? 'budget-management.up.railway.app' : undefined
+  session({
+    secret: CONFIG.cookieSessionSecretName,
+    resave: true,
+    saveUninitialized: false,  
+    cookie: {
+      maxAge: 24 * 60 * 60 * 100,
+      secure: CONFIG.env === 'production',
+      httpOnly: true,
+      sameSite: 'lax',
+      domain: CONFIG.env === 'production' ? 'budget-management.up.railway.app' : undefined
+    }
   })
 );
 
