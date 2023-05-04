@@ -1,0 +1,159 @@
+{
+  "PRODUCT_NAME": "Управление Бюджетом",
+  "COMMON": {
+    "YES": "Да",
+    "NO": "Нет",
+    "CANCEL": "Отмена",
+    "SAVE": "Сохранить",
+    "DELETE": "Удалить",
+    "EXPENSE": "Расход",
+    "INCOME": "Доход",
+    "BACK": "Назад",
+    "AMOUNT": "Сумма",
+    "ACCOUNT": "Счет",
+    "CATEGORY": "Категория",
+    "DATE": "Дата",
+    "NAME": "Название",
+    "BALANCE": "Баланс",
+    "CURRENCY": "Валюта",
+    "ICON": "Иконка",
+    "TYPE": "Тип",
+    "NOTE": "Заметка",
+    "FROM": "С",
+    "TO": "К",
+    "DAY": "День",
+    "WEEK": "Неделя",
+    "MONTH": "Месяц",
+    "YEAR": "Год",
+    "ALL_TIME": "Все время"
+  },
+  "CURRENCIES": {
+    "USD": "Доллар США",
+    "EUR": "Евро",
+    "PLN": "Польский злотый",
+    "UAH": "Украинская гривна",
+    "AMD": "Армянский драм"
+  },
+  "SIDEBAR": {
+    "LOGOUT": "Выход",
+    "LOGOUT_DIALOG_TITLE": "Выход",
+    "LOGOUT_DIALOG_CONFIRM": "Вы точно хотите выйти?"
+  },
+  "ROUTES": {
+    "LOGIN": "Вход",
+    "HOME": "Дом",
+    "DASHBOARD": "Панель",
+    "SETTINGS": "Настройки",
+    "CATEGORIES": "Категории",
+    "ACCOUNTS": "Счета",
+    "TRANSFERS": "Трансферы",
+    "TRANSACTIONS": "Транзакции"
+  },
+  "LOGIN": {
+    "TITLE": "Вход",
+    "BUTTON_PREFIX": "Продолжить с"
+  },
+  "DASHBOARD": {
+    "SUMMARY": "Сумма",
+    "TOTAL_INCOME": "Общий доход",
+    "TOTAL_EXPENSES": "Общие расходы",
+    "PROFIT": "Прибыль"
+  },
+  "SETTINGS": {
+    "PAGE_TITLE": "Настройки",
+    "DEFAULT_CURRENCY": "Валюта по умолчанию",
+    "DEFAULT_ACCOUNT": "Счет по умолчанию",
+    "DEFAULT_PERIOD": "Период по умолчанию",
+    "LANGUAGE": "Язык",
+    "SHOW_DECIMALS": "Показать дроби (например 1,23)",
+    "DARK_THEME": "Темная тема",
+    "RESET": "Сброс",
+    "RESET_DIALOG_CONFIRM": "Вы уверены, что хотите удалить все данные? Это действие не может быть отменено.",
+    "RESET_DIALOG_TITLE": "Удалить все данные"
+  },
+  "ACCOUNTS": {
+    "PAGE_TITLE": "Счета",
+    "NEW_ACCOUNT": "Новый счет",
+    "EDIT_ACCOUNT": "Изменить счет",
+    "VIEW_ACCOUNT": "Посмотреть счет",
+    "EMPTY_TEXT": "Нет счетов",
+    "EMPTY_TEXT_RENDER_CONTENT": "Счет не найден",
+    "FROM_ACCOUNT": "Из счета",
+    "TO_ACCOUNT": "К счету",
+    "ITEMS": {
+      "WALLET": "Кошелек"
+    },
+    "ERRORS": {
+      "REQUIRED_BALANCE": "Баланс обязательный",
+      "INVALID_BALANCE": "Неверный баланс",
+      "REQUIRED_NAME": "Название обязательно",
+      "REQUIRED_ICON": "Иконка обязательна",
+      "REQUIRED_CURRENCY": "Валюта обязательна",
+      "ACCOUNT_EXISTS": "Счет уже существует",
+      "DELETE_DEFAULT_ACCOUNT": "Вы не можете удалить счет по умолчанию."
+    },
+    "DELETE_DIALOG_TITLE": "Удалить счет",
+    "DELETE_DIALOG_CONFIRM": "Вы уверены, что хотите удалить этот счет? Это действие повлечет за собой удаление всех транзакций выполненных этим счетом."
+  },
+  "CATEGORIES": {
+    "PAGE_TITLE": "Категории",
+    "NEW_CATEGORY": "Новая категория",
+    "EDIT_CATEGORY": "Изменить категорию",
+    "VIEW_CATEGORY": "Посмотреть категорию",
+    "EMPTY_TEXT": "Нет категорий",
+    "EMPTY_TEXT_RENDER_CONTENT": "Категория не найдена",
+    "ITEMS": {
+      "RENT": "Аренда",
+      "GROCERIES": "Продукты",
+      "MEDIA": "Коммунальные",
+      "TRANSPORTATION": "Транспорт",
+      "OTHER_EXPENSE": "Другое",
+      "SALARY": "Зарплата",
+      "OTHER_INCOME": "Другое"
+    },
+    "ERRORS": {
+      "REQUIRED_NAME": "Название обязательно",
+      "REQUIRED_ICON": "Иконка обязательна",
+      "REQUIRED_TYPE": "Тип обязательный",
+      "CATEGORY_EXISTS": "Категория уже существует"
+    },
+    "DELETE_DIALOG_TITLE": "Удалить категорию",
+    "DELETE_DIALOG_CONFIRM": "Вы уверены, что хотите удалить эту категорию? Это действие повлечет за собой удаление всех транзакций выполненных под этой категорией.",
+    "DELETE_SUCCESS": "Счет успешно удален."
+  },
+  "TRANSACTIONS": {
+    "PAGE_TITLE": "Транзакции",
+    "NEW_TRANSACTION": "Новая транзакция",
+    "EDIT_TRANSACTION": "Изменить транзакцию",
+    "EMPTY_TEXT": "Нет транзакций",
+    "EMPTY_TEXT_RENDER_CONTENT": "Транзакция не найдена",
+    "ERRORS": {
+      "REQUIRED_AMOUNT": "Сумма обязательна",
+      "INVALID_AMOUNT": "Неверная сумма",
+      "REQUIRED_CATEGORY": "Категория обязательна",
+      "REQUIRED_ACCOUNT": "Счет обязательный",
+      "REQUIRED_TYPE": "Тип обязательный",
+      "FUTURE_DATE": "Выбранная дата не может быть в будущем."
+    },
+    "DELETE_DIALOG_TITLE": "Удалить транзакцию",
+    "DELETE_DIALOG_CONFIRM": "Вы уверены что хотите удалить эту транзакцию?"
+  },
+  "TRANSFERS": {
+    "PAGE_TITLE": "Трансферы",
+    "NEW_TRANSFER": "Новый трансфер",
+    "EDIT_TRANSFER": "Изменить трансфер",
+    "VIEW_TRANSFER": "Посмотреть трансфер",
+    "TRANSFER_HISTORY": "История трансферов",
+    "EMPTY_TEXT": "Нет трансферов",
+    "EMPTY_TEXT_RENDER_CONTENT": "Трансфер не найден",
+    "ERRORS": {
+      "REQUIRED_FROM_ACCOUNT": "Из счета обязательно",
+      "REQUIRED_TO_ACCOUNT": "К счету обязательно",
+      "REQUIRED_AMOUNT": "Сумма обязательна",
+      "INVALID_AMOUNT": "Неверная сумма",
+      "SAME_ACCOUNT": "Вы не можете делать трансфер между одним и тем же счетом."
+    },
+    "DELETE_DIALOG_TITLE": "Удалить трансфер",
+    "DELETE_DIALOG_CONFIRM": "Вы уверены что хотите удалить этот трансфер? Баланс счетов будет пересчитан."
+  }
+}

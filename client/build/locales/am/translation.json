@@ -1,0 +1,159 @@
+{
+  "PRODUCT_NAME": "Բյուջետային կառավարում",
+  "COMMON": {
+    "YES": "Այո",
+    "NO": "Ոչ",
+    "CANCEL": "Չեղարկել",
+    "SAVE": "Պահպանել",
+    "DELETE": "Ջնջել",
+    "EXPENSE": "Ծախս",
+    "INCOME": "Եկամուտ",
+    "BACK": "Հետ",
+    "AMOUNT": "Գումար",
+    "ACCOUNT": "Հաշիվ",
+    "CATEGORY": "Կատեգորիա",
+    "DATE": "Ամսաթիվ",
+    "NAME": "Անուն",
+    "BALANCE": "Բալանս",
+    "CURRENCY": "Արժույթ",
+    "ICON": "Պատկեր",
+    "TYPE": "Տեսակ",
+    "NOTE": "Նշում",
+    "FROM": "Սկսած",
+    "TO": "Մինչև",
+    "DAY": "Օր",
+    "WEEK": "Շաբաթ",
+    "MONTH": "Ամիս",
+    "YEAR": "Տարի",
+    "ALL_TIME": "Ամբողջը"
+  },
+  "CURRENCIES": {
+    "USD": "ԱՄՆ դոլար",
+    "EUR": "Եվրո",
+    "PLN": "Լեհական զլոտի",
+    "UAH": "Ուկրաինական հրիվնիա",
+    "AMD": "Հայկական դրամ"
+  },
+  "SIDEBAR": {
+    "LOGOUT": "Դուրս գալ",
+    "LOGOUT_DIALOG_TITLE": "Դուրս գալ",
+    "LOGOUT_DIALOG_CONFIRM": "Դուք համոզվա՞ծ եք, որ ուզում եք դուրս գալ"
+  },
+  "ROUTES": {
+    "LOGIN": "Մուտք",
+    "HOME": "Գլխավոր էջ",
+    "DASHBOARD": "Վահանակ",
+    "SETTINGS": "Կարգավորումներ",
+    "CATEGORIES": "Կատեգորիաներ",
+    "ACCOUNTS": "Հաշիվներ",
+    "TRANSFERS": "Փոխանակումներ",
+    "TRANSACTIONS": "Վճարումներ"
+  },
+  "LOGIN": {
+    "TITLE": "Մուտք",
+    "BUTTON_PREFIX": "Շարունակել"
+  },
+  "DASHBOARD": {
+    "SUMMARY": "Հաշվարկ",
+    "TOTAL_INCOME": "Ընդհանուր եկամուտ",
+    "TOTAL_EXPENSES": "Ընդհանուր ծախսեր",
+    "PROFIT": "Շահույթ"
+  },
+  "SETTINGS": {
+    "PAGE_TITLE": "Կարգավորումներ",
+    "DEFAULT_CURRENCY": "Սկզբնական արժույթ",
+    "DEFAULT_ACCOUNT": "Սկզբնական հաշիվ",
+    "DEFAULT_PERIOD": "Սկզբնական ժամանակաշրջան",
+    "LANGUAGE": "Լեզու",
+    "SHOW_DECIMALS": "Ցուցադրել կոտորակ (օր․՝ 1.23)",
+    "DARK_THEME": "Մութ թեմա",
+    "RESET": "Վերակարգել",
+    "RESET_DIALOG_CONFIRM": "Դուք վստա՞հ եք, որ ցանկանում եք ջնջել բոլոր տվյալները: Այս գործողությունը հնարավոր չե վերականգնել:",
+    "RESET_DIALOG_TITLE": "Ջնջել բոլոր տվյալները"
+  },
+  "ACCOUNTS": {
+    "PAGE_TITLE": "Հաշիվներ",
+    "NEW_ACCOUNT": "Նոր հաշիվ",
+    "EDIT_ACCOUNT": "Խմբագրել հաշիվը",
+    "VIEW_ACCOUNT": "Դիտել հաշիվը",
+    "EMPTY_TEXT": "Հաշիվներ չկան",
+    "EMPTY_TEXT_RENDER_CONTENT": "Հաշիվը չի գտնվել",
+    "FROM_ACCOUNT": "Հաշվից",
+    "TO_ACCOUNT": "Դեպի հաշիվ",
+    "ITEMS": {
+      "WALLET": "Դրամապանակ"
+    },
+    "ERRORS": {
+      "REQUIRED_BALANCE": "Բալանսը պարտադիր է",
+      "INVALID_BALANCE": "Անվավեր բալանս",
+      "REQUIRED_NAME": "Անունը պարտադիր է",
+      "REQUIRED_ICON": "Նկարը պարտադիր է",
+      "REQUIRED_CURRENCY": "Արժույթը պարտադիր է",
+      "ACCOUNT_EXISTS": "Այս հաշիվն արդեն գոյություն ունի",
+      "DELETE_DEFAULT_ACCOUNT": "Դուք չեք կարող ջնջել սկզբնական հաշիվը:"
+    },
+    "DELETE_DIALOG_TITLE": "Հաշվի ջնջում",
+    "DELETE_DIALOG_CONFIRM": "Դուք համոզվա՞ծ եք, որ ցանկանում եք ջնջել այս հաշիվը։ Բոլոր փոխանցումները կատարված այս հաշվով կջնջվեն",
+    "DELETE_SUCCESS": "Հաշիվը հաջողությամբ ջնջվել է."
+  },
+  "CATEGORIES": {
+    "PAGE_TITLE": "Կատեգորիաներ",
+    "NEW_CATEGORY": "Նոր կատեգորիա",
+    "EDIT_CATEGORY": "Խմբագրել կատեգորիան",
+    "VIEW_CATEGORY": "Դիտել կատեգորիան",
+    "EMPTY_TEXT": "Կատեգորիաներ չկան",
+    "EMPTY_TEXT_RENDER_CONTENT": "Կատեգորիան չի գտնվել",
+    "ITEMS": {
+      "RENT": "Վարձակալություն",
+      "GROCERIES": "Առևտուր",
+      "MEDIA": "Կոմունալ վճարումներ",
+      "TRANSPORTATION": "Տրանսպորտ",
+      "OTHER_EXPENSE": "Այլ",
+      "SALARY": "Աշխատավարձ",
+      "OTHER_INCOME": "Այլ"
+    },
+    "ERRORS": {
+      "REQUIRED_NAME": "Անունը պարտադիր է",
+      "REQUIRED_ICON": "Նկարը պարտադիր է",
+      "REQUIRED_TYPE": "Տեսակը պարտադիր է",
+      "CATEGORY_EXISTS": "Կատեգորիան արդեն գոյություն ունի"
+    },
+    "DELETE_DIALOG_TITLE": "Ջնջել կատեգորիան",
+    "DELETE_DIALOG_CONFIRM": "Դուք համոզվա՞ծ եք, որ ցանկանում եք ջնջել այս կատեգորիան։ Բոլոր փոխանցումները կատարված այս կատեգորիայով կջնջվեն"
+  },
+  "TRANSACTIONS": {
+    "PAGE_TITLE": "Գործարքներ",
+    "NEW_TRANSACTION": "Նոր գործարք",
+    "EDIT_TRANSACTION": "Խմբագրել գործարքը",
+    "EMPTY_TEXT": "Գործարքներ չկան",
+    "EMPTY_TEXT_RENDER_CONTENT": "Գործարքը չի գտնվել",
+    "ERRORS": {
+      "REQUIRED_AMOUNT": "Գումարը պարտադիր է",
+      "INVALID_AMOUNT": "Գումարը անվավեր է",
+      "REQUIRED_CATEGORY": "Կատեգորիան պարտադիր է",
+      "REQUIRED_ACCOUNT": "Հաշիվը պարտադիր է",
+      "REQUIRED_TYPE": "Տեսակը պարտադիր է",
+      "FUTURE_DATE": "Ընտրված ամսաթիվը չի կարող լինել ապագայում:"
+    },
+    "DELETE_DIALOG_TITLE": "Ջնջել գործարքը",
+    "DELETE_DIALOG_CONFIRM": "Դուք համոզվա՞ծ եք, որ ցանկանում եք ջնջել այս գործարքը:"
+  },
+  "TRANSFERS": {
+    "PAGE_TITLE": "Փոխանցումներ",
+    "NEW_TRANSFER": "Նոր փոխանցում",
+    "EDIT_TRANSFER": "Խմբագրել փոխանցումը",
+    "VIEW_TRANSFER": "Դիտել փոխանցումը",
+    "TRANSFER_HISTORY": "Փոխանցման պատմություն",
+    "EMPTY_TEXT": "Փոխանցումներ չկան",
+    "EMPTY_TEXT_RENDER_CONTENT": "Փոխանցումը չի գտնվել",
+    "ERRORS": {
+      "REQUIRED_FROM_ACCOUNT": "Սկզբնական հաշիվը պարտադիր է",
+      "REQUIRED_TO_ACCOUNT": "Վերջնական հաշիվը պարտադիր է",
+      "REQUIRED_AMOUNT": "Գումարը պարտադիր է",
+      "INVALID_AMOUNT": "Գումարը անվավեր է",
+      "SAME_ACCOUNT": "Դուք չեք կարող կատարել փոխանցում նույն հաշիվների միջև:"
+    },
+    "DELETE_DIALOG_TITLE": "Ջնջել փոխանցումը",
+    "DELETE_DIALOG_CONFIRM": "Դուք համոզվա՞ծ եք, որ ցանկանում եք ջնջել այս փոխանցումը: Հաշիվների մնացորդը կվերահաշվարկվի։"
+  }
+}

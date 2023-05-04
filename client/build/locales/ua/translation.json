@@ -1,0 +1,159 @@
+{
+  "PRODUCT_NAME": "Управління бюджетом",
+  "COMMON": {
+    "YES": "Так",
+    "NO": "Ні",
+    "CANCEL": "Скасувати",
+    "SAVE": "Зберегти",
+    "DELETE": "Видалити",
+    "EXPENSE": "Витрата",
+    "INCOME": "Дохід",
+    "BACK": "Назад",
+    "AMOUNT": "Сума",
+    "ACCOUNT": "Рахунок",
+    "CATEGORY": "Категорія",
+    "DATE": "Дата",
+    "NAME": "Назва",
+    "BALANCE": "Баланс",
+    "CURRENCY": "Валюта",
+    "ICON": "Іконка",
+    "TYPE": "Тип",
+    "NOTE": "Примітка",
+    "FROM": "З",
+    "TO": "До",
+    "DAY": "День",
+    "WEEK": "Тиждень",
+    "MONTH": "Місяць",
+    "YEAR": "Рік",
+    "ALL_TIME": "Весь час"
+  },
+  "CURRENCIES": {
+    "USD": "Долар США",
+    "EUR": "Євро",
+    "PLN": "Польський злотий",
+    "UAH": "Українська гривня",
+    "AMD": "Вірменський драм"
+  },
+  "SIDEBAR": {
+    "LOGOUT": "Вийти",
+    "LOGOUT_DIALOG_TITLE": "Вийти",
+    "LOGOUT_DIALOG_CONFIRM": "Ви впевнені, що хочете вийти?"
+  },
+  "ROUTES": {
+    "LOGIN": "Увійти",
+    "HOME": "Домашня сторінка",
+    "DASHBOARD": "Панель інструментів",
+    "SETTINGS": "Налаштування",
+    "CATEGORIES": "Категорії",
+    "ACCOUNTS": "Рахунки",
+    "TRANSFERS": "Перекази",
+    "TRANSACTIONS": "Транзакції"
+  },
+  "LOGIN": {
+    "TITLE": "Увійти",
+    "BUTTON_PREFIX": "Продовжити з"
+  },
+  "DASHBOARD": {
+    "SUMMARY": "Загальна інформація",
+    "TOTAL_INCOME": "Загальний дохід",
+    "TOTAL_EXPENSES": "Загальні витрати",
+    "PROFIT": "Прибуток"
+  },
+  "SETTINGS": {
+    "PAGE_TITLE": "Налаштування",
+    "DEFAULT_CURRENCY": "Валюта за замовчуванням",
+    "DEFAULT_ACCOUNT": "Рахунок за замовчуванням",
+    "DEFAULT_PERIOD": "Період за замовчуванням",
+    "LANGUAGE": "Мова",
+    "SHOW_DECIMALS": "Показувати десяткові числа (наприклад, 1.23)",
+    "DARK_THEME": "Темна тема",
+    "RESET": "Скинути",
+    "RESET_DIALOG_CONFIRM": "Ви впевнені, що хочете видалити всі дані? Цю дію неможливо скасувати.",
+    "RESET_DIALOG_TITLE": "Видалити всі дані"
+  },
+  "ACCOUNTS": {
+    "PAGE_TITLE": "Рахунки",
+    "NEW_ACCOUNT": "Новий рахунок",
+    "EDIT_ACCOUNT": "Редагувати рахунок",
+    "VIEW_ACCOUNT": "Перегляд рахунку",
+    "EMPTY_TEXT": "Рахунки відсутні",
+    "EMPTY_TEXT_RENDER_CONTENT": "Рахунок не знайдено",
+    "FROM_ACCOUNT": "З рахунку",
+    "TO_ACCOUNT": "На рахунок",
+    "ITEMS": {
+      "WALLET": "Гаманець"
+    },
+    "ERRORS": {
+      "REQUIRED_BALANCE": "Необхідний баланс",
+      "INVALID_BALANCE": "Недійсний баланс",
+      "REQUIRED_NAME": "Необхідне ім'я",
+      "REQUIRED_ICON": "Необхідна іконка",
+      "REQUIRED_CURRENCY": "Необхідна валюта",
+      "ACCOUNT_EXISTS": "Рахунок вже існує",
+      "DELETE_DEFAULT_ACCOUNT": "Ви не можете видалити рахунок за замовчуванням."
+    },
+    "DELETE_DIALOG_TITLE": "Видалити рахунок",
+    "DELETE_DIALOG_CONFIRM": "Ви впевнені, що хочете видалити цей рахунок? Ця дія видалить всі транзакції, здійснені з цього рахунку.",
+    "DELETE_SUCCESS": "Рахунок успішно видалено."
+  },
+  "CATEGORIES": {
+    "PAGE_TITLE": "Категорії",
+    "NEW_CATEGORY": "Нова категорія",
+    "EDIT_CATEGORY": "Редагувати категорію",
+    "VIEW_CATEGORY": "Переглянути категорію",
+    "EMPTY_TEXT": "Немає доступних категорій",
+    "EMPTY_TEXT_RENDER_CONTENT": "Категорію не знайдено",
+    "ITEMS": {
+      "RENT": "Оренда",
+      "GROCERIES": "Продукти харчування",
+      "MEDIA": "Медіа",
+      "TRANSPORTATION": "Транспорт",
+      "OTHER_EXPENSE": "Інші витрати",
+      "SALARY": "Зарплата",
+      "OTHER_INCOME": "Інші доходи"
+    },
+    "ERRORS": {
+      "REQUIRED_NAME": "Ім'я є обов'язковим",
+      "REQUIRED_ICON": "Іконка є обов'язковою",
+      "REQUIRED_TYPE": "Тип є обов'язковим",
+      "CATEGORY_EXISTS": "Категорія вже існує"
+    },
+    "DELETE_DIALOG_TITLE": "Видалити категорію",
+    "DELETE_DIALOG_CONFIRM": "Ви впевнені, що хочете видалити цю категорію? Це призведе до видалення всіх транзакцій, здійснених за цю категорію."
+  },
+  "TRANSACTIONS": {
+    "PAGE_TITLE": "Транзакції",
+    "NEW_TRANSACTION": "Нова транзакція",
+    "EDIT_TRANSACTION": "Редагувати транзакцію",
+    "EMPTY_TEXT": "Немає доступних транзакцій",
+    "EMPTY_TEXT_RENDER_CONTENT": "Транзакцію не знайдено",
+    "ERRORS": {
+      "REQUIRED_AMOUNT": "Сума є обов'язковою",
+      "INVALID_AMOUNT": "Неправильна сума",
+      "REQUIRED_CATEGORY": "Категорія є обов'язковою",
+      "REQUIRED_ACCOUNT": "Рахунок є обов'язковим",
+      "REQUIRED_TYPE": "Тип є обов'язковим",
+      "FUTURE_DATE": "Вибрана дата не може бути в майбутньому."
+    },
+    "DELETE_DIALOG_TITLE": "Видалити транзакцію",
+    "DELETE_DIALOG_CONFIRM": "Ви впевнені, що хочете видалити цю транзакцію?",
+    "TRANSFERS": {
+      "PAGE_TITLE": "Перекази",
+      "NEW_TRANSFER": "Новий переказ",
+      "EDIT_TRANSFER": "Редагувати переказ",
+      "VIEW_TRANSFER": "Перегляд переказу",
+      "TRANSFER_HISTORY": "Історія переказів",
+      "EMPTY_TEXT": "Немає доступних переказів",
+      "EMPTY_TEXT_RENDER_CONTENT": "Переказ не знайдено",
+      "ERRORS": {
+        "REQUIRED_FROM_ACCOUNT": "Потрібно вказати рахунок відправника",
+        "REQUIRED_TO_ACCOUNT": "Потрібно вказати рахунок отримувача",
+        "REQUIRED_AMOUNT": "Потрібно вказати суму переказу",
+        "INVALID_AMOUNT": "Невірна сума переказу",
+        "SAME_ACCOUNT": "Ви не можете здійснювати перекази між одним і тим же рахунком."
+      },
+      "DELETE_DIALOG_TITLE": "Видалити переказ",
+      "DELETE_DIALOG_CONFIRM": "Ви впевнені, що хочете видалити цей переказ? Баланси рахунків будуть перераховані."
+    }
+  }
+}
