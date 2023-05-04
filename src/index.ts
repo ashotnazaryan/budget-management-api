@@ -33,7 +33,7 @@ app.use(
     secure: CONFIG.env === 'production',
     httpOnly: true,
     sameSite: 'lax',
-    domain: CONFIG.env === 'production' ? CONFIG.clientURL : undefined
+    domain: CONFIG.env === 'production' ? 'budget-management.up.railway.app' : undefined
   })
 );
 
