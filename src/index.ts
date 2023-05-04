@@ -35,7 +35,7 @@ app.use(session({
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
     httpOnly: true,
-    domain: process.env.NODE_ENV === 'production' ? CONFIG.clientURL : undefined,
+    domain: CONFIG.domain
   }
 }));
 
