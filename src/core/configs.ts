@@ -9,6 +9,7 @@ export const CONFIG = {
   googleClientID: process.env.GOOGLE_OUATH_CLIENT_ID || '',
   googleClientSecret: process.env.GOOGLE_OUATH_CLIENT_SECRET || '',
   clientURL: process.env.CLIENT_URL || 'http://localhost:3000',
+  domain: process.env.DOMAIN,
   cookieSessionSecretName: process.env.COOKIE_SECRET_NAME || '',
   cookieSessionSecretKey: process.env.COOKIE_SECRET_KEY || 'key',
   mongoUser: process.env.MONGO_ATLAS_CLUSTER_USERNAME || '',
