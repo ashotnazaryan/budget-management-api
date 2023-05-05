@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
-import session from 'express-session';
+import cookieSession from 'cookie-session';
 import passport from 'passport';
 import { connectToDatabase } from './core/db-connection';
 import { authRoute, userRoute, summaryRoute, transactionRoute, categoryRoute, settingRoute, accountRoute, transferRoute } from './routes';
@@ -26,18 +26,17 @@ app.get(/^\/(?!api).*/, (req, res) => {
   res.sendFile(path.join(__dirname, '../client', 'index.html'));
 });
 
-app.use(session({
-  secret: CONFIG.cookieSessionSecretName,
-  resave: true,
-  saveUninitialized: false,
-  cookie: {
+app.use(
+  cookieSession({
+    name: CONFIG.cookieSessionSecretName,
+    keys: [CONFIG.cookieSessionSecretKey],
     maxAge: 24 * 60 * 60 * 100,
-    secure: process.env.NODE_ENV === 'production',
+    secure: CONFIG.env === 'production',
     sameSite: 'lax',
     httpOnly: true,
     domain: CONFIG.domain
-  }
-}));
+  })
+);
 
 app.use(passport.initialize());
 app.use(passport.session());

@@ -3,26 +3,27 @@ import { Account, Category, CategoryInput, DefaultCategory } from '../models';
 import { mapCategories, mapCategory } from '../helpers';
 import { deleteCategoryTransactions, updateAccountBalance, updateCategoryTransactions, updateSummary } from '../services';
 
+const ensureDefaultCategories = async (userId: string): Promise<void> => {
+  const count = await Category.countDocuments({ userId });
+
+  if (count > 0) {
+    return;
+  }
+
+  const defaultCategories = mapCategories(await DefaultCategory.find(), userId);
+  await Category.insertMany(defaultCategories);
+}
+
 const getCategories = async (request: Request, response: Response) => {
   const userId = request.user!.userId;
 
   try {
-    let categories = await Category.find({ userId });
-    let mappedCategories = mapCategories(categories, userId);
+    await ensureDefaultCategories(userId);
+    const categories = await Category.find({ userId });
 
-    if (categories.length) {
-      return response.status(200).json({ data: mappedCategories });
-    }
-
-    const defaultCategories = await DefaultCategory.find();
-    const defaultCategoryList: CategoryInput[] = mapCategories(defaultCategories, userId);
-    await Category.insertMany(defaultCategoryList);
-    categories = await Category.find({ userId });
-    mappedCategories = mapCategories(categories, userId);
-
-    return response.status(200).json({ data: mappedCategories });
+    return response.status(200).json({ data: mapCategories(categories, userId) });
   } catch {
-    return response.status(200).json({ data: null });
+    return response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
   }
 };
 
