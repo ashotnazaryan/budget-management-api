@@ -3,26 +3,27 @@ import { Account, AccountDocument, AccountInput, CategoryType, DefaultAccount, S
 import { calculateAmountByField, calculateTransactionsAmount, mapAccount, mapAccounts } from '../helpers';
 import { deleteAccountTransactions, deleteAccountTransfers, updateAccountTransactions, updateSummary } from '../services';
 
+const ensureDefaultAccounts = async (userId: string): Promise<void> => {
+  const count = await Account.countDocuments({ userId });
+
+  if (count > 0) {
+    return;
+  }
+
+  const defaultAccounts = mapAccounts(await DefaultAccount.find(), userId);
+  await Account.insertMany(defaultAccounts);
+}
+
 const getAccounts = async (request: Request, response: Response) => {
   const userId = request.user!.userId;
 
   try {
-    let accounts = await Account.find({ userId });
-    let mappedAccounts = mapAccounts(accounts, userId);
+    await ensureDefaultAccounts(userId);
+    const accounts = await Account.find({ userId });
 
-    if (accounts.length) {
-      return response.status(200).json({ data: mappedAccounts });
-    }
-
-    const defaultAccounts = await DefaultAccount.find();
-    const defaultAccountList: AccountInput[] = mapAccounts(defaultAccounts, userId);
-    await Account.insertMany(defaultAccountList);
-    accounts = await Account.find({ userId });
-    mappedAccounts = mapAccounts(accounts, userId);
-
-    return response.status(200).json({ data: mappedAccounts });
+    return response.status(200).json({ data: mapAccounts(accounts, userId) });
   } catch {
-    return response.status(200).json({ data: null });
+    return response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
   }
 };
 
