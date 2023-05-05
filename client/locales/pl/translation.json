@@ -78,6 +78,7 @@
     "VIEW_ACCOUNT": "Zobacz konto",
     "EMPTY_TEXT": "Brak dostępnych kont",
     "EMPTY_TEXT_RENDER_CONTENT": "Nie znaleziono konta",
+    "EMPTY_TITLE": "Nieznane konto",
     "FROM_ACCOUNT": "Z konta",
     "TO_ACCOUNT": "Na konto",
     "ITEMS": {
@@ -103,6 +104,7 @@
     "VIEW_CATEGORY": "Zobacz kategorię",
     "EMPTY_TEXT": "Brak dostępnych kategorii",
     "EMPTY_TEXT_RENDER_CONTENT": "Nie znaleziono kategorii",
+    "EMPTY_TITLE": "Nieznana kategoria",
     "ITEMS": {
       "RENT": "Czynsz",
       "GROCERIES": "Artykuły spożywcze",
@@ -127,6 +129,7 @@
     "EDIT_TRANSACTION": "Edytuj transakcję",
     "EMPTY_TEXT": "Brak dostępnych transakcji",
     "EMPTY_TEXT_RENDER_CONTENT": "Nie znaleziono transakcji",
+    "EMPTY_TITLE": "Nieznana transakcja",
     "ERRORS": {
       "REQUIRED_AMOUNT": "Wymagana kwota",
       "INVALID_AMOUNT": "Nieprawidłowa kwota",

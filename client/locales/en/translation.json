@@ -77,6 +77,7 @@
     "EDIT_ACCOUNT": "Edit account",
     "VIEW_ACCOUNT": "View account",
     "EMPTY_TEXT": "No account is available",
+    "EMPTY_TITLE": "Unknown account",
     "EMPTY_TEXT_RENDER_CONTENT": "Account not found",
     "FROM_ACCOUNT": "From account",
     "TO_ACCOUNT": "To account",
@@ -103,6 +104,7 @@
     "VIEW_CATEGORY": "View category",
     "EMPTY_TEXT": "No category is available",
     "EMPTY_TEXT_RENDER_CONTENT": "Category not found",
+    "EMPTY_TITLE": "Unknown category",
     "ITEMS": {
       "RENT": "Rent",
       "GROCERIES": "Groceries",
@@ -127,6 +129,7 @@
     "EDIT_TRANSACTION": "Edit transaction",
     "EMPTY_TEXT": "No transaction is available",
     "EMPTY_TEXT_RENDER_CONTENT": "Transaction not found",
+    "EMPTY_TITLE": "Unknown transaction",
     "ERRORS": {
       "REQUIRED_AMOUNT": "Amount is required",
       "INVALID_AMOUNT": "Invalid amount",

@@ -78,6 +78,7 @@
     "VIEW_ACCOUNT": "Դիտել հաշիվը",
     "EMPTY_TEXT": "Հաշիվներ չկան",
     "EMPTY_TEXT_RENDER_CONTENT": "Հաշիվը չի գտնվել",
+    "EMPTY_TITLE": "Անհայտ հաշիվ",
     "FROM_ACCOUNT": "Հաշվից",
     "TO_ACCOUNT": "Դեպի հաշիվ",
     "ITEMS": {
@@ -102,6 +103,7 @@
     "EDIT_CATEGORY": "Խմբագրել կատեգորիան",
     "VIEW_CATEGORY": "Դիտել կատեգորիան",
     "EMPTY_TEXT": "Կատեգորիաներ չկան",
+    "EMPTY_TITLE": "Անհայտ կատեգորիա",
     "EMPTY_TEXT_RENDER_CONTENT": "Կատեգորիան չի գտնվել",
     "ITEMS": {
       "RENT": "Վարձակալություն",
@@ -127,6 +129,7 @@
     "EDIT_TRANSACTION": "Խմբագրել գործարքը",
     "EMPTY_TEXT": "Գործարքներ չկան",
     "EMPTY_TEXT_RENDER_CONTENT": "Գործարքը չի գտնվել",
+    "EMPTY_TITLE": "Անհայտ գործարք",
     "ERRORS": {
       "REQUIRED_AMOUNT": "Գումարը պարտադիր է",
       "INVALID_AMOUNT": "Գումարը անվավեր է",

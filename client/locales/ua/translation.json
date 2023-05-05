@@ -78,6 +78,7 @@
     "VIEW_ACCOUNT": "Перегляд рахунку",
     "EMPTY_TEXT": "Рахунки відсутні",
     "EMPTY_TEXT_RENDER_CONTENT": "Рахунок не знайдено",
+    "EMPTY_TITLE": "Невідомий рахунок",
     "FROM_ACCOUNT": "З рахунку",
     "TO_ACCOUNT": "На рахунок",
     "ITEMS": {
@@ -103,6 +104,7 @@
     "VIEW_CATEGORY": "Переглянути категорію",
     "EMPTY_TEXT": "Немає доступних категорій",
     "EMPTY_TEXT_RENDER_CONTENT": "Категорію не знайдено",
+    "EMPTY_TITLE": "Невідома категорія",
     "ITEMS": {
       "RENT": "Оренда",
       "GROCERIES": "Продукти харчування",
@@ -127,6 +129,7 @@
     "EDIT_TRANSACTION": "Редагувати транзакцію",
     "EMPTY_TEXT": "Немає доступних транзакцій",
     "EMPTY_TEXT_RENDER_CONTENT": "Транзакцію не знайдено",
+    "EMPTY_TITLE": "Невідома транзакція",
     "ERRORS": {
       "REQUIRED_AMOUNT": "Сума є обов'язковою",
       "INVALID_AMOUNT": "Неправильна сума",

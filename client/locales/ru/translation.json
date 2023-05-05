@@ -78,6 +78,7 @@
     "VIEW_ACCOUNT": "Посмотреть счет",
     "EMPTY_TEXT": "Нет счетов",
     "EMPTY_TEXT_RENDER_CONTENT": "Счет не найден",
+    "EMPTY_TITLE": "Неизвестный счет",
     "FROM_ACCOUNT": "Из счета",
     "TO_ACCOUNT": "К счету",
     "ITEMS": {
@@ -102,6 +103,7 @@
     "VIEW_CATEGORY": "Посмотреть категорию",
     "EMPTY_TEXT": "Нет категорий",
     "EMPTY_TEXT_RENDER_CONTENT": "Категория не найдена",
+    "EMPTY_TITLE": "Неизвестная категория",
     "ITEMS": {
       "RENT": "Аренда",
       "GROCERIES": "Продукты",
@@ -127,6 +129,7 @@
     "EDIT_TRANSACTION": "Изменить транзакцию",
     "EMPTY_TEXT": "Нет транзакций",
     "EMPTY_TEXT_RENDER_CONTENT": "Транзакция не найдена",
+    "EMPTY_TITLE": "Неизвестная транзакция",
     "ERRORS": {
       "REQUIRED_AMOUNT": "Сумма обязательна",
       "INVALID_AMOUNT": "Неверная сумма",
