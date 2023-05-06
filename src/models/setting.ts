@@ -22,7 +22,7 @@ interface SettingDocument extends Document {
   defaultPeriod: Period;
   locale: LocaleIso;
   isDarkTheme?: boolean;
-};
+}
 
 interface SettingInput {
   defaultAccount: string;

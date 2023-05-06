@@ -12,10 +12,14 @@ const ensureDefaultAccounts = async (userId: string): Promise<void> => {
 
   const defaultAccounts = mapAccounts(await DefaultAccount.find(), userId);
   await Account.insertMany(defaultAccounts);
-}
+};
 
 const getAccounts = async (request: Request, response: Response) => {
-  const userId = request.user!.userId;
+  const userId = request.user?.userId;
+
+  if (!userId) {
+    return;
+  }
 
   try {
     await ensureDefaultAccounts(userId);
@@ -27,9 +31,13 @@ const getAccounts = async (request: Request, response: Response) => {
   }
 };
 
-const getAccountById = async (request: Request<{ id: AccountInput['id'] }, {}, AccountInput>, response: Response) => {
+const getAccountById = async (request: Request<{ id: AccountInput['id'] }, unknown, AccountInput>, response: Response) => {
   const id = request.params.id;
-  const userId = request.user!.userId;
+  const userId = request.user?.userId;
+
+  if (!userId) {
+    return;
+  }
 
   try {
     const account = await Account.findById(id);
@@ -44,8 +52,8 @@ const getAccountById = async (request: Request<{ id: AccountInput['id'] }, {}, A
   }
 };
 
-const createAccount = async (request: Request<{}, {}, AccountInput>, response: Response) => {
-  const userId = request.user!.userId;
+const createAccount = async (request: Request<unknown, unknown, AccountInput>, response: Response) => {
+  const userId = request.user?.userId;
   const newAccount: AccountInput = {
     ...request.body,
     userId,
@@ -69,10 +77,10 @@ const createAccount = async (request: Request<{}, {}, AccountInput>, response: R
   }
 };
 
-const editAccount = async (request: Request<{ id: AccountInput['id'] }, {}, AccountInput>, response: Response) => {
+const editAccount = async (request: Request<{ id: AccountInput['id'] }, unknown, AccountInput>, response: Response) => {
   const id = request.params.id;
   let updatedAccount = request.body;
-  const userId = request.user!.userId;
+  const userId = request.user?.userId;
 
   try {
     const accounts = await Account.find({ userId });
@@ -84,7 +92,7 @@ const editAccount = async (request: Request<{ id: AccountInput['id'] }, {}, Acco
 
     const account = await Account.findById(id);
 
-    if (account) {
+    if (account && userId) {
       const balanceDiff = updatedAccount.balance - account.balance;
 
       updatedAccount = {
@@ -104,9 +112,13 @@ const editAccount = async (request: Request<{ id: AccountInput['id'] }, {}, Acco
   }
 };
 
-const deleteAccount = async (request: Request<{ id: AccountInput['id'] }, {}, {}>, response: Response) => {
+const deleteAccount = async (request: Request<{ id: AccountInput['id'] }, unknown, unknown>, response: Response) => {
   const id = request.params.id;
-  const userId = request.user!.userId;
+  const userId = request.user?.userId;
+
+  if (!userId) {
+    return;
+  }
 
   try {
     const account = await Account.findById(id);
@@ -147,7 +159,7 @@ const calculateAccountBalance = async (
       balance = type === CategoryType.expense ? account.balance - amount : account.balance + amount;
     } else if (mode === 'edit') {
       const accountTransactions = await Transaction.find({ userId, accountId });
-      const oldAccountTransactions = await Transaction.find({ userId, accountId: oldTransaction!.accountId });
+      const oldAccountTransactions = await Transaction.find({ userId, accountId: oldTransaction?.accountId });
       const oldAccountBalance = calculateTransactionsAmount(oldAccountTransactions);
       await Account.findByIdAndUpdate(oldTransaction?.accountId, { balance: oldAccountBalance });
       balance = calculateTransactionsAmount(accountTransactions);
@@ -171,7 +183,7 @@ const updateAccountBalance = async (accounts: AccountDocument[], userId: string)
 
     await Account.findByIdAndUpdate(account.id, { balance: accountTransactionsAmount });
   }
-}
+};
 
 export {
   getAccounts,

@@ -1,4 +1,4 @@
-import { CategoryType, SummaryDocument, SummaryInput, TransactionDocument, TransactionInput } from '../models';
+import { CategoryType, SummaryDocument, SummaryInput, TransactionInput } from '../models';
 import { calculateAmountByField } from './common.helpers';
 
 export const mapSummary = (summary: SummaryDocument, userId: string): SummaryInput => {
@@ -48,7 +48,7 @@ export const getTransactionsByCategory = (transactions: TransactionInput[], expe
         percentValue: curr.type === CategoryType.expense
           ? parseInt(((categoryAmount / expenses) * 100).toFixed(0))
           : parseInt(((categoryAmount / incomes) * 100).toFixed(0))
-      }
+      };
     }, {} as TransactionInput);
     return [...groups, categoryItem];
   }, []);

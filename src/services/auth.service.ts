@@ -14,7 +14,7 @@ const loginSuccess = (request: Request, response: Response) => {
   response.status(401).redirect(`/api/auth${CONFIG.routes.loginFailed}`);
 };
 
-const getNewAccessToken = async (request: Request<{}, {}, PassportUser>, response: Response) => {
+const getNewAccessToken = async (request: Request<unknown, unknown, PassportUser>, response: Response) => {
   const { refreshToken } = request.body;
 
   try {

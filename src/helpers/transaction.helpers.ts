@@ -38,6 +38,6 @@ export const calculateTransactionsAmount = (transactions: TransactionDocument[])
   return transactions.reduce<number>((acc, { type, amount }) => {
     return type === CategoryType.expense
       ? acc - amount
-      : acc + amount
+      : acc + amount;
   }, 0);
 };

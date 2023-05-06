@@ -11,7 +11,7 @@ export interface TransferDocument extends Document {
   amount: number;
   createdAt: Date;
   userId?: string;
-};
+}
 
 export interface TransferInput {
   id: string;

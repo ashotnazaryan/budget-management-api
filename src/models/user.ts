@@ -4,7 +4,9 @@ import { CONFIG } from '../core/configs';
 const Schema = mongoose.Schema;
 
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Express {
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface User extends PassportUser { }
   }
 }
@@ -14,7 +16,7 @@ interface UserDocument extends Document {
   userId: string;
   fullName: string;
   avatar: string;
-};
+}
 
 interface UserInput {
   id: string;

@@ -13,7 +13,7 @@ export interface AccountDocument extends Document {
   userId?: string;
   isDefaultAccount?: boolean;
   nameKey?: string;
-};
+}
 
 export interface AccountInput {
   name: string;

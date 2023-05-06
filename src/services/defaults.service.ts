@@ -1,25 +1,20 @@
 import { DEFAULT_ACCOUNTS, DEFAULT_CATEGORIES } from '../constants';
 import { DefaultAccount, DefaultCategory } from '../models';
 
-const createDefaultCollections = async () => {
-  try {
-    const availableDefaultAccounts = await DefaultAccount.find();
-    const availableDefaultCategories = await DefaultCategory.find();
+const createDefaultCollections = async (): Promise<void> => {
+  const availableDefaultAccounts = await DefaultAccount.find();
+  const availableDefaultCategories = await DefaultCategory.find();
 
-    if (!availableDefaultAccounts.length) {
-      const defaultAccounts = DEFAULT_ACCOUNTS;
+  if (!availableDefaultAccounts.length) {
+    const defaultAccounts = DEFAULT_ACCOUNTS;
 
-      await DefaultAccount.insertMany(defaultAccounts);
-    }
+    await DefaultAccount.insertMany(defaultAccounts);
+  }
 
-    if (!availableDefaultCategories.length) {
-      const defaultCategories = DEFAULT_CATEGORIES;
+  if (!availableDefaultCategories.length) {
+    const defaultCategories = DEFAULT_CATEGORIES;
 
-      await DefaultCategory.insertMany(defaultCategories);
-    }
-
-  } catch (error) {
-    throw error;
+    await DefaultCategory.insertMany(defaultCategories);
   }
 };
 

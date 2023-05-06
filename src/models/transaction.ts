@@ -42,7 +42,7 @@ interface TransactionDocument extends Document {
   nameKey?: string;
   accountNameKey?: AccountInput['nameKey'];
   note?: string;
-};
+}
 
 const transactionSchema = new Schema(
   {
