@@ -6,14 +6,9 @@ export const getGoogleAccessToken = async (refreshToken: string): Promise<Creden
 
   googleClient.setCredentials({ refresh_token: refreshToken });
 
-  try {
-    const { credentials } = await googleClient.refreshAccessToken();
+  const { credentials } = await googleClient.refreshAccessToken();
 
-    googleClient.setCredentials(credentials);
+  googleClient.setCredentials(credentials);
 
-    return credentials;
-
-  } catch (error) {
-    throw error;
-  }
+  return credentials;
 };

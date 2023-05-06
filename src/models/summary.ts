@@ -10,7 +10,7 @@ interface SummaryDocument extends Document {
   categoryExpenseTransactions: TransactionInput[];
   categoryIncomeTransactions: TransactionInput[];
   userId?: string;
-};
+}
 
 interface SummaryInput {
   userId: SummaryDocument['userId'];
@@ -20,7 +20,7 @@ interface SummaryInput {
   balance: SummaryDocument['balance'];
   categoryExpenseTransactions: SummaryDocument['categoryExpenseTransactions'];
   categoryIncomeTransactions: SummaryDocument['categoryIncomeTransactions'];
-};
+}
 
 interface DateRange {
   fromDate: string;

@@ -10,7 +10,7 @@ const initialSetting: SettingInput = {
 };
 
 const getSettings = async (request: Request, response: Response) => {
-  const userId = request.user!.userId;
+  const userId = request.user?.userId;
 
   try {
     const setting = await Setting.findOne({ userId });
@@ -28,8 +28,8 @@ const getSettings = async (request: Request, response: Response) => {
   }
 };
 
-const addSetting = async (request: Request<{}, {}, SettingInput>, response: Response) => {
-  const userId = request.user!.userId;
+const addSetting = async (request: Request<unknown, unknown, SettingInput>, response: Response) => {
+  const userId = request.user?.userId;
   const { defaultCurrency, defaultAccount, defaultPeriod, showDecimals, isDarkTheme, locale } = request.body;
 
   try {

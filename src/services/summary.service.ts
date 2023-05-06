@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { CategoryInput, CategoryType, DateRange, Summary, SummaryDocument, SummaryInput, Transaction } from '../models';
+import { CategoryInput, CategoryType, DateRange, Summary, SummaryInput, Transaction } from '../models';
 import { calculateAccountsTotalBalance } from '../services';
-import { getTransactionsByCategory, mapCategoryTransaction, mapSummary, mapTransactions } from '../helpers';
+import { getTransactionsByCategory, mapCategoryTransaction, mapTransactions } from '../helpers';
 import { calculateAmountByField } from '../helpers';
 
 const initialSummary: Omit<SummaryInput, 'userId'> = {
@@ -13,11 +13,15 @@ const initialSummary: Omit<SummaryInput, 'userId'> = {
   categoryIncomeTransactions: []
 };
 
-const getSummary = async (request: Request<{}, {}, {}, qs.ParsedQs>, response: Response) => {
-  const userId = request.user!.userId;
+const getSummary = async (request: Request<unknown, unknown, unknown, qs.ParsedQs>, response: Response) => {
+  const userId = request.user?.userId;
   const { fromDate, toDate } = request.query as unknown as DateRange;
   const from = new Date(fromDate);
   const to = new Date(toDate);
+
+  if (!userId) {
+    return;
+  }
 
   try {
     const summary = await calculateSummary(userId, from, to);
@@ -36,7 +40,11 @@ const getSummary = async (request: Request<{}, {}, {}, qs.ParsedQs>, response: R
 };
 
 const getBalanceInfo = async (request: Request, response: Response) => {
-  const userId = request.user!.userId;
+  const userId = request.user?.userId;
+
+  if (!userId) {
+    return;
+  }
 
   try {
     const balance = await calculateAccountsTotalBalance(userId);
@@ -95,12 +103,12 @@ const updateSummaryCategoryTransactions = async (userId: string, categoryId: Cat
     ? summary?.categoryExpenseTransactions.map((transaction) => {
       return transaction.categoryId === categoryId
         ? mapCategoryTransaction(transaction, category)
-        : transaction
+        : transaction;
     })
     : summary?.categoryIncomeTransactions.map((transaction) => {
       return transaction.categoryId === categoryId
         ? mapCategoryTransaction(transaction, category)
-        : transaction
+        : transaction;
     });
   const updatedSummary = category.type === CategoryType.expense
     ? { $set: { categoryExpenseTransactions: categoryTransactions } }

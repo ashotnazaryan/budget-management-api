@@ -16,7 +16,7 @@ export interface CategoryDocument extends Document {
   userId?: string;
   isDefaultCategory?: boolean;
   nameKey?: string;
-};
+}
 
 export interface CategoryInput {
   name: string;

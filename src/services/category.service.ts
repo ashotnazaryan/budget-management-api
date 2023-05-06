@@ -12,10 +12,14 @@ const ensureDefaultCategories = async (userId: string): Promise<void> => {
 
   const defaultCategories = mapCategories(await DefaultCategory.find(), userId);
   await Category.insertMany(defaultCategories);
-}
+};
 
 const getCategories = async (request: Request, response: Response) => {
-  const userId = request.user!.userId;
+  const userId = request.user?.userId;
+
+  if (!userId) {
+    return;
+  }
 
   try {
     await ensureDefaultCategories(userId);
@@ -27,9 +31,13 @@ const getCategories = async (request: Request, response: Response) => {
   }
 };
 
-const getCategoryById = async (request: Request<{ id: CategoryInput['id'] }, {}, CategoryInput>, response: Response) => {
+const getCategoryById = async (request: Request<{ id: CategoryInput['id'] }, unknown, CategoryInput>, response: Response) => {
   const id = request.params.id;
-  const userId = request.user!.userId;
+  const userId = request.user?.userId;
+
+  if (!userId) {
+    return;
+  }
 
   try {
     const category = await Category.findById(id);
@@ -44,8 +52,8 @@ const getCategoryById = async (request: Request<{ id: CategoryInput['id'] }, {},
   }
 };
 
-const createCategory = async (request: Request<{}, {}, CategoryInput>, response: Response) => {
-  const userId = request.user!.userId;
+const createCategory = async (request: Request<unknown, unknown, CategoryInput>, response: Response) => {
+  const userId = request.user?.userId;
   const newCategory: CategoryInput = {
     ...request.body,
     userId,
@@ -69,10 +77,14 @@ const createCategory = async (request: Request<{}, {}, CategoryInput>, response:
   }
 };
 
-const editCategory = async (request: Request<{ id: CategoryInput['id'] }, {}, CategoryInput>, response: Response) => {
+const editCategory = async (request: Request<{ id: CategoryInput['id'] }, unknown, CategoryInput>, response: Response) => {
   const id = request.params.id;
   const category = request.body;
-  const userId = request.user!.userId;
+  const userId = request.user?.userId;
+
+  if (!userId || !id) {
+    return;
+  }
 
   try {
     const categories = await Category.find({ userId });
@@ -83,8 +95,7 @@ const editCategory = async (request: Request<{ id: CategoryInput['id'] }, {}, Ca
     }
 
     await Category.findByIdAndUpdate(id, category);
-    // await updateSummaryCategoryTransactions(userId, id!, category);
-    await updateCategoryTransactions(userId, id!, category);
+    await updateCategoryTransactions(userId, id, category);
     await updateSummary(userId);
 
     return response.status(200).json({ data: null });
@@ -93,9 +104,13 @@ const editCategory = async (request: Request<{ id: CategoryInput['id'] }, {}, Ca
   }
 };
 
-const deleteCategory = async (request: Request<{ id: CategoryInput['id'] }, {}, {}>, response: Response) => {
+const deleteCategory = async (request: Request<{ id: CategoryInput['id'] }, unknown, unknown>, response: Response) => {
   const id = request.params.id;
-  const userId = request.user!.userId;
+  const userId = request.user?.userId;
+
+  if (!userId) {
+    return;
+  }
 
   try {
     const category = await Category.findById(id);

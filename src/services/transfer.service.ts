@@ -3,7 +3,11 @@ import { Account, AccountInput, Transfer, TransferInput } from '../models';
 import { mapTransfer, mapTransfers } from '../helpers';
 
 const getTransfers = async (request: Request, response: Response) => {
-  const userId = request.user!.userId;
+  const userId = request.user?.userId;
+
+  if (!userId) {
+    return;
+  }
 
   try {
     const transfers = await Transfer.find({ userId }).sort({ createdAt: -1 });
@@ -14,9 +18,13 @@ const getTransfers = async (request: Request, response: Response) => {
   }
 };
 
-const getTransferById = async (request: Request<{ id: TransferInput['id'] }, {}, TransferInput>, response: Response) => {
+const getTransferById = async (request: Request<{ id: TransferInput['id'] }, unknown, TransferInput>, response: Response) => {
   const id = request.params.id;
-  const userId = request.user!.userId;
+  const userId = request.user?.userId;
+
+  if (!userId) {
+    return;
+  }
 
   try {
     const transfer = await Transfer.findById(id);
@@ -31,8 +39,8 @@ const getTransferById = async (request: Request<{ id: TransferInput['id'] }, {},
   }
 };
 
-const createTransfer = async (request: Request<{}, {}, TransferInput>, response: Response) => {
-  const userId = request.user!.userId;
+const createTransfer = async (request: Request<unknown, unknown, TransferInput>, response: Response) => {
+  const userId = request.user?.userId;
   const { fromAccount, toAccount, amount, createdAt } = request.body;
   const payload = { userId, fromAccount, toAccount, amount, createdAt };
 
@@ -42,11 +50,11 @@ const createTransfer = async (request: Request<{}, {}, TransferInput>, response:
 
   try {
     await Transfer.create(payload);
-    const fromAccountDocument = await Account.findById(fromAccount);
-    const toAccountDocument = await Account.findById(toAccount);
+    const fromAccountDocument = await Account.findById(fromAccount) || { balance: 0 };
+    const toAccountDocument = await Account.findById(toAccount) || { balance: 0 };
 
-    await Account.findByIdAndUpdate(fromAccount, { balance: fromAccountDocument!.balance - amount });
-    await Account.findByIdAndUpdate(toAccount, { balance: toAccountDocument!.balance + amount });
+    await Account.findByIdAndUpdate(fromAccount, { balance: fromAccountDocument.balance - amount });
+    await Account.findByIdAndUpdate(toAccount, { balance: toAccountDocument.balance + amount });
 
     return response.status(201).json({ data: null });
   } catch (error) {
@@ -54,7 +62,7 @@ const createTransfer = async (request: Request<{}, {}, TransferInput>, response:
   }
 };
 
-const editTransfer = async (request: Request<{ id: TransferInput['id'] }, {}, TransferInput>, response: Response) => {
+const editTransfer = async (request: Request<{ id: TransferInput['id'] }, unknown, TransferInput>, response: Response) => {
   const id = request.params.id;
   const { fromAccount, toAccount, amount } = request.body;
 
@@ -64,17 +72,26 @@ const editTransfer = async (request: Request<{ id: TransferInput['id'] }, {}, Tr
 
   try {
     const oldTransfer = await Transfer.findById(id);
-    let oldTransferAmount = oldTransfer!.amount;
+
+    if (!oldTransfer) {
+      return;
+    }
+
+    const oldTransferAmount = oldTransfer.amount;
     const fromAccountDocument = await Account.findById(fromAccount);
     const toAccountDocument = await Account.findById(toAccount);
 
-    const fromAccountBalance = oldTransfer!.fromAccount === fromAccount
-      ? fromAccountDocument!.balance + oldTransferAmount - amount
-      : toAccountDocument!.balance + oldTransferAmount - amount;
+    if (!fromAccountDocument || !toAccountDocument) {
+      return;
+    }
 
-    const toAccountBalance = oldTransfer!.toAccount === toAccount
-      ? toAccountDocument!.balance - oldTransferAmount + amount
-      : fromAccountDocument!.balance - oldTransferAmount + amount;
+    const fromAccountBalance = oldTransfer.fromAccount === fromAccount
+      ? fromAccountDocument.balance + oldTransferAmount - amount
+      : toAccountDocument.balance + oldTransferAmount - amount;
+
+    const toAccountBalance = oldTransfer.toAccount === toAccount
+      ? toAccountDocument.balance - oldTransferAmount + amount
+      : fromAccountDocument.balance - oldTransferAmount + amount;
 
     // TODO: fix when multiple transfers per from/to account
 
@@ -88,7 +105,7 @@ const editTransfer = async (request: Request<{ id: TransferInput['id'] }, {}, Tr
   }
 };
 
-const deleteTransfer = async (request: Request<{ id: TransferInput['id'] }, {}, {}>, response: Response) => {
+const deleteTransfer = async (request: Request<{ id: TransferInput['id'] }, unknown, unknown>, response: Response) => {
   const id = request.params.id;
 
   try {
@@ -99,8 +116,12 @@ const deleteTransfer = async (request: Request<{ id: TransferInput['id'] }, {}, 
       const fromAccountDocument = await Account.findById(transfer.fromAccount);
       const toAccountDocument = await Account.findById(transfer.toAccount);
 
-      await Account.findByIdAndUpdate(transfer.fromAccount, { balance: fromAccountDocument!.balance + transfer.amount });
-      await Account.findByIdAndUpdate(transfer.toAccount, { balance: toAccountDocument!.balance - transfer.amount });
+      if (!fromAccountDocument || !toAccountDocument) {
+        return;
+      }
+
+      await Account.findByIdAndUpdate(transfer.fromAccount, { balance: fromAccountDocument.balance + transfer.amount });
+      await Account.findByIdAndUpdate(transfer.toAccount, { balance: toAccountDocument.balance - transfer.amount });
 
       return response.status(204).json({ data: null });
     }

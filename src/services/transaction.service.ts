@@ -4,7 +4,7 @@ import { mapTransaction, mapTransactions } from '../helpers';
 import { calculateAccountBalance, updateAccountBalance, updateSummary } from '../services';
 
 const getTransactions = async (request: Request, response: Response) => {
-  const userId = request.user!.userId;
+  const userId = request.user?.userId;
 
   try {
     const transactions = await Transaction.find({ userId }).sort({ createdAt: -1 });
@@ -15,8 +15,9 @@ const getTransactions = async (request: Request, response: Response) => {
   }
 };
 
-const getTransactionById = async (request: Request<{ id: TransactionInput['id'] }, {}, TransactionInput>, response: Response) => {
-  const id = request.params.id
+const getTransactionById = async (request: Request<{ id: TransactionInput['id'] }, unknown, TransactionInput>, response: Response) => {
+  const id = request.params.id;
+
   try {
     const transaction = await Transaction.findById(id);
 
@@ -30,9 +31,9 @@ const getTransactionById = async (request: Request<{ id: TransactionInput['id'] 
   }
 };
 
-const addTransaction = async (request: Request<{}, {}, TransactionInput>, response: Response) => {
+const addTransaction = async (request: Request<unknown, unknown, TransactionInput>, response: Response) => {
   const { amount, categoryId, name, nameKey, type, icon, accountId, createdAt, note } = request.body;
-  const userId = request.user!.userId;
+  const userId = request.user?.userId;
   const payload = { userId, amount, categoryId, name, nameKey, type, icon, accountId, createdAt, note } as TransactionInput;
 
   if (!amount || !categoryId || !name) {
@@ -49,10 +50,10 @@ const addTransaction = async (request: Request<{}, {}, TransactionInput>, respon
   }
 };
 
-const editTransaction = async (request: Request<{ id: TransactionInput['id'] }, {}, TransactionInput>, response: Response) => {
+const editTransaction = async (request: Request<{ id: TransactionInput['id'] }, unknown, TransactionInput>, response: Response) => {
   const id = request.params.id;
   const { amount, categoryId, name, nameKey, type, icon, accountId, createdAt, note } = request.body;
-  const userId = request.user!.userId;
+  const userId = request.user?.userId;
   const payload = { userId, amount, categoryId, name, nameKey, type, icon, accountId, createdAt, note } as TransactionInput;
 
   try {
@@ -64,9 +65,13 @@ const editTransaction = async (request: Request<{ id: TransactionInput['id'] }, 
   }
 };
 
-const deleteTransaction = async (request: Request<{ id: TransactionInput['id'] }, {}, {}>, response: Response) => {
+const deleteTransaction = async (request: Request<{ id: TransactionInput['id'] }, unknown, unknown>, response: Response) => {
   const id = request.params.id;
-  const userId = request.user!.userId;
+  const userId = request.user?.userId;
+
+  if (!userId) {
+    return;
+  }
 
   try {
     const transaction = await Transaction.findById(id);
@@ -90,34 +95,30 @@ const deleteTransaction = async (request: Request<{ id: TransactionInput['id'] }
 
 const createUpdateTransaction = async (payload: TransactionInput, id?: TransactionInput['id']) => {
   const { userId, accountId, amount, type } = payload;
+  const account = await Account.findById(accountId);
 
-  try {
-    const account = await Account.findById(accountId);
+  if (account) {
+    const extendedTransaction = {
+      ...payload,
+      accountName: account?.name,
+      accountIcon: account?.icon,
+      accountNameKey: account?.nameKey,
+      currencyIso: account?.currencyIso
+    } as TransactionDocument;
 
-    if (account) {
-      const extendedTransaction = {
-        ...payload,
-        accountName: account?.name,
-        accountIcon: account?.icon,
-        accountNameKey: account?.nameKey,
-        currencyIso: account?.currencyIso
-      } as TransactionDocument;
-      const mappedTransaction = mapTransaction(extendedTransaction);
+    const mappedTransaction = mapTransaction(extendedTransaction);
 
-      if (!id) {
-        await Transaction.create(mappedTransaction);
-        await calculateAccountBalance(account, amount, type, 'create');
-      } else {
-        const oldTransaction = mapTransaction(await Transaction.findById(id) as TransactionDocument);
-        await Transaction.findByIdAndUpdate(id, mappedTransaction);
-        await calculateAccountBalance(account, amount, type, 'edit', userId, oldTransaction);
-      }
+    if (!id) {
+      await Transaction.create(mappedTransaction);
+      await calculateAccountBalance(account, amount, type, 'create');
+    } else {
+      const oldTransaction = mapTransaction(await Transaction.findById(id) as TransactionDocument);
+      await Transaction.findByIdAndUpdate(id, mappedTransaction);
+      await calculateAccountBalance(account, amount, type, 'edit', userId, oldTransaction);
     }
-
-    await updateSummary(userId);
-  } catch (error) {
-    throw error;
   }
+
+  await updateSummary(userId);
 };
 
 const updateCategoryTransactions = async (userId: string, categoryId: CategoryInput['id'], category: CategoryInput): Promise<void> => {
