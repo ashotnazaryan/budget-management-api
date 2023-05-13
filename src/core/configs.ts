@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import { AuthenticateOptionsGoogle, StrategyOptions } from 'passport-google-oauth20';
+import { StrategyOption } from 'passport-facebook';
 
 dotenv.config();
 
@@ -8,6 +9,8 @@ export const CONFIG = {
   env: process.env.NODE_ENV,
   googleClientID: process.env.GOOGLE_OUATH_CLIENT_ID || '',
   googleClientSecret: process.env.GOOGLE_OUATH_CLIENT_SECRET || '',
+  facebookClientID: process.env.FACEBOOK_OUATH_CLIENT_ID || '',
+  facebookClientSecret: process.env.FACEBOOK_OUATH_CLIENT_SECRET || '',
   clientURL: process.env.CLIENT_URL || 'http://localhost:3000',
   domain: process.env.DOMAIN,
   cookieSessionSecretName: process.env.COOKIE_SECRET_NAME || '',
@@ -21,6 +24,8 @@ export const CONFIG = {
     logout: '/logout',
     google: '/google',
     googleCallback: '/google/callback',
+    facebook: '/facebook',
+    facebookCallback: '/facebook/callback',
     getUser: '/',
     getSummary: '/',
     getBalance: '/balance',
@@ -71,4 +76,14 @@ export const GOOGLE_STRATEGY_OPTIONS: GoogleStrategyOptions = {
   prompt: 'consent'
 };
 
+export const FACEBOOK_STRATEGY_OPTIONS: FacebookStrategyOptions = {
+  callbackURL: CONFIG.env === 'production' ? `${CONFIG.clientURL}/api/auth${CONFIG.routes.facebookCallback}` : `/api/auth${CONFIG.routes.facebookCallback}`,
+  profileFields: ['id', 'displayName', 'photos', 'email'],
+  clientID: CONFIG.facebookClientID,
+  clientSecret: CONFIG.facebookClientSecret,
+  authType: 'reauthenticate',
+  display: 'popup'
+};
+
 type GoogleStrategyOptions = StrategyOptions & AuthenticateOptionsGoogle;
+type FacebookStrategyOptions = StrategyOption;
