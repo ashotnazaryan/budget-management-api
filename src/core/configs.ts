@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import { AuthenticateOptionsGoogle, StrategyOptions } from 'passport-google-oauth20';
-import { StrategyOption } from 'passport-facebook';
+import { StrategyOption, AuthenticateOptions } from 'passport-facebook';
 
 dotenv.config();
 
@@ -81,9 +81,10 @@ export const FACEBOOK_STRATEGY_OPTIONS: FacebookStrategyOptions = {
   profileFields: ['id', 'displayName', 'photos', 'email'],
   clientID: CONFIG.facebookClientID,
   clientSecret: CONFIG.facebookClientSecret,
+  // TODO: remove, unused props
   authType: 'reauthenticate',
   display: 'popup'
 };
 
 type GoogleStrategyOptions = StrategyOptions & AuthenticateOptionsGoogle;
-type FacebookStrategyOptions = StrategyOption;
+type FacebookStrategyOptions = StrategyOption & AuthenticateOptions;
