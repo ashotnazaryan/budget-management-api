@@ -71,4 +71,32 @@ const googleCallback = (request: Request, response: Response, next: NextFunction
   })(request, response, next);
 };
 
-export { google, googleCallback, loginSuccess, loginFailed, getNewAccessToken, logout };
+const facebook = (request: Request, response: Response, next: NextFunction) => {
+  passport.authenticate('facebook',
+    {},
+    (error: any, user: Express.User) => {
+      next(user);
+    })(request, response, next);
+};
+
+const facebookCallback = (request: Request, response: Response, next: NextFunction) => {
+  passport.authenticate('facebook', (error: any, user: Express.User) => {
+    if (error) {
+      return next(error);
+    }
+
+    if (!user) {
+      response.status(401).redirect(`/api/auth${CONFIG.routes.loginFailed}`);
+    }
+
+    request.logIn(user, (error) => {
+      if (error) {
+        return next(error);
+      }
+
+      response.redirect(CONFIG.clientURL);
+    });
+  })(request, response, next);
+};
+
+export { google, facebook, googleCallback, facebookCallback, loginSuccess, loginFailed, getNewAccessToken, logout };

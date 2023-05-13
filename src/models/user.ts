@@ -1,4 +1,6 @@
 import mongoose, { Document } from 'mongoose';
+import { Profile as GoogleProfile } from 'passport-google-oauth20';
+import { Profile as FacebookProfile } from 'passport-facebook';
 import { CONFIG } from '../core/configs';
 
 const Schema = mongoose.Schema;
@@ -22,7 +24,7 @@ interface UserInput {
   id: string;
   userId: string;
   fullName: string;
-  avatar: string;
+  avatar?: string;
 }
 
 interface PassportUser {
@@ -31,6 +33,9 @@ interface PassportUser {
   accessToken: string;
   refreshToken: string;
 }
+
+type Provider = 'google' | 'facebook';
+type Profile = GoogleProfile | FacebookProfile;
 
 const userSchema = new Schema(
   {
@@ -55,4 +60,4 @@ const userSchema = new Schema(
 
 const User = mongoose.model<UserDocument>(CONFIG.collections.user, userSchema);
 
-export { User, UserDocument, UserInput, PassportUser };
+export { User, UserDocument, UserInput, PassportUser, Provider, Profile };
