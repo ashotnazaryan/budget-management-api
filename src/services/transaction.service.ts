@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { Transaction, Account, TransactionInput, TransactionDocument, CategoryInput, AccountInput } from '../models';
 import { mapTransaction, mapTransactions } from '../helpers';
 import { calculateAccountBalance, updateAccountBalance, updateSummary } from '../services';
+import { MAX_TRANSACTION_AMOUNT } from '../core/configs';
 
 const getTransactions = async (request: Request, response: Response) => {
   const userId = request.user?.userId;
@@ -40,6 +41,10 @@ const addTransaction = async (request: Request<unknown, unknown, TransactionInpu
     return response.status(422).json({ error: { message: 'Missing fields', status: 422 } });
   }
 
+  if (amount >= MAX_TRANSACTION_AMOUNT) {
+    return response.status(422).json({ error: { message: 'Invalid amount', messageKey: 'TRANSACTIONS.ERRORS.INVALID_AMOUNT', status: 422 } });
+  }
+
   try {
     await createUpdateTransaction(payload);
 
@@ -55,6 +60,10 @@ const editTransaction = async (request: Request<{ id: TransactionInput['id'] }, 
   const { amount, categoryId, name, nameKey, type, icon, accountId, createdAt, note } = request.body;
   const userId = request.user?.userId;
   const payload = { userId, amount, categoryId, name, nameKey, type, icon, accountId, createdAt, note } as TransactionInput;
+
+  if (amount >= MAX_TRANSACTION_AMOUNT) {
+    return response.status(422).json({ error: { message: 'Invalid amount', messageKey: 'TRANSACTIONS.ERRORS.INVALID_AMOUNT', status: 422 } });
+  }
 
   try {
     await createUpdateTransaction(payload, id);
