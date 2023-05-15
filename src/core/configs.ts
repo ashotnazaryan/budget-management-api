@@ -72,8 +72,7 @@ export const GOOGLE_STRATEGY_OPTIONS: GoogleStrategyOptions = {
   scope: ['profile'],
   clientID: CONFIG.googleClientID,
   clientSecret: CONFIG.googleClientSecret,
-  accessType: 'offline',
-  prompt: 'consent'
+  accessType: 'offline'
 };
 
 export const FACEBOOK_STRATEGY_OPTIONS: FacebookStrategyOptions = {
@@ -85,6 +84,9 @@ export const FACEBOOK_STRATEGY_OPTIONS: FacebookStrategyOptions = {
   authType: 'reauthenticate',
   display: 'popup'
 };
+
+export const MAX_TRANSACTION_AMOUNT = 1000000;
+export const MAX_TRANSFER_AMOUNT = 1000000;
 
 type GoogleStrategyOptions = StrategyOptions & AuthenticateOptionsGoogle;
 type FacebookStrategyOptions = StrategyOption & AuthenticateOptions;

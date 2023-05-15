@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { Account, AccountInput, Transfer, TransferInput } from '../models';
 import { mapTransfer, mapTransfers } from '../helpers';
+import { MAX_TRANSFER_AMOUNT } from '../core/configs';
 
 const getTransfers = async (request: Request, response: Response) => {
   const userId = request.user?.userId;
@@ -48,6 +49,10 @@ const createTransfer = async (request: Request<unknown, unknown, TransferInput>,
     return response.status(409).json({ error: { message: 'You cannot transfer between same accounts.', messageKey: 'TRANSFERS.ERRORS.SAME_ACCOUNT', status: 409 } });
   }
 
+  if (amount >= MAX_TRANSFER_AMOUNT) {
+    return response.status(422).json({ error: { message: 'Invalid amount', messageKey: 'TRANSFERS.ERRORS.INVALID_AMOUNT', status: 422 } });
+  }
+
   try {
     await Transfer.create(payload);
     const fromAccountDocument = await Account.findById(fromAccount) || { balance: 0 };
@@ -68,6 +73,10 @@ const editTransfer = async (request: Request<{ id: TransferInput['id'] }, unknow
 
   if (fromAccount === toAccount) {
     return response.status(409).json({ error: { message: 'You cannot transfer between same accounts.', messageKey: 'TRANSFERS.ERRORS.SAME_ACCOUNT', status: 409 } });
+  }
+
+  if (amount >= MAX_TRANSFER_AMOUNT) {
+    return response.status(422).json({ error: { message: 'Invalid amount', messageKey: 'TRANSFERS.ERRORS.INVALID_AMOUNT', status: 422 } });
   }
 
   try {

@@ -39,11 +39,8 @@ const setUser = async (
     }
   } else {
     await User.findOneAndUpdate({ userId: user.userId }, {
-      $set: {
-        avatar: mappedUser.avatar,
-        fullName: user.fullName,
-        userId: user.userId
-      }
+      fullName: user.fullName,
+      userId: user.userId
     });
 
     const userWithToken = {
