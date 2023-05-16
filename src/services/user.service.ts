@@ -9,12 +9,12 @@ const getUser = async (request: Request, response: Response) => {
     const user = await User.findOne({ userId });
 
     if (user) {
-      return response.status(200).json({ data: mapUser(user) });
+      return response.status(200).json(mapUser(user));
     }
 
-    return response.status(404).json({ error: { message: 'User not found', status: 404 } });
+    return response.status(404).json({ message: 'User not found', status: 404 });
   } catch {
-    return response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
+    return response.status(500).json({ message: 'Internal server error', status: 500 });
   }
 };
 

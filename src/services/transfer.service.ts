@@ -13,9 +13,9 @@ const getTransfers = async (request: Request, response: Response) => {
   try {
     const transfers = await Transfer.find({ userId }).sort({ createdAt: -1 });
 
-    return response.status(200).json({ data: mapTransfers(transfers, userId) });
+    return response.status(200).json(mapTransfers(transfers, userId));
   } catch {
-    return response.status(200).json({ data: null });
+    return response.status(200).json(null);
   }
 };
 
@@ -31,12 +31,12 @@ const getTransferById = async (request: Request<{ id: TransferInput['id'] }, unk
     const transfer = await Transfer.findById(id);
 
     if (transfer) {
-      return response.status(200).json({ data: mapTransfer(transfer, userId) });
+      return response.status(200).json(mapTransfer(transfer, userId));
     }
 
-    return response.status(404).json({ error: { message: 'Transfer not found', status: 404 } });
+    return response.status(404).json({ message: 'Transfer not found', status: 404 });
   } catch {
-    return response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
+    return response.status(500).json({ message: 'Internal server error', status: 500 });
   }
 };
 
@@ -46,11 +46,11 @@ const createTransfer = async (request: Request<unknown, unknown, TransferInput>,
   const payload = { userId, fromAccount, toAccount, amount, createdAt };
 
   if (fromAccount === toAccount) {
-    return response.status(409).json({ error: { message: 'You cannot transfer between same accounts.', messageKey: 'TRANSFERS.ERRORS.SAME_ACCOUNT', status: 409 } });
+    return response.status(409).json({ message: 'You cannot transfer between same accounts.', messageKey: 'TRANSFERS.ERRORS.SAME_ACCOUNT', status: 409 });
   }
 
   if (amount >= MAX_TRANSFER_AMOUNT) {
-    return response.status(422).json({ error: { message: 'Invalid amount', messageKey: 'TRANSFERS.ERRORS.INVALID_AMOUNT', status: 422 } });
+    return response.status(422).json({ message: 'Invalid amount', messageKey: 'TRANSFERS.ERRORS.INVALID_AMOUNT', status: 422 });
   }
 
   try {
@@ -61,9 +61,9 @@ const createTransfer = async (request: Request<unknown, unknown, TransferInput>,
     await Account.findByIdAndUpdate(fromAccount, { balance: fromAccountDocument.balance - amount });
     await Account.findByIdAndUpdate(toAccount, { balance: toAccountDocument.balance + amount });
 
-    return response.status(201).json({ data: null });
+    return response.status(201).json(null);
   } catch (error) {
-    return response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
+    return response.status(500).json({ message: 'Internal server error', status: 500 });
   }
 };
 
@@ -72,11 +72,11 @@ const editTransfer = async (request: Request<{ id: TransferInput['id'] }, unknow
   const { fromAccount, toAccount, amount } = request.body;
 
   if (fromAccount === toAccount) {
-    return response.status(409).json({ error: { message: 'You cannot transfer between same accounts.', messageKey: 'TRANSFERS.ERRORS.SAME_ACCOUNT', status: 409 } });
+    return response.status(409).json({ message: 'You cannot transfer between same accounts.', messageKey: 'TRANSFERS.ERRORS.SAME_ACCOUNT', status: 409 });
   }
 
   if (amount >= MAX_TRANSFER_AMOUNT) {
-    return response.status(422).json({ error: { message: 'Invalid amount', messageKey: 'TRANSFERS.ERRORS.INVALID_AMOUNT', status: 422 } });
+    return response.status(422).json({ message: 'Invalid amount', messageKey: 'TRANSFERS.ERRORS.INVALID_AMOUNT', status: 422 });
   }
 
   try {
@@ -108,9 +108,9 @@ const editTransfer = async (request: Request<{ id: TransferInput['id'] }, unknow
     await Account.findByIdAndUpdate(fromAccount, { balance: fromAccountBalance });
     await Account.findByIdAndUpdate(toAccount, { balance: toAccountBalance });
 
-    return response.status(200).json({ data: null });
+    return response.status(200).json(null);
   } catch {
-    return response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
+    return response.status(500).json({ message: 'Internal server error', status: 500 });
   }
 };
 
@@ -132,12 +132,12 @@ const deleteTransfer = async (request: Request<{ id: TransferInput['id'] }, unkn
       await Account.findByIdAndUpdate(transfer.fromAccount, { balance: fromAccountDocument.balance + transfer.amount });
       await Account.findByIdAndUpdate(transfer.toAccount, { balance: toAccountDocument.balance - transfer.amount });
 
-      return response.status(204).json({ data: null });
+      return response.status(204).json(null);
     }
 
-    return response.status(404).json({ error: { message: 'Transfer not found', status: 404 } });
+    return response.status(404).json({ message: 'Transfer not found', status: 404 });
   } catch {
-    return response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
+    return response.status(500).json({ message: 'Internal server error', status: 500 });
   }
 };
 

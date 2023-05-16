@@ -8,7 +8,7 @@ const loginSuccess = (request: Request, response: Response) => {
   const user = request.user;
 
   if (user) {
-    return response.status(200).json({ data: user });
+    return response.status(200).json(user);
   }
 
   response.status(401).redirect(`/api/auth${CONFIG.routes.loginFailed}`);
@@ -21,7 +21,7 @@ const getNewAccessToken = async (request: Request<unknown, unknown, PassportUser
     const credentials = await getGoogleAccessToken(refreshToken);
 
     if (credentials) {
-      return response.status(200).json({ data: credentials });
+      return response.status(200).json(credentials);
     }
   } catch (error) {
     console.log(error);
@@ -29,7 +29,7 @@ const getNewAccessToken = async (request: Request<unknown, unknown, PassportUser
 };
 
 const loginFailed = (request: Request, response: Response) => {
-  response.status(401).json({ error: { message: 'Unauthorized', status: 401 } });
+  response.status(401).json({ message: 'Unauthorized', status: 401 });
 };
 
 const logout = (request: Request, response: Response, next: NextFunction) => {
@@ -37,7 +37,7 @@ const logout = (request: Request, response: Response, next: NextFunction) => {
   request.logout((error) => {
     return next(error);
   });
-  response.status(200).json({ data: null });
+  response.status(200).json(null);
 };
 
 const google = (request: Request, response: Response, next: NextFunction) => {

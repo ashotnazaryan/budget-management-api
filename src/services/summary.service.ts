@@ -27,15 +27,15 @@ const getSummary = async (request: Request<unknown, unknown, unknown, qs.ParsedQ
     const summary = await calculateSummary(userId, from, to);
 
     if (summary) {
-      return response.status(200).json({ data: summary });
+      return response.status(200).json(summary);
     }
 
     const emptySummary = { ...initialSummary, userId };
     const newEmptySummary = await Summary.create(emptySummary);
 
-    return response.status(200).json({ data: newEmptySummary });
+    return response.status(200).json(newEmptySummary);
   } catch {
-    response.status(404).json({ error: { message: 'Summary not found', status: 404 } });
+    response.status(404).json({ message: 'Summary not found', status: 404 });
   }
 };
 
@@ -50,12 +50,12 @@ const getBalanceInfo = async (request: Request, response: Response) => {
     const balance = await calculateAccountsTotalBalance(userId);
 
     if (!!balance || balance === 0) {
-      return response.status(200).json({ data: balance });
+      return response.status(200).json(balance);
     }
 
-    return response.status(200).json({ data: 0 });
+    return response.status(200).json(0);
   } catch {
-    return response.status(200).json({ data: 0 });
+    return response.status(200).json(0);
   }
 };
 

@@ -10,9 +10,9 @@ const getTransactions = async (request: Request, response: Response) => {
   try {
     const transactions = await Transaction.find({ userId }).sort({ createdAt: -1 });
 
-    return response.status(200).json({ data: mapTransactions(transactions) });
+    return response.status(200).json(mapTransactions(transactions));
   } catch {
-    return response.status(200).json({ data: null });
+    return response.status(200).json(null);
   }
 };
 
@@ -23,12 +23,12 @@ const getTransactionById = async (request: Request<{ id: TransactionInput['id'] 
     const transaction = await Transaction.findById(id);
 
     if (transaction) {
-      return response.status(200).json({ data: mapTransaction(transaction) });
+      return response.status(200).json(mapTransaction(transaction));
     }
 
-    return response.status(404).json({ error: { message: 'Transaction not found', status: 404 } });
+    return response.status(404).json({ message: 'Transaction not found', status: 404 });
   } catch {
-    return response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
+    return response.status(500).json({ message: 'Internal server error', status: 500 });
   }
 };
 
@@ -38,20 +38,20 @@ const addTransaction = async (request: Request<unknown, unknown, TransactionInpu
   const payload = { userId, amount, categoryId, name, nameKey, type, icon, accountId, createdAt, note } as TransactionInput;
 
   if (!amount || !categoryId || !name) {
-    return response.status(422).json({ error: { message: 'Missing fields', status: 422 } });
+    return response.status(422).json({ message: 'Missing fields', status: 422 });
   }
 
   if (amount >= MAX_TRANSACTION_AMOUNT) {
-    return response.status(422).json({ error: { message: 'Invalid amount', messageKey: 'TRANSACTIONS.ERRORS.INVALID_AMOUNT', status: 422 } });
+    return response.status(422).json({ message: 'Invalid amount', messageKey: 'TRANSACTIONS.ERRORS.INVALID_AMOUNT', status: 422 });
   }
 
   try {
     await createUpdateTransaction(payload);
 
-    return response.status(201).json({ data: null });
+    return response.status(201).json(null);
 
   } catch {
-    return response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
+    return response.status(500).json({ message: 'Internal server error', status: 500 });
   }
 };
 
@@ -62,15 +62,15 @@ const editTransaction = async (request: Request<{ id: TransactionInput['id'] }, 
   const payload = { userId, amount, categoryId, name, nameKey, type, icon, accountId, createdAt, note } as TransactionInput;
 
   if (amount >= MAX_TRANSACTION_AMOUNT) {
-    return response.status(422).json({ error: { message: 'Invalid amount', messageKey: 'TRANSACTIONS.ERRORS.INVALID_AMOUNT', status: 422 } });
+    return response.status(422).json({ message: 'Invalid amount', messageKey: 'TRANSACTIONS.ERRORS.INVALID_AMOUNT', status: 422 });
   }
 
   try {
     await createUpdateTransaction(payload, id);
 
-    return response.status(200).json({ data: null });
+    return response.status(200).json(null);
   } catch {
-    return response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
+    return response.status(500).json({ message: 'Internal server error', status: 500 });
   }
 };
 
@@ -93,12 +93,12 @@ const deleteTransaction = async (request: Request<{ id: TransactionInput['id'] }
       await updateAccountBalance(allUserAccounts, userId);
       await updateSummary(userId);
 
-      return response.status(204).json({ data: null });
+      return response.status(204).json(null);
     }
 
-    return response.status(404).json({ error: { message: 'Transaction not found', status: 404 } });
+    return response.status(404).json({ message: 'Transaction not found', status: 404 });
   } catch {
-    return response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
+    return response.status(500).json({ message: 'Internal server error', status: 500 });
   }
 };
 
