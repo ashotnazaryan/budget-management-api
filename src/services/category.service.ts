@@ -25,9 +25,9 @@ const getCategories = async (request: Request, response: Response) => {
     await ensureDefaultCategories(userId);
     const categories = await Category.find({ userId });
 
-    return response.status(200).json({ data: mapCategories(categories, userId) });
+    return response.status(200).json(mapCategories(categories, userId));
   } catch {
-    return response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
+    return response.status(500).json({ message: 'Internal server error', status: 500 });
   }
 };
 
@@ -43,12 +43,12 @@ const getCategoryById = async (request: Request<{ id: CategoryInput['id'] }, unk
     const category = await Category.findById(id);
 
     if (category) {
-      return response.status(200).json({ data: mapCategory(category, userId) });
+      return response.status(200).json(mapCategory(category, userId));
     }
 
-    return response.status(404).json({ error: { message: 'Category not found', status: 404 } });
+    return response.status(404).json({ message: 'Category not found', status: 404 });
   } catch {
-    return response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
+    return response.status(500).json({ message: 'Internal server error', status: 500 });
   }
 };
 
@@ -67,13 +67,13 @@ const createCategory = async (request: Request<unknown, unknown, CategoryInput>,
     if (!categoryAvailable) {
       await Category.create(newCategory);
 
-      return response.status(201).json({ data: null });
+      return response.status(201).json(null);
     }
 
-    return response.status(409).json({ error: { message: 'Category already exists', messageKey: 'CATEGORIES.ERRORS.CATEGORY_EXISTS', status: 409 } });
+    return response.status(409).json({ message: 'Category already exists', messageKey: 'CATEGORIES.ERRORS.CATEGORY_EXISTS', status: 409 });
 
   } catch (error) {
-    return response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
+    return response.status(500).json({ message: 'Internal server error', status: 500 });
   }
 };
 
@@ -91,16 +91,16 @@ const editCategory = async (request: Request<{ id: CategoryInput['id'] }, unknow
     const categoryAvailable = categories.some((item) => item.name === category.name && item.id !== id);
 
     if (categoryAvailable) {
-      return response.status(409).json({ error: { message: 'Category already exists', messageKey: 'CATEGORIES.ERRORS.CATEGORY_EXISTS', status: 409 } });
+      return response.status(409).json({ message: 'Category already exists', messageKey: 'CATEGORIES.ERRORS.CATEGORY_EXISTS', status: 409 });
     }
 
     await Category.findByIdAndUpdate(id, category);
     await updateCategoryTransactions(userId, id, category);
     await updateSummary(userId);
 
-    return response.status(200).json({ data: null });
+    return response.status(200).json(null);
   } catch {
-    return response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
+    return response.status(500).json({ message: 'Internal server error', status: 500 });
   }
 };
 
@@ -124,12 +124,12 @@ const deleteCategory = async (request: Request<{ id: CategoryInput['id'] }, unkn
       await updateAccountBalance(allUserAccounts, userId);
       await updateSummary(userId);
 
-      return response.status(204).json({ data: null });
+      return response.status(204).json(null);
     }
 
-    return response.status(404).json({ error: { message: 'Category not found', status: 404 } });
+    return response.status(404).json({ message: 'Category not found', status: 404 });
   } catch {
-    return response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
+    return response.status(500).json({ message: 'Internal server error', status: 500 });
   }
 };
 

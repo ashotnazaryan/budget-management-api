@@ -25,9 +25,9 @@ const getAccounts = async (request: Request, response: Response) => {
     await ensureDefaultAccounts(userId);
     const accounts = await Account.find({ userId });
 
-    return response.status(200).json({ data: mapAccounts(accounts, userId) });
+    return response.status(200).json(mapAccounts(accounts, userId));
   } catch {
-    return response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
+    return response.status(500).json({ message: 'Internal server error', status: 500 });
   }
 };
 
@@ -43,12 +43,12 @@ const getAccountById = async (request: Request<{ id: AccountInput['id'] }, unkno
     const account = await Account.findById(id);
 
     if (account) {
-      return response.status(200).json({ data: mapAccount(account, userId) });
+      return response.status(200).json(mapAccount(account, userId));
     }
 
-    return response.status(404).json({ error: { message: 'Account not found', status: 404 } });
+    return response.status(404).json({ message: 'Account not found', status: 404 });
   } catch {
-    return response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
+    return response.status(500).json({ message: 'Internal server error', status: 500 });
   }
 };
 
@@ -67,13 +67,13 @@ const createAccount = async (request: Request<unknown, unknown, AccountInput>, r
     if (!accountAvailable) {
       await Account.create(newAccount);
 
-      return response.status(201).json({ data: null });
+      return response.status(201).json(null);
     }
 
-    return response.status(409).json({ error: { message: 'Account already exists', messageKey: 'ACCOUNTS.ERRORS.ACCOUNT_EXISTS', status: 409 } });
+    return response.status(409).json({ message: 'Account already exists', messageKey: 'ACCOUNTS.ERRORS.ACCOUNT_EXISTS', status: 409 });
 
   } catch (error) {
-    return response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
+    return response.status(500).json({ message: 'Internal server error', status: 500 });
   }
 };
 
@@ -87,7 +87,7 @@ const editAccount = async (request: Request<{ id: AccountInput['id'] }, unknown,
     const accountAvailable = accounts.some((item) => item.name === updatedAccount.name && item.id !== id);
 
     if (accountAvailable) {
-      return response.status(409).json({ error: { message: 'Account already exists', messageKey: 'ACCOUNTS.ERRORS.ACCOUNT_EXISTS', status: 409 } });
+      return response.status(409).json({ message: 'Account already exists', messageKey: 'ACCOUNTS.ERRORS.ACCOUNT_EXISTS', status: 409 });
     }
 
     const account = await Account.findById(id);
@@ -103,12 +103,12 @@ const editAccount = async (request: Request<{ id: AccountInput['id'] }, unknown,
       await Account.findByIdAndUpdate(id, updatedAccount);
       await updateAccountTransactions(userId, id, updatedAccount);
 
-      return response.status(200).json({ data: null });
+      return response.status(200).json(null);
     }
 
-    return response.status(404).json({ error: { message: 'Account not found', status: 404 } });
+    return response.status(404).json({ message: 'Account not found', status: 404 });
   } catch {
-    return response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
+    return response.status(500).json({ message: 'Internal server error', status: 500 });
   }
 };
 
@@ -125,7 +125,7 @@ const deleteAccount = async (request: Request<{ id: AccountInput['id'] }, unknow
     const userSetting = await Setting.findOne({ userId });
 
     if (userSetting?.defaultAccount === id) {
-      return response.status(403).json({ error: { message: 'You cannot delete the default account', messageKey: 'ACCOUNTS.ERRORS.DELETE_DEFAULT_ACCOUNT', status: 403 } });
+      return response.status(403).json({ message: 'You cannot delete the default account', messageKey: 'ACCOUNTS.ERRORS.DELETE_DEFAULT_ACCOUNT', status: 403 });
     }
 
     if (account) {
@@ -134,12 +134,12 @@ const deleteAccount = async (request: Request<{ id: AccountInput['id'] }, unknow
       await deleteAccountTransfers(userId, id);
       await updateSummary(userId);
 
-      return response.status(204).json({ data: null });
+      return response.status(204).json(null);
     }
 
-    return response.status(404).json({ error: { message: 'Account not found', status: 404 } });
+    return response.status(404).json({ message: 'Account not found', status: 404 });
   } catch {
-    return response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
+    return response.status(500).json({ message: 'Internal server error', status: 500 });
   }
 };
 

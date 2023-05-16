@@ -16,15 +16,15 @@ const getSettings = async (request: Request, response: Response) => {
     const setting = await Setting.findOne({ userId });
 
     if (setting) {
-      return response.status(200).json({ data: setting });
+      return response.status(200).json(setting);
     }
 
     const emptySetting = { ...initialSetting, userId };
     const newEmptySetting = await Setting.create(emptySetting);
 
-    return response.status(200).json({ data: newEmptySetting });
+    return response.status(200).json(newEmptySetting);
   } catch {
-    response.status(404).json({ error: { message: 'Setting not found', status: 404 } });
+    response.status(404).json({ message: 'Setting not found', status: 404 });
   }
 };
 
@@ -47,15 +47,15 @@ const addSetting = async (request: Request<unknown, unknown, SettingInput>, resp
         }
       });
 
-      return response.status(200).json({ data: null });
+      return response.status(200).json(null);
     }
 
     const newSetting = { ...initialSetting, ...request.body, userId };
     await Setting.create(newSetting);
 
-    return response.status(201).json({ data: null });
+    return response.status(201).json(null);
   } catch {
-    response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
+    response.status(500).json({ message: 'Internal server error', status: 500 });
   }
 };
 
@@ -70,9 +70,9 @@ const reset = async (request: Request, response: Response) => {
     await Transaction.deleteMany({ userId });
     await Transfer.deleteMany({ userId });
 
-    return response.status(204).json({ data: null });
+    return response.status(204).json(null);
   } catch {
-    response.status(500).json({ error: { message: 'Internal server error', status: 500 } });
+    response.status(500).json({ message: 'Internal server error', status: 500 });
   }
 };
 
