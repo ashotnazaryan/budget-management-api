@@ -93,7 +93,8 @@
       "REQUIRED_ICON": "Wymagana ikona",
       "REQUIRED_CURRENCY": "Wymagana waluta",
       "ACCOUNT_EXISTS": "Konto już istnieje",
-      "DELETE_DEFAULT_ACCOUNT": "Nie możesz usunąć domyślnego konta."
+      "DELETE_DEFAULT_ACCOUNT": "Nie możesz usunąć domyślnego konta.",
+      "REACHED_USER_LIMIT": "Osiągnąłeś maksymalną liczbę kont."
     },
     "DELETE_DIALOG_TITLE": "Usuń konto",
     "DELETE_DIALOG_CONFIRM": "Czy na pewno chcesz usunąć to konto? Spowoduje to usunięcie wszystkich transakcji dokonanych na tym koncie.",
@@ -120,7 +121,8 @@
       "REQUIRED_NAME": "Wymagana nazwa",
       "REQUIRED_ICON": "Wymagana ikona",
       "REQUIRED_TYPE": "Wymagany typ",
-      "CATEGORY_EXISTS": "Kategoria już istnieje"
+      "CATEGORY_EXISTS": "Kategoria już istnieje",
+      "REACHED_USER_LIMIT": "Osiągnąłeś maksymalną liczbę kategorii."
     },
     "DELETE_DIALOG_TITLE": "Usuń kategorię",
     "DELETE_DIALOG_CONFIRM": "Czy na pewno chcesz usunąć tę kategorię? Spowoduje to usunięcie wszystkich transakcji dokonanych w tej kategorii."
@@ -138,7 +140,8 @@
       "REQUIRED_CATEGORY": "Wymagana kategoria",
       "REQUIRED_ACCOUNT": "Wymagane konto",
       "REQUIRED_TYPE": "Wymagany typ",
-      "FUTURE_DATE": "Wybrana data nie może być w przyszłości."
+      "FUTURE_DATE": "Wybrana data nie może być w przyszłości.",
+      "REACHED_USER_LIMIT": "Osiągnąłeś maksymalną liczbę transakcji."
     },
     "DELETE_DIALOG_TITLE": "Usuń transakcję",
     "DELETE_DIALOG_CONFIRM": "Czy na pewno chcesz usunąć tę transakcję?"
@@ -156,7 +159,8 @@
       "REQUIRED_TO_ACCOUNT": "Wymagane konto docelowe",
       "REQUIRED_AMOUNT": "Wymagana kwota",
       "INVALID_AMOUNT": "Nieprawidłowa kwota",
-      "SAME_ACCOUNT": "Nie można przelać między tymi samymi kontami."
+      "SAME_ACCOUNT": "Nie można przelać między tymi samymi kontami.",
+      "REACHED_USER_LIMIT": "Osiągnąłeś maksymalną kwotę przelewów."
     },
     "DELETE_DIALOG_TITLE": "Usuń przelew",
     "DELETE_DIALOG_CONFIRM": "Czy na pewno chcesz usunąć ten przelew? Salda kont zostaną przeliczone."

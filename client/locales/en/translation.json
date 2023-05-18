@@ -93,7 +93,8 @@
       "REQUIRED_ICON": "Icon is required",
       "REQUIRED_CURRENCY": "Currency is required",
       "ACCOUNT_EXISTS": "Account already exists",
-      "DELETE_DEFAULT_ACCOUNT": "You cannot delete the default account."
+      "DELETE_DEFAULT_ACCOUNT": "You cannot delete the default account.",
+      "REACHED_USER_LIMIT": "You have reaced your maximum amount of accounts."
     },
     "DELETE_DIALOG_TITLE": "Delete account",
     "DELETE_DIALOG_CONFIRM": "Are you sure you want to delete this account? This will remove all transactions made under this account.",
@@ -120,7 +121,8 @@
       "REQUIRED_NAME": "Name is required",
       "REQUIRED_ICON": "Icon is required",
       "REQUIRED_TYPE": "Type is required",
-      "CATEGORY_EXISTS": "Category already exists"
+      "CATEGORY_EXISTS": "Category already exists",
+      "REACHED_USER_LIMIT": "You have reaced your maximum amount of categories."
     },
     "DELETE_DIALOG_TITLE": "Delete category",
     "DELETE_DIALOG_CONFIRM": "Are you sure you want to delete this category? This will remove all transactions made by this category."
@@ -138,7 +140,8 @@
       "REQUIRED_CATEGORY": "Category is required",
       "REQUIRED_ACCOUNT": "Account is required",
       "REQUIRED_TYPE": "Type is required",
-      "FUTURE_DATE": "Selected date cannot be a future date."
+      "FUTURE_DATE": "Selected date cannot be a future date.",
+      "REACHED_USER_LIMIT": "You have reaced your maximum amount of transactions."
     },
     "DELETE_DIALOG_TITLE": "Delete transaction",
     "DELETE_DIALOG_CONFIRM": "Are you sure you want to delete this transaction?"
@@ -156,7 +159,8 @@
       "REQUIRED_TO_ACCOUNT": "To account is required",
       "REQUIRED_AMOUNT": "Amount is required",
       "INVALID_AMOUNT": "Invalid amount",
-      "SAME_ACCOUNT": "You cannot transfer between same accounts."
+      "SAME_ACCOUNT": "You cannot transfer between same accounts.",
+      "REACHED_USER_LIMIT": "You have reaced your maximum amount of transfers."
     },
     "DELETE_DIALOG_TITLE": "Delete transfer",
     "DELETE_DIALOG_CONFIRM": "Are you sure you want to delete this transfer? Accounts' balances will be recalculated."
