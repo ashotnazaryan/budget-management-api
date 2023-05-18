@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { Account, AccountDocument, AccountInput, CategoryType, DefaultAccount, Setting, Transaction, TransactionInput } from '../models';
 import { calculateAmountByField, calculateTransactionsAmount, mapAccount, mapAccounts } from '../helpers';
 import { deleteAccountTransactions, deleteAccountTransfers, updateAccountTransactions, updateSummary } from '../services';
+import { MAX_ACCOUNTS_PER_USER } from '../core/configs';
 
 const ensureDefaultAccounts = async (userId: string): Promise<void> => {
   const count = await Account.countDocuments({ userId });
@@ -62,6 +63,12 @@ const createAccount = async (request: Request<unknown, unknown, AccountInput>, r
 
   try {
     const accounts = await Account.find({ userId });
+    const reachedUserLimit = accounts.length >= MAX_ACCOUNTS_PER_USER;
+
+    if (reachedUserLimit) {
+      return response.status(403).json({ message: 'You have reaced your maximum amount of accounts.', messageKey: 'ACCOUNTS.ERRORS.REACHED_USER_LIMIT', status: 403 });
+    }
+
     const accountAvailable = accounts.some((account) => account.name === newAccount.name);
 
     if (!accountAvailable) {

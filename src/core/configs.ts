@@ -79,14 +79,15 @@ export const FACEBOOK_STRATEGY_OPTIONS: FacebookStrategyOptions = {
   callbackURL: CONFIG.env === 'production' ? `${CONFIG.clientURL}/api/auth${CONFIG.routes.facebookCallback}` : `/api/auth${CONFIG.routes.facebookCallback}`,
   profileFields: ['id', 'displayName', 'photos', 'email'],
   clientID: CONFIG.facebookClientID,
-  clientSecret: CONFIG.facebookClientSecret,
-  // TODO: remove, unused props
-  authType: 'reauthenticate',
-  display: 'popup'
+  clientSecret: CONFIG.facebookClientSecret
 };
 
 export const MAX_TRANSACTION_AMOUNT = 1000000;
 export const MAX_TRANSFER_AMOUNT = 1000000;
+export const MAX_ACCOUNTS_PER_USER = 5;
+export const MAX_CATEGORIES_PER_USER = 50;
+export const MAX_TRANSACTIONS_PER_USER = 500;
+export const MAX_TRANSFERS_PER_USER = 500;
 
 type GoogleStrategyOptions = StrategyOptions & AuthenticateOptionsGoogle;
 type FacebookStrategyOptions = StrategyOption & AuthenticateOptions;

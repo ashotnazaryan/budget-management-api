@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { Account, Category, CategoryInput, DefaultCategory } from '../models';
 import { mapCategories, mapCategory } from '../helpers';
 import { deleteCategoryTransactions, updateAccountBalance, updateCategoryTransactions, updateSummary } from '../services';
+import { MAX_CATEGORIES_PER_USER } from '../core/configs';
 
 const ensureDefaultCategories = async (userId: string): Promise<void> => {
   const count = await Category.countDocuments({ userId });
@@ -62,6 +63,12 @@ const createCategory = async (request: Request<unknown, unknown, CategoryInput>,
 
   try {
     const categories = await Category.find({ userId });
+    const reachedUserLimit = categories.length >= MAX_CATEGORIES_PER_USER;
+
+    if (reachedUserLimit) {
+      return response.status(403).json({ message: 'You have reaced your maximum amount of categories.', messageKey: 'CATEGORIES.ERRORS.REACHED_USER_LIMIT', status: 403 });
+    }
+
     const categoryAvailable = categories.some((category) => category.name === newCategory.name);
 
     if (!categoryAvailable) {

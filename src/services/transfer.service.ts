@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { Account, AccountInput, Transfer, TransferInput } from '../models';
 import { mapTransfer, mapTransfers } from '../helpers';
-import { MAX_TRANSFER_AMOUNT } from '../core/configs';
+import { MAX_TRANSFERS_PER_USER, MAX_TRANSFER_AMOUNT } from '../core/configs';
 
 const getTransfers = async (request: Request, response: Response) => {
   const userId = request.user?.userId;
@@ -42,6 +42,7 @@ const getTransferById = async (request: Request<{ id: TransferInput['id'] }, unk
 
 const createTransfer = async (request: Request<unknown, unknown, TransferInput>, response: Response) => {
   const userId = request.user?.userId;
+
   const { fromAccount, toAccount, amount, createdAt } = request.body;
   const payload = { userId, fromAccount, toAccount, amount, createdAt };
 
@@ -54,6 +55,13 @@ const createTransfer = async (request: Request<unknown, unknown, TransferInput>,
   }
 
   try {
+    const transfers = await Transfer.find({ userId });
+    const reachedUserLimit = transfers.length >= MAX_TRANSFERS_PER_USER;
+
+    if (reachedUserLimit) {
+      return response.status(403).json({ message: 'You have reaced your maximum amount of transfers.', messageKey: 'TRANSFERS.ERRORS.REACHED_USER_LIMIT', status: 403 });
+    }
+
     await Transfer.create(payload);
     const fromAccountDocument = await Account.findById(fromAccount) || { balance: 0 };
     const toAccountDocument = await Account.findById(toAccount) || { balance: 0 };
