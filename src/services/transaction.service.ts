@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { Transaction, Account, TransactionInput, TransactionDocument, CategoryInput, AccountInput } from '../models';
 import { mapTransaction, mapTransactions } from '../helpers';
 import { calculateAccountBalance, updateAccountBalance, updateSummary } from '../services';
-import { MAX_TRANSACTION_AMOUNT } from '../core/configs';
+import { MAX_TRANSACTIONS_PER_USER, MAX_TRANSACTION_AMOUNT } from '../core/configs';
 
 const getTransactions = async (request: Request, response: Response) => {
   const userId = request.user?.userId;
@@ -33,8 +33,9 @@ const getTransactionById = async (request: Request<{ id: TransactionInput['id'] 
 };
 
 const addTransaction = async (request: Request<unknown, unknown, TransactionInput>, response: Response) => {
-  const { amount, categoryId, name, nameKey, type, icon, accountId, createdAt, note } = request.body;
   const userId = request.user?.userId;
+
+  const { amount, categoryId, name, nameKey, type, icon, accountId, createdAt, note } = request.body;
   const payload = { userId, amount, categoryId, name, nameKey, type, icon, accountId, createdAt, note } as TransactionInput;
 
   if (!amount || !categoryId || !name) {
@@ -46,6 +47,13 @@ const addTransaction = async (request: Request<unknown, unknown, TransactionInpu
   }
 
   try {
+    const transactions = await Transaction.find({ userId });
+    const reachedUserLimit = transactions.length >= MAX_TRANSACTIONS_PER_USER;
+
+    if (reachedUserLimit) {
+      return response.status(403).json({ message: 'You have reaced your maximum amount of transactions.', messageKey: 'TRANSACTIONS.ERRORS.REACHED_USER_LIMIT', status: 403 });
+    }
+
     await createUpdateTransaction(payload);
 
     return response.status(201).json(null);
