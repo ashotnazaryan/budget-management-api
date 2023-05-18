@@ -37,7 +37,9 @@
   "SIDEBAR": {
     "LOGOUT": "Wyloguj",
     "LOGOUT_DIALOG_TITLE": "Wyloguj",
-    "LOGOUT_DIALOG_CONFIRM": "Czy na pewno chcesz się wylogować?"
+    "LOGOUT_DIALOG_CONFIRM": "Czy na pewno chcesz się wylogować?",
+    "CURRENCY": "Waluta",
+    "LANGUAGE": "Język"
   },
   "ROUTES": {
     "LOGIN": "Logowanie",

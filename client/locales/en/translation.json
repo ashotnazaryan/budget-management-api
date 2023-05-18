@@ -37,7 +37,9 @@
   "SIDEBAR": {
     "LOGOUT": "Logout",
     "LOGOUT_DIALOG_TITLE": "Logout",
-    "LOGOUT_DIALOG_CONFIRM": "Are you sure you want to logout?"
+    "LOGOUT_DIALOG_CONFIRM": "Are you sure you want to logout?",
+    "CURRENCY": "Currency",
+    "LANGUAGE": "Language"
   },
   "ROUTES": {
     "LOGIN": "Login",

@@ -37,7 +37,9 @@
   "SIDEBAR": {
     "LOGOUT": "Вийти",
     "LOGOUT_DIALOG_TITLE": "Вийти",
-    "LOGOUT_DIALOG_CONFIRM": "Ви впевнені, що хочете вийти?"
+    "LOGOUT_DIALOG_CONFIRM": "Ви впевнені, що хочете вийти?",
+    "CURRENCY": "Валюта",
+    "LANGUAGE": "Мова"
   },
   "ROUTES": {
     "LOGIN": "Увійти",

@@ -37,7 +37,9 @@
   "SIDEBAR": {
     "LOGOUT": "Դուրս գալ",
     "LOGOUT_DIALOG_TITLE": "Դուրս գալ",
-    "LOGOUT_DIALOG_CONFIRM": "Դուք համոզվա՞ծ եք, որ ուզում եք դուրս գալ"
+    "LOGOUT_DIALOG_CONFIRM": "Դուք համոզվա՞ծ եք, որ ուզում եք դուրս գալ",
+    "CURRENCY": "Արժույթ",
+    "LANGUAGE": "Լեզու"
   },
   "ROUTES": {
     "LOGIN": "Մուտք",
