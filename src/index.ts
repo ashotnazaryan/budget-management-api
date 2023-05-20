@@ -3,6 +3,7 @@ import cors from 'cors';
 import path from 'path';
 import cookieSession from 'cookie-session';
 import passport from 'passport';
+import compression from 'compression';
 import { connectToDatabase } from './core/db-connection';
 import { authRoute, userRoute, summaryRoute, transactionRoute, categoryRoute, settingRoute, accountRoute, transferRoute } from './routes';
 import { createDefaultCollections } from './services';
@@ -18,6 +19,7 @@ const corsOptions = {
 };
 
 app.set('trust proxy', true);
+app.use(compression());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../client')));
