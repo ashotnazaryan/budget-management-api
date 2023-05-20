@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.a9b7d18e.css",
-    "main.js": "/static/js/main.794d6e32.js",
+    "main.js": "/static/js/main.eb41dd4c.js",
     "static/js/522.46f68a2a.chunk.js": "/static/js/522.46f68a2a.chunk.js",
     "static/media/roboto-all-700-normal.woff": "/static/media/roboto-all-700-normal.a457fde362a540fcadff.woff",
     "static/media/roboto-all-400-normal.woff": "/static/media/roboto-all-400-normal.c5d001fa922fa66a147f.woff",
@@ -32,6 +32,6 @@
   },
   "entrypoints": [
     "static/css/main.a9b7d18e.css",
-    "static/js/main.794d6e32.js"
+    "static/js/main.eb41dd4c.js"
   ]
 }
