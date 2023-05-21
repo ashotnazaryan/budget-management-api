@@ -25,7 +25,8 @@
     "WEEK": "Week",
     "MONTH": "Month",
     "YEAR": "Year",
-    "ALL_TIME": "All time"
+    "ALL_TIME": "All time",
+    "NO_DATA": "No data is available."
   },
   "CURRENCIES": {
     "USD": "US Dollar",
@@ -59,7 +60,8 @@
     "SUMMARY": "Summary",
     "TOTAL_INCOME": "Total income",
     "TOTAL_EXPENSES": "Total expenses",
-    "PROFIT": "Profit"
+    "PROFIT": "Profit",
+    "EMPTY_TEXT": "No summary is available"
   },
   "SETTINGS": {
     "PAGE_TITLE": "Settings",

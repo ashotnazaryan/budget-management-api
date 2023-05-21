@@ -25,7 +25,8 @@
     "WEEK": "Tydzień",
     "MONTH": "Miesiąc",
     "YEAR": "Rok",
-    "ALL_TIME": "Cały czas"
+    "ALL_TIME": "Cały czas",
+    "NO_DATA": "Brak dostępnych danych."
   },
   "CURRENCIES": {
     "USD": "Dolar amerykański",
@@ -56,10 +57,11 @@
     "BUTTON_PREFIX": "Kontynuuj z"
   },
   "DASHBOARD": {
-    "SUMMARY": "Podsumowanie",
+    "SUMMARY": "Informacje ogólne",
     "TOTAL_INCOME": "Całkowity przychód",
     "TOTAL_EXPENSES": "Całkowite wydatki",
-    "PROFIT": "Zysk"
+    "PROFIT": "Zysk",
+    "EMPTY_TEXT": "Brak ogólnych informacji"
   },
   "SETTINGS": {
     "PAGE_TITLE": "Ustawienia",

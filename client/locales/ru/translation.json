@@ -25,7 +25,8 @@
     "WEEK": "Неделя",
     "MONTH": "Месяц",
     "YEAR": "Год",
-    "ALL_TIME": "Все время"
+    "ALL_TIME": "Все время",
+    "NO_DATA": "Нет доступных данных."
   },
   "CURRENCIES": {
     "USD": "Доллар США",
@@ -56,10 +57,11 @@
     "BUTTON_PREFIX": "Продолжить с"
   },
   "DASHBOARD": {
-    "SUMMARY": "Сумма",
+    "SUMMARY": "Общая информация",
     "TOTAL_INCOME": "Общий доход",
     "TOTAL_EXPENSES": "Общие расходы",
-    "PROFIT": "Прибыль"
+    "PROFIT": "Прибыль",
+    "EMPTY_TEXT": "Нет общей информации"
   },
   "SETTINGS": {
     "PAGE_TITLE": "Настройки",

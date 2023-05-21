@@ -25,7 +25,8 @@
     "WEEK": "Շաբաթ",
     "MONTH": "Ամիս",
     "YEAR": "Տարի",
-    "ALL_TIME": "Ամբողջը"
+    "ALL_TIME": "Ամբողջը",
+    "NO_DATA": "Տվյալները չեն գտնվել։"
   },
   "CURRENCIES": {
     "USD": "ԱՄՆ դոլար",
@@ -56,10 +57,11 @@
     "BUTTON_PREFIX": "Շարունակել"
   },
   "DASHBOARD": {
-    "SUMMARY": "Հաշվարկ",
+    "SUMMARY": "Ընդհանուր հաշվարկ",
     "TOTAL_INCOME": "Ընդհանուր եկամուտ",
     "TOTAL_EXPENSES": "Ընդհանուր ծախսեր",
-    "PROFIT": "Շահույթ"
+    "PROFIT": "Շահույթ",
+    "EMPTY_TEXT": "Ընդհանուր հաշվարկը չի գտնվել"
   },
   "SETTINGS": {
     "PAGE_TITLE": "Կարգավորումներ",
