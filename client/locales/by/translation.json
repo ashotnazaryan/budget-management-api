@@ -1,0 +1,170 @@
+{
+  "PRODUCT_NAME": "Бюджетны менеджмент",
+  "COMMON": {
+    "YES": "Так",
+    "NO": "Не",
+    "CANCEL": "Скасаваць",
+    "SAVE": "Захаваць",
+    "DELETE": "Выдаліць",
+    "EXPENSE": "Выдаткі",
+    "INCOME": "Доходы",
+    "BACK": "Назад",
+    "AMOUNT": "Сума",
+    "ACCOUNT": "Рахунак",
+    "CATEGORY": "Катэгорыя",
+    "DATE": "Дата",
+    "NAME": "Імя",
+    "BALANCE": "Баланс",
+    "CURRENCY": "Валюта",
+    "ICON": "Абразок",
+    "TYPE": "Тып",
+    "NOTE": "Нататка",
+    "FROM": "З",
+    "TO": "Да",
+    "DAY": "Дзень",
+    "WEEK": "Тыдзень",
+    "MONTH": "Месяц",
+    "YEAR": "Год",
+    "ALL_TIME": "Усяго часу",
+    "NO_DATA": "Няма дадзеных."
+  },
+  "CURRENCIES": {
+    "USD": "Долар ЗША",
+    "EUR": "Еўра",
+    "PLN": "Польскі злоты",
+    "UAH": "Украінская грыўня",
+    "AMD": "Армянскі драм"
+  },
+  "SIDEBAR": {
+    "LOGOUT": "Выйсці",
+    "LOGOUT_DIALOG_TITLE": "Выйсці",
+    "LOGOUT_DIALOG_CONFIRM": "Ці ўпэўненыя, што хочаце выйсці?",
+    "CURRENCY": "Валюта",
+    "LANGUAGE": "Мова"
+  },
+  "ROUTES": {
+    "LOGIN": "Уваход",
+    "HOME": "Галоўная",
+    "DASHBOARD": "Прыборная панэль",
+    "SETTINGS": "Налады",
+    "CATEGORIES": "Катэгорыі",
+    "ACCOUNTS": "Рахункі",
+    "TRANSFERS": "Пераклады",
+    "TRANSACTIONS": "Аперацыі"
+  },
+  "LOGIN": {
+    "TITLE": "Увайсці",
+    "BUTTON_PREFIX": "Працягнуць з"
+  },
+  "DASHBOARD": {
+    "SUMMARY": "Агляд",
+    "TOTAL_INCOME": "Агульны даход",
+    "TOTAL_EXPENSES": "Агульныя выдаткі",
+    "PROFIT": "Прыбытак",
+    "EMPTY_TEXT": "Няма даступных аглядаў"
+  },
+  "SETTINGS": {
+    "PAGE_TITLE": "Налады",
+    "DEFAULT_CURRENCY": "Асноўная валюта",
+    "DEFAULT_ACCOUNT": "Асноўны рахунак",
+    "DEFAULT_PERIOD": "Асноўны перыяд",
+    "LANGUAGE": "Мова",
+    "SHOW_DECIMALS": "Паказаць дзясятыя (напрыклад, 1.23)",
+    "DARK_THEME": "Цёмная тэма",
+    "RESET": "Скід",
+    "RESET_DIALOG_CONFIRM": "Ці ўпэўненыя, што хочаце выдаліць усе дадзеныя? Гэта дзеянне не можа быць адмянена.",
+    "RESET_DIALOG_TITLE": "Выдаліць усе дадзеныя"
+  },
+  "ACCOUNTS": {
+    "PAGE_TITLE": "Рахункі",
+    "NEW_ACCOUNT": "Новы рахунак",
+    "EDIT_ACCOUNT": "Рэдагаваць рахунак",
+    "VIEW_ACCOUNT": "Прагледзець рахунак",
+    "EMPTY_TEXT": "Няма даступных рахункаў",
+    "EMPTY_TITLE": "Невядомы рахунак",
+    "EMPTY_TEXT_RENDER_CONTENT": "Рахунак не знойдзены",
+    "FROM_ACCOUNT": "З рахунку",
+    "TO_ACCOUNT": "На рахунак",
+    "ITEMS": {
+      "WALLET": "Гаманец"
+    },
+    "ERRORS": {
+      "REQUIRED_BALANCE": "Неабходны баланс",
+      "INVALID_BALANCE": "Недапушчальны баланс",
+      "REQUIRED_NAME": "Неабходнае імя",
+      "REQUIRED_ICON": "Неабходны абразок",
+      "REQUIRED_CURRENCY": "Неабходная валюта",
+      "ACCOUNT_EXISTS": "Рахунак ужо існуе",
+      "DELETE_DEFAULT_ACCOUNT": "Вы не можаце выдаліць асноўны рахунак.",
+      "REACHED_USER_LIMIT": "Вы дасягнулі максімальнай колькасці рахункаў."
+    },
+    "DELETE_DIALOG_TITLE": "Выдаліць рахунак",
+    "DELETE_DIALOG_CONFIRM": "Ці ўпэўненыя, што хочаце выдаліць гэты рахунак? Гэта прывядзе да выдалення ўсіх аперацый, зробленых на гэтым рахунку.",
+    "DELETE_SUCCESS": "Рахунак паспяхова выдалены."
+  },
+  "CATEGORIES": {
+    "PAGE_TITLE": "Катэгорыі",
+    "NEW_CATEGORY": "Новая катэгорыя",
+    "EDIT_CATEGORY": "Рэдагаваць катэгорыю",
+    "VIEW_CATEGORY": "Прагледзець катэгорыю",
+    "EMPTY_TEXT": "Няма даступных катэгорый",
+    "EMPTY_TEXT_RENDER_CONTENT": "Катэгорыя не знойдзена",
+    "EMPTY_TITLE": "Невядомая катэгорыя",
+    "ITEMS": {
+      "RENT": "Арэнда",
+      "GROCERIES": "Прадукты",
+      "MEDIA": "Медыя",
+      "TRANSPORTATION": "Транспарт",
+      "OTHER_EXPENSE": "Іншае",
+      "SALARY": "Заробак",
+      "OTHER_INCOME": "Іншыя"
+    },
+    "ERRORS": {
+      "REQUIRED_NAME": "Неабходнае імя",
+      "REQUIRED_ICON": "Неабходны абразок",
+      "REQUIRED_TYPE": "Неабходны тып",
+      "CATEGORY_EXISTS": "Катэгорыя ўжо існуе",
+      "REACHED_USER_LIMIT": "Вы дасягнулі максімальнай колькасці катэгорый."
+    },
+    "DELETE_DIALOG_TITLE": "Выдаліць катэгорыю",
+    "DELETE_DIALOG_CONFIRM": "Ці ўпэўненыя, што хочаце выдаліць гэтую катэгорыю? Гэта прывядзе да выдалення ўсіх аперацый, зробленых гэтай катэгорыяй."
+  },
+  "TRANSACTIONS": {
+    "PAGE_TITLE": "Аперацыі",
+    "NEW_TRANSACTION": "Новая аперацыя",
+    "EDIT_TRANSACTION": "Рэдагаваць аперацыю",
+    "EMPTY_TEXT": "Няма даступных аперацый",
+    "EMPTY_TEXT_RENDER_CONTENT": "Аперацыя не знойдзена",
+    "EMPTY_TITLE": "Невядомая аперацыя",
+    "ERRORS": {
+      "REQUIRED_AMOUNT": "Неабходная сума",
+      "INVALID_AMOUNT": "Недапушчальная сума",
+      "REQUIRED_CATEGORY": "Неабходная катэгорыя",
+      "REQUIRED_ACCOUNT": "Неабходны рахунак",
+      "REQUIRED_TYPE": "Неабходны тып",
+      "FUTURE_DATE": "Выбраная дата не можа быць будучай датай.",
+      "REACHED_USER_LIMIT": "Вы дасягнулі максімальнай колькасці аперацый."
+    },
+    "DELETE_DIALOG_TITLE": "Выдаліць аперацыю",
+    "DELETE_DIALOG_CONFIRM": "Ці ўпэўненыя, што хочаце выдаліць гэтую аперацыю?"
+  },
+  "TRANSFERS": {
+    "PAGE_TITLE": "Пераклады",
+    "NEW_TRANSFER": "Новы пераклад",
+    "EDIT_TRANSFER": "Рэдагаваць пераклад",
+    "VIEW_TRANSFER": "Прагледзець пераклад",
+    "TRANSFER_HISTORY": "Гісторыя перакладаў",
+    "EMPTY_TEXT": "Няма даступных перакладаў",
+    "EMPTY_TEXT_RENDER_CONTENT": "Пераклад не знойдзены",
+    "ERRORS": {
+      "REQUIRED_FROM_ACCOUNT": "Неабходны рахунак адправіцеля",
+      "REQUIRED_TO_ACCOUNT": "Неабходны рахунак атрымальніка",
+      "REQUIRED_AMOUNT": "Неабходная сума",
+      "INVALID_AMOUNT": "Недапушчальная сума",
+      "SAME_ACCOUNT": "Вы не можаце перакладаць паміж аднімі і тымі ж рахункамі.",
+      "REACHED_USER_LIMIT": "Вы дасягнулі максімальнай колькасці перакладаў."
+    },
+    "DELETE_DIALOG_TITLE": "Выдаліць пераклад",
+    "DELETE_DIALOG_CONFIRM": "Ці ўпэўненыя, што хочаце выдаліць гэты пераклад? Балансы рахункаў будуць пералічаныя."
+  }
+}
