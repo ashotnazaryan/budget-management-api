@@ -50,7 +50,8 @@
     "CATEGORIES": "Катэгорыі",
     "ACCOUNTS": "Рахункі",
     "TRANSFERS": "Пераклады",
-    "TRANSACTIONS": "Аперацыі"
+    "TRANSACTIONS": "Аперацыі",
+    "INVOICES": "Фактуры"
   },
   "LOGIN": {
     "TITLE": "Увайсці",
@@ -166,5 +167,9 @@
     },
     "DELETE_DIALOG_TITLE": "Выдаліць пераклад",
     "DELETE_DIALOG_CONFIRM": "Ці ўпэўненыя, што хочаце выдаліць гэты пераклад? Балансы рахункаў будуць пералічаныя."
+  },
+  "INVOICES": {
+    "PAGE_TITLE": "Фактуры",
+    "NEW_INVOICE": "Новая фактура"
   }
 }

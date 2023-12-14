@@ -50,7 +50,8 @@
     "CATEGORIES": "Categories",
     "ACCOUNTS": "Accounts",
     "TRANSFERS": "Transfers",
-    "TRANSACTIONS": "Transactions"
+    "TRANSACTIONS": "Transactions",
+    "INVOICES": "Invoices"
   },
   "LOGIN": {
     "TITLE": "Sign in",
@@ -166,5 +167,9 @@
     },
     "DELETE_DIALOG_TITLE": "Delete transfer",
     "DELETE_DIALOG_CONFIRM": "Are you sure you want to delete this transfer? Accounts' balances will be recalculated."
+  },
+  "INVOICES": {
+    "PAGE_TITLE": "Invoices",
+    "NEW_INVOICE": "New invoice"
   }
 }

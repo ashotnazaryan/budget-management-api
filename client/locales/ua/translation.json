@@ -50,7 +50,8 @@
     "CATEGORIES": "Категорії",
     "ACCOUNTS": "Рахунки",
     "TRANSFERS": "Перекази",
-    "TRANSACTIONS": "Транзакції"
+    "TRANSACTIONS": "Транзакції",
+    "INVOICES": "Фактури"
   },
   "LOGIN": {
     "TITLE": "Увійти",
@@ -166,5 +167,9 @@
     },
     "DELETE_DIALOG_TITLE": "Видалити переказ",
     "DELETE_DIALOG_CONFIRM": "Ви впевнені, що хочете видалити цей переказ? Баланси рахунків будуть перераховані."
+  },
+  "INVOICES": {
+    "PAGE_TITLE": "Фактури",
+    "NEW_INVOICE": "Нова фактура"
   }
 }

@@ -50,7 +50,8 @@
     "CATEGORIES": "Категории",
     "ACCOUNTS": "Счета",
     "TRANSFERS": "Трансферы",
-    "TRANSACTIONS": "Транзакции"
+    "TRANSACTIONS": "Транзакции",
+    "INVOICES": "Фактуры"
   },
   "LOGIN": {
     "TITLE": "Вход",
@@ -166,5 +167,9 @@
     },
     "DELETE_DIALOG_TITLE": "Удалить перевод",
     "DELETE_DIALOG_CONFIRM": "Вы уверены что хотите удалить этот перевод? Баланс счетов будет пересчитан."
+  },
+  "INVOICES": {
+    "PAGE_TITLE": "Фактуры",
+    "NEW_INVOICE": "Новая фактура"
   }
 }

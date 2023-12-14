@@ -50,7 +50,8 @@
     "CATEGORIES": "Kategorie",
     "ACCOUNTS": "Konta",
     "TRANSFERS": "Przelewy",
-    "TRANSACTIONS": "Transakcje"
+    "TRANSACTIONS": "Transakcje",
+    "INVOICES": "Faktury"
   },
   "LOGIN": {
     "TITLE": "Zaloguj się",
@@ -166,5 +167,9 @@
     },
     "DELETE_DIALOG_TITLE": "Usuń przelew",
     "DELETE_DIALOG_CONFIRM": "Czy na pewno chcesz usunąć ten przelew? Salda kont zostaną przeliczone."
+  },
+  "INVOICES": {
+    "PAGE_TITLE": "Faktury",
+    "NEW_INVOICE": "Nowa faktura"
   }
 }
