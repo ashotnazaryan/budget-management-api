@@ -26,7 +26,10 @@
     "MONTH": "Miesiąc",
     "YEAR": "Rok",
     "ALL_TIME": "Cały czas",
-    "NO_DATA": "Brak dostępnych danych."
+    "NO_DATA": "Brak dostępnych danych.",
+    "TITLE": "Nagłówek",
+    "SALARY": "Wynagrodzenie",
+    "PREVIEW": "Zapowiedź"
   },
   "CURRENCIES": {
     "USD": "Dolar amerykański",
@@ -170,6 +173,13 @@
   },
   "INVOICES": {
     "PAGE_TITLE": "Faktury",
-    "NEW_INVOICE": "Nowa faktura"
+    "NEW_INVOICE": "Nowa faktura",
+    "INCLUDE_VAT": "Zawiera VAT",
+    "ERRORS": {
+      "REQUIRED_TITLE": "Wymagany nagłówek",
+      "REQUIRED_SALARY": "Wymagane wynagrodzenie",
+      "INVALID_SALARY": "Nieprawidłowe wynagrodzenie",
+      "REQUIRED_CURRENCY": "Wymagana jest waluta"
+    }
   }
 }

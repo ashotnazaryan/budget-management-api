@@ -26,7 +26,10 @@
     "MONTH": "Month",
     "YEAR": "Year",
     "ALL_TIME": "All time",
-    "NO_DATA": "No data is available."
+    "NO_DATA": "No data is available.",
+    "TITLE": "Title",
+    "SALARY": "Salary",
+    "PREVIEW": "Preview"
   },
   "CURRENCIES": {
     "USD": "US Dollar",
@@ -170,6 +173,13 @@
   },
   "INVOICES": {
     "PAGE_TITLE": "Invoices",
-    "NEW_INVOICE": "New invoice"
+    "NEW_INVOICE": "New invoice",
+    "INCLUDE_VAT": "Include VAT",
+    "ERRORS": {
+      "REQUIRED_TITLE": "Title is required",
+      "REQUIRED_SALARY": "Salary is required",
+      "INVALID_SALARY": "Invalid salary",
+      "REQUIRED_CURRENCY": "Currency is required"
+    }
   }
 }

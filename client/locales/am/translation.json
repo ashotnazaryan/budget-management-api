@@ -26,7 +26,10 @@
     "MONTH": "Ամիս",
     "YEAR": "Տարի",
     "ALL_TIME": "Ամբողջը",
-    "NO_DATA": "Տվյալները չեն գտնվել։"
+    "NO_DATA": "Տվյալները չեն գտնվել։",
+    "TITLE": "Վերնագիր",
+    "SALARY": "Աշխատավարձ",
+    "PREVIEW": "Նախադիտում"
   },
   "CURRENCIES": {
     "USD": "ԱՄՆ դոլար",
@@ -170,6 +173,13 @@
   },
   "INVOICES": {
     "PAGE_TITLE": "Ֆակտուրաներ",
-    "NEW_INVOICE": "Նոր ֆակտուրա"
+    "NEW_INVOICE": "Նոր ֆակտուրա",
+    "INCLUDE_VAT": "Ներառյալ ԱԱՀ",
+    "ERRORS": {
+      "REQUIRED_TITLE": "Վերնագիրը պարտադիր է",
+      "REQUIRED_SALARY": "Աշխատավարձը պարտադիր է",
+      "INVALID_SALARY": "Աշխատավարձն անվավեր է",
+      "REQUIRED_CURRENCY": "Արժույթը պարտադիր է"
+    }
   }
 }

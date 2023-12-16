@@ -26,7 +26,10 @@
     "MONTH": "Месяц",
     "YEAR": "Год",
     "ALL_TIME": "Все время",
-    "NO_DATA": "Нет доступных данных."
+    "NO_DATA": "Нет доступных данных.",
+    "TITLE": "Заголовок",
+    "SALARY": "Зарплата",
+    "PREVIEW": "Предосмотр"
   },
   "CURRENCIES": {
     "USD": "Доллар США",
@@ -170,6 +173,13 @@
   },
   "INVOICES": {
     "PAGE_TITLE": "Фактуры",
-    "NEW_INVOICE": "Новая фактура"
+    "NEW_INVOICE": "Новая фактура",
+    "INCLUDE_VAT": "Включает НДС",
+    "ERRORS": {
+      "REQUIRED_TITLE": "Заголовок обязательный",
+      "REQUIRED_SALARY": "Зарплата обязательна",
+      "INVALID_SALARY": "Неверная зарплата",
+      "REQUIRED_CURRENCY": "Валюта обязательна"
+    }
   }
 }
