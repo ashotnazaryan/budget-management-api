@@ -189,7 +189,18 @@
       "PAYMENT_TYPE": "Способ оплаты",
       "TRANSFER": "Перевод",
       "SELLER": "Продавец",
-      "BUYER": "Покупатель"
+      "BUYER": "Покупатель",
+      "TABLE": {
+        "NO": "Но",
+        "NAME": "Название",
+        "UNIT": "Е. и.",
+        "QUANTITY": "К-во",
+        "UNIT_NET_PRICE": "Ц. за ед.",
+        "NET_VALUE": "С-а (б. НДС)",
+        "VAT_RATE": "Ст-ка НДС",
+        "GROSS_VALUE": "С-а (с НДС)",
+        "CURRENCY": "Валюта"
+      }
     },
     "ERRORS": {
       "REQUIRED_TITLE": "Заголовок обязательный",

@@ -189,7 +189,18 @@
       "PAYMENT_TYPE": "Спосіб оплати",
       "TRANSFER": "Переказ",
       "SELLER": "Продавець",
-      "BUYER": "Покупець"
+      "BUYER": "Покупець",
+      "TABLE": {
+        "NO": "Но",
+        "NAME": "Назва",
+        "UNIT": "О-ця",
+        "QUANTITY": "К-ть",
+        "UNIT_NET_PRICE": "Ц. за од.",
+        "NET_VALUE": "С-а (б. ПДВ)",
+        "VAT_RATE": "Ст-ка ПДВ",
+        "GROSS_VALUE": "С-а (з ПДВ)",
+        "CURRENCY": "Валюта"
+      }
     },
     "ERRORS": {
       "REQUIRED_TITLE": "Заголовок обов'язковий",

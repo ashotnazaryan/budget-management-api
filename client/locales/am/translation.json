@@ -189,7 +189,18 @@
       "PAYMENT_TYPE": "Վճարման տեսակ",
       "TRANSFER": "Փոխանցում",
       "SELLER": "Վաճարող",
-      "BUYER": "Գնորդ"
+      "BUYER": "Գնորդ",
+      "TABLE": {
+        "NO": "Հմ",
+        "NAME": "Անվանում",
+        "UNIT": "Միր․",
+        "QUANTITY": "Քնկ",
+        "UNIT_NET_PRICE": "Մի-րի արժ.",
+        "NET_VALUE": "Մ․ գ-ր",
+        "VAT_RATE": "ԱԱՀ տ-ս",
+        "GROSS_VALUE": "Կ. գ-ր",
+        "CURRENCY": "Արտ․"
+      }
     },
     "ERRORS": {
       "REQUIRED_TITLE": "Վերնագիրը պարտադիր է",

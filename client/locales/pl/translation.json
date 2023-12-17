@@ -189,7 +189,18 @@
       "PAYMENT_TYPE": "Typ płatności",
       "TRANSFER": "Przelew",
       "SELLER": "Sprzedawca",
-      "BUYER": "Kupujący"
+      "BUYER": "Kupujący",
+      "TABLE": {
+        "NO": "Nr",
+        "NAME": "Nazwa",
+        "UNIT": "J-ka",
+        "QUANTITY": "I-ść",
+        "UNIT_NET_PRICE": "C. za j.",
+        "NET_VALUE": "W-ść netto",
+        "VAT_RATE": "St-ka VAT",
+        "GROSS_VALUE": "W-ść brutto",
+        "CURRENCY": "Waluta"
+      }
     },
     "ERRORS": {
       "REQUIRED_TITLE": "Wymagany nagłówek",

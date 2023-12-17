@@ -189,7 +189,18 @@
       "PAYMENT_TYPE": "Payment type",
       "TRANSFER": "Transfer",
       "SELLER": "Seller",
-      "BUYER": "Buyer"
+      "BUYER": "Buyer",
+      "TABLE": {
+        "NO": "No",
+        "NAME": "Name",
+        "UNIT": "Unit",
+        "QUANTITY": "Qty",
+        "UNIT_NET_PRICE": "Unit net price",
+        "NET_VALUE": "Net value",
+        "VAT_RATE": "Vat rate",
+        "GROSS_VALUE": "Gross value",
+        "CURRENCY": "Currency"
+      }
     },
     "ERRORS": {
       "REQUIRED_TITLE": "Title is required",
