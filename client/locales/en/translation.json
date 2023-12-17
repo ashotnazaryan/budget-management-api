@@ -29,7 +29,10 @@
     "NO_DATA": "No data is available.",
     "TITLE": "Title",
     "SALARY": "Salary",
-    "PREVIEW": "Preview"
+    "PREVIEW": "Preview",
+    "ADDRESS": "Address",
+    "LOCATION": "Location",
+    "VAT_ID": "VAT ID"
   },
   "CURRENCIES": {
     "USD": "US Dollar",
@@ -175,11 +178,33 @@
     "PAGE_TITLE": "Invoices",
     "NEW_INVOICE": "New invoice",
     "INCLUDE_VAT": "Include VAT",
+    "MAIN_INFO": "Main info",
+    "SELLER_INFO": "Seller info",
+    "BUYER_INFO": "Buyer info",
+    "DOCUMENT": {
+      "INVOICE_NO": "Invoice No",
+      "ISSUE_DATE": "Issue date",
+      "SALE_DATE": "Sale date",
+      "DUE_DATE": "Due date",
+      "PAYMENT_TYPE": "Payment type",
+      "TRANSFER": "Transfer",
+      "SELLER": "Seller",
+      "BUYER": "Buyer"
+    },
     "ERRORS": {
       "REQUIRED_TITLE": "Title is required",
       "REQUIRED_SALARY": "Salary is required",
       "INVALID_SALARY": "Invalid salary",
-      "REQUIRED_CURRENCY": "Currency is required"
+      "REQUIRED_CURRENCY": "Currency is required",
+      "REQUIRED_SELLER_NAME": "Seller name is required",
+      "REQUIRED_SELLER_ADDRESS": "Seller address is required",
+      "REQUIRED_SELLER_LOCATION": "Seller location is required",
+      "REQUIRED_SELLER_VAT_ID": "Seller VAT ID is required",
+      "REQUIRED_SELLER_ACCOUNT": "Seller account is required",
+      "REQUIRED_BUYER_NAME": "Buyer name is required",
+      "REQUIRED_BUYER_ADDRESS": "Buyer address is required",
+      "REQUIRED_BUYER_LOCATION": "Buyer location is required",
+      "REQUIRED_BUYER_VAT_ID": "Buyer VAT ID is required"
     }
   }
 }

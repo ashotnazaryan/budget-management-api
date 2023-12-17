@@ -29,7 +29,10 @@
     "NO_DATA": "Немає доступних даних.",
     "TITLE": "Заголовок",
     "SALARY": "Зарплата",
-    "PREVIEW": "Перегляд"
+    "PREVIEW": "Перегляд",
+    "ADDRESS": "Адреса",
+    "LOCATION": "Місце розташування",
+    "VAT_ID": "Ідентифікатор ПДВ"
   },
   "CURRENCIES": {
     "USD": "Долар США",
@@ -175,11 +178,33 @@
     "PAGE_TITLE": "Фактури",
     "NEW_INVOICE": "Нова фактура",
     "INCLUDE_VAT": "Включає ПДВ",
+    "MAIN_INFO": "Основна інформація",
+    "SELLER_INFO": "Інформація продавця",
+    "BUYER_INFO": "Інформація покупця",
+    "DOCUMENT": {
+      "INVOICE_NO": "Номер фактури",
+      "ISSUE_DATE": "Дата виписки",
+      "SALE_DATE": "Дата продажу",
+      "DUE_DATE": "Дата сплати",
+      "PAYMENT_TYPE": "Спосіб оплати",
+      "TRANSFER": "Переказ",
+      "SELLER": "Продавець",
+      "BUYER": "Покупець"
+    },
     "ERRORS": {
       "REQUIRED_TITLE": "Заголовок обов'язковий",
       "REQUIRED_SALARY": "Зарплата обов'язкова",
       "INVALID_SALARY": "Невірна зарплата",
-      "REQUIRED_CURRENCY": "Валюта обов'язкова"
+      "REQUIRED_CURRENCY": "Валюта обов'язкова",
+      "REQUIRED_SELLER_NAME": "Ім'я продавця обов'язкове",
+      "REQUIRED_SELLER_ADDRESS": "Адреса продавця обов'язкова",
+      "REQUIRED_SELLER_LOCATION": "Місце розташування продавця обов'язкове",
+      "REQUIRED_SELLER_VAT_ID": "Ідентифікатор ПДВ продавця обов'язковий",
+      "REQUIRED_SELLER_ACCOUNT": "Рахунок продавця обов'язковий",
+      "REQUIRED_BUYER_NAME": "Ім'я покупця обов'язкове",
+      "REQUIRED_BUYER_ADDRESS": "Адреса покупця обов'язкова",
+      "REQUIRED_BUYER_LOCATION": "Місце розташування покупця обов'язкове",
+      "REQUIRED_BUYER_VAT_ID": "Ідентифікатор ПДВ покупця обов'язковий"
     }
   }
 }

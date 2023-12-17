@@ -29,7 +29,10 @@
     "NO_DATA": "Нет доступных данных.",
     "TITLE": "Заголовок",
     "SALARY": "Зарплата",
-    "PREVIEW": "Предосмотр"
+    "PREVIEW": "Предосмотр",
+    "ADDRESS": "Адрес",
+    "LOCATION": "Локация",
+    "VAT_ID": "НДС Идентификатор"
   },
   "CURRENCIES": {
     "USD": "Доллар США",
@@ -175,11 +178,33 @@
     "PAGE_TITLE": "Фактуры",
     "NEW_INVOICE": "Новая фактура",
     "INCLUDE_VAT": "Включает НДС",
+    "MAIN_INFO": "Основная информация",
+    "SELLER_INFO": "Информация продавца",
+    "BUYER_INFO": "Информация покупца",
+    "DOCUMENT": {
+      "INVOICE_NO": "Номер инвойса",
+      "ISSUE_DATE": "Дата выставления",
+      "SALE_DATE": "Дата продажи",
+      "DUE_DATE": "Срок оплаты",
+      "PAYMENT_TYPE": "Способ оплаты",
+      "TRANSFER": "Перевод",
+      "SELLER": "Продавец",
+      "BUYER": "Покупатель"
+    },
     "ERRORS": {
       "REQUIRED_TITLE": "Заголовок обязательный",
       "REQUIRED_SALARY": "Зарплата обязательна",
       "INVALID_SALARY": "Неверная зарплата",
-      "REQUIRED_CURRENCY": "Валюта обязательна"
+      "REQUIRED_CURRENCY": "Валюта обязательна",
+      "REQUIRED_SELLER_NAME": "Имя продавца обязательна",
+      "REQUIRED_SELLER_ADDRESS": "Адрес продавца обязательный",
+      "REQUIRED_SELLER_LOCATION": "Локация продавца обязательна",
+      "REQUIRED_SELLER_VAT_ID": "НДС идентификатор продавца обязательный",
+      "REQUIRED_SELLER_ACCOUNT": "Счет продавца обязательный",
+      "REQUIRED_BUYER_NAME": "Имя покупателя обязательна",
+      "REQUIRED_BUYER_ADDRESS": "Адрес покупателя обязательный",
+      "REQUIRED_BUYER_LOCATION": "Локация покупателя обязательный",
+      "REQUIRED_BUYER_VAT_ID": "НДС идентификатор покупателя обязательный"
     }
   }
 }

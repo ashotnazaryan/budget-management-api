@@ -29,7 +29,10 @@
     "NO_DATA": "Brak dostępnych danych.",
     "TITLE": "Nagłówek",
     "SALARY": "Wynagrodzenie",
-    "PREVIEW": "Zapowiedź"
+    "PREVIEW": "Zapowiedź",
+    "ADDRESS": "Adres",
+    "LOCATION": "Lokalizacja",
+    "VAT_ID": "Numer identyfikacyjny VAT"
   },
   "CURRENCIES": {
     "USD": "Dolar amerykański",
@@ -175,11 +178,33 @@
     "PAGE_TITLE": "Faktury",
     "NEW_INVOICE": "Nowa faktura",
     "INCLUDE_VAT": "Zawiera VAT",
+    "MAIN_INFO": "Główne informacje",
+    "SELLER_INFO": "Informacje o sprzedawcy",
+    "BUYER_INFO": "Informacje o kupującym",
+    "DOCUMENT": {
+      "INVOICE_NO": "Numer faktury",
+      "ISSUE_DATE": "Data wystawienia",
+      "SALE_DATE": "Data sprzedaży",
+      "DUE_DATE": "Termin płatności",
+      "PAYMENT_TYPE": "Typ płatności",
+      "TRANSFER": "Przelew",
+      "SELLER": "Sprzedawca",
+      "BUYER": "Kupujący"
+    },
     "ERRORS": {
       "REQUIRED_TITLE": "Wymagany nagłówek",
       "REQUIRED_SALARY": "Wymagane wynagrodzenie",
       "INVALID_SALARY": "Nieprawidłowe wynagrodzenie",
-      "REQUIRED_CURRENCY": "Wymagana jest waluta"
+      "REQUIRED_CURRENCY": "Wymagana jest waluta",
+      "REQUIRED_SELLER_NAME": "Wymagane imię sprzedawcy",
+      "REQUIRED_SELLER_ADDRESS": "Wymagany adres sprzedawcy",
+      "REQUIRED_SELLER_LOCATION": "Wymagana lokalizacja sprzedawcy",
+      "REQUIRED_SELLER_VAT_ID": "Wymagany numer identyfikacyjny VAT sprzedawcy",
+      "REQUIRED_SELLER_ACCOUNT": "Wymagane konto sprzedawcy",
+      "REQUIRED_BUYER_NAME": "Wymagane imię kupującego",
+      "REQUIRED_BUYER_ADDRESS": "Wymagany adres kupującego",
+      "REQUIRED_BUYER_LOCATION": "Wymagana lokalizacja kupującego",
+      "REQUIRED_BUYER_VAT_ID": "Wymagany numer identyfikacyjny VAT kupującego"
     }
   }
 }
