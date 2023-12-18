@@ -193,13 +193,17 @@
       "TABLE": {
         "NO": "Nr",
         "NAME": "Nazwa",
-        "UNIT": "J-ka",
-        "QUANTITY": "I-ść",
-        "UNIT_NET_PRICE": "C. za j.",
-        "NET_VALUE": "W-ść netto",
-        "VAT_RATE": "St-ka VAT",
-        "GROSS_VALUE": "W-ść brutto",
-        "CURRENCY": "Waluta"
+        "UNIT": "Jednostka",
+        "QUANTITY": "Ilość",
+        "UNIT_NET_PRICE": "Cena za jednostkę",
+        "NET_VALUE": "Wartość netto",
+        "VAT_RATE": "Stawka VAT",
+        "VAT_AMOUNT": "Kwota VAT",
+        "GROSS_VALUE": "Wartość brutto",
+        "CURRENCY": "Waluta",
+        "PROGRAMMING_SERVICES": "Usługi programistyczne",
+        "VAT_EXEMPTION": "Podstawa zwolnienia z VAT: Zwolnienie podmiotowe zgodnie z art. 113 ust. 1 i 9 ustawy o VAT.",
+        "TOTAL": "Razem"
       }
     },
     "ERRORS": {

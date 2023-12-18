@@ -194,12 +194,16 @@
         "NO": "No",
         "NAME": "Name",
         "UNIT": "Unit",
-        "QUANTITY": "Qty",
+        "QUANTITY": "Quantity",
         "UNIT_NET_PRICE": "Unit net price",
         "NET_VALUE": "Net value",
-        "VAT_RATE": "Vat rate",
+        "VAT_RATE": "VAT rate",
+        "VAT_AMOUNT": "VAT amount",
         "GROSS_VALUE": "Gross value",
-        "CURRENCY": "Currency"
+        "CURRENCY": "Currency",
+        "PROGRAMMING_SERVICES": "Programming services",
+        "VAT_EXEMPTION": "The basis for VAT exemption: Subject exemption according to Article 113 paragraphs 1 and 9 of the VAT Act.",
+        "TOTAL": "Total"
       }
     },
     "ERRORS": {

@@ -193,13 +193,17 @@
       "TABLE": {
         "NO": "Но",
         "NAME": "Назва",
-        "UNIT": "О-ця",
-        "QUANTITY": "К-ть",
-        "UNIT_NET_PRICE": "Ц. за од.",
-        "NET_VALUE": "С-а (б. ПДВ)",
-        "VAT_RATE": "Ст-ка ПДВ",
-        "GROSS_VALUE": "С-а (з ПДВ)",
-        "CURRENCY": "Валюта"
+        "UNIT": "Одиниця",
+        "QUANTITY": "Кількість",
+        "UNIT_NET_PRICE": "Ціна за одиницю",
+        "NET_VALUE": "Сума (без ПДВ)",
+        "VAT_RATE": "Ставка ПДВ",
+        "VAT_AMOUNT": "Сума ПДВ",
+        "GROSS_VALUE": "Сума (з ПДВ)",
+        "CURRENCY": "Валюта",
+        "PROGRAMMING_SERVICES": "Програмні послуги",
+        "VAT_EXEMPTION": "Підстава звільнення від ПДВ: Суб'єктне звільнення відп. до ст. 113 п. 1 і 9 Закону про ПДВ.",
+        "TOTAL": "Всього"
       }
     },
     "ERRORS": {
