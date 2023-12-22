@@ -51,11 +51,14 @@ export const CONFIG = {
     deleteTransfer: '/:id',
     getSettings: '/',
     addSetting: '/setting',
+    getProfile: '/',
+    editProfile: '/',
     reset: '/:userId/reset',
     accessToken: '/access-token'
   },
   collections: {
     user: 'user',
+    profile: 'profile',
     setting: 'setting',
     summary: 'summary',
     defaultCategories: 'defaultCategories',

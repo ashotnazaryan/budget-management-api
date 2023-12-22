@@ -24,7 +24,7 @@ const getSettings = async (request: Request, response: Response) => {
 
     return response.status(200).json(newEmptySetting);
   } catch {
-    response.status(404).json({ message: 'Setting not found', status: 404 });
+    return response.status(404).json({ message: 'Setting not found', status: 404 });
   }
 };
 
@@ -55,7 +55,7 @@ const addSetting = async (request: Request<unknown, unknown, SettingInput>, resp
 
     return response.status(201).json(null);
   } catch {
-    response.status(500).json({ message: 'Internal server error', status: 500 });
+    return response.status(500).json({ message: 'Internal server error', status: 500 });
   }
 };
 
@@ -72,7 +72,7 @@ const reset = async (request: Request, response: Response) => {
 
     return response.status(204).json(null);
   } catch {
-    response.status(500).json({ message: 'Internal server error', status: 500 });
+    return response.status(500).json({ message: 'Internal server error', status: 500 });
   }
 };
 

@@ -4,7 +4,7 @@ import { CONFIG } from '../core/configs';
 const Schema = mongoose.Schema;
 
 type CurrencyIso = 'USD' | 'EUR' | 'PLN' | 'UAH' | 'AMD';
-type LocaleIso = 'en' | 'ru';
+type LocaleIso = 'en' | 'pl' | 'ru' | 'ua' | 'am';
 
 export enum Period {
   day = 'day',

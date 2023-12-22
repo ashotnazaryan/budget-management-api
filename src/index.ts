@@ -5,7 +5,7 @@ import cookieSession from 'cookie-session';
 import passport from 'passport';
 import compression from 'compression';
 import { connectToDatabase } from './core/db-connection';
-import { authRoute, userRoute, summaryRoute, transactionRoute, categoryRoute, settingRoute, accountRoute, transferRoute } from './routes';
+import { authRoute, userRoute, summaryRoute, transactionRoute, categoryRoute, settingRoute, accountRoute, transferRoute, profileRoute } from './routes';
 import { createDefaultCollections } from './services';
 import { setResponseHeaders } from './middleware';
 import { CONFIG } from './core/configs';
@@ -47,6 +47,7 @@ app.use(setResponseHeaders);
 
 app.use('/api/auth', authRoute());
 app.use('/api/user', userRoute());
+app.use('/api/profile', profileRoute());
 app.use('/api/summary', summaryRoute());
 app.use('/api/categories', categoryRoute());
 app.use('/api/accounts', accountRoute());
