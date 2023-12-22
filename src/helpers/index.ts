@@ -4,5 +4,6 @@ export * from './category.helpers';
 export * from './account.helpers';
 export * from './summary.helpers';
 export * from './user.helpers';
+export * from './profile.helpers';
 export * from './transfer.helpers';
 export * from './common.helpers';
