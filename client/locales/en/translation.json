@@ -53,6 +53,7 @@
     "HOME": "Home",
     "DASHBOARD": "Dashboard",
     "SETTINGS": "Settings",
+    "PROFILE": "Profile",
     "CATEGORIES": "Categories",
     "ACCOUNTS": "Accounts",
     "TRANSFERS": "Transfers",
@@ -81,6 +82,17 @@
     "RESET": "Reset",
     "RESET_DIALOG_CONFIRM": "Are you sure you want to delete all the data? This action cannot be undone.",
     "RESET_DIALOG_TITLE": "Delete all data"
+  },
+  "PROFILE": {
+    "PAGE_TITLE": "Profile",
+    "STREET_ADDRESS": "Street address",
+    "STREET_ADDRESS_LINE": "Street address line 2",
+    "CITY": "City",
+    "REGION": "Region",
+    "ZIP_CODE": "Zip code",
+    "COUNTRY": "Country",
+    "VAT_ID": "VAT ID",
+    "ACCOUNT_NUMBER": "Account number"
   },
   "ACCOUNTS": {
     "PAGE_TITLE": "Accounts",

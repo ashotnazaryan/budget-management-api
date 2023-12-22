@@ -53,6 +53,7 @@
     "HOME": "Дом",
     "DASHBOARD": "Панель",
     "SETTINGS": "Настройки",
+    "PROFILE": "Профиль",
     "CATEGORIES": "Категории",
     "ACCOUNTS": "Счета",
     "TRANSFERS": "Трансферы",
@@ -81,6 +82,17 @@
     "RESET": "Сброс",
     "RESET_DIALOG_CONFIRM": "Вы уверены, что хотите удалить все данные? Это действие не может быть отменено.",
     "RESET_DIALOG_TITLE": "Удалить все данные"
+  },
+  "PROFILE": {
+    "PAGE_TITLE": "Профиль",
+    "STREET_ADDRESS": "Улица",
+    "STREET_ADDRESS_LINE": "Улица, дом, корпус",
+    "CITY": "Город",
+    "REGION": "Регион",
+    "ZIP_CODE": "Почтовый индекс",
+    "COUNTRY": "Страна",
+    "VAT_ID": "ИНН",
+    "ACCOUNT_NUMBER": "Номер счета"
   },
   "ACCOUNTS": {
     "PAGE_TITLE": "Счета",

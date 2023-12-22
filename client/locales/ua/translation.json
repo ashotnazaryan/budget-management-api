@@ -53,6 +53,7 @@
     "HOME": "Домашня сторінка",
     "DASHBOARD": "Панель",
     "SETTINGS": "Налаштування",
+    "PROFILE": "Профіль",
     "CATEGORIES": "Категорії",
     "ACCOUNTS": "Рахунки",
     "TRANSFERS": "Перекази",
@@ -81,6 +82,17 @@
     "RESET": "Скинути",
     "RESET_DIALOG_CONFIRM": "Ви впевнені, що хочете видалити всі дані? Цю дію неможливо скасувати.",
     "RESET_DIALOG_TITLE": "Видалити всі дані"
+  },
+  "PROFILE": {
+    "PAGE_TITLE": "Профіль",
+    "STREET_ADDRESS": "Вулиця",
+    "STREET_ADDRESS_LINE": "Вулиця, будинок, корпус",
+    "CITY": "Місто",
+    "REGION": "Регіон",
+    "ZIP_CODE": "Поштовий індекс",
+    "COUNTRY": "Країна",
+    "VAT_ID": "ІПН",
+    "ACCOUNT_NUMBER": "Номер рахунку"
   },
   "ACCOUNTS": {
     "PAGE_TITLE": "Рахунки",

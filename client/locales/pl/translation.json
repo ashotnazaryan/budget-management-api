@@ -53,6 +53,7 @@
     "HOME": "Strona główna",
     "DASHBOARD": "Panel",
     "SETTINGS": "Ustawienia",
+    "PROFILE": "Profil",
     "CATEGORIES": "Kategorie",
     "ACCOUNTS": "Konta",
     "TRANSFERS": "Przelewy",
@@ -81,6 +82,17 @@
     "RESET": "Resetuj",
     "RESET_DIALOG_CONFIRM": "Czy na pewno chcesz usunąć wszystkie dane? Tej operacji nie można cofnąć.",
     "RESET_DIALOG_TITLE": "Usuń wszystkie dane"
+  },
+  "PROFILE": {
+    "PAGE_TITLE": "Profil",
+    "STREET_ADDRESS": "Adres ulicy",
+    "STREET_ADDRESS_LINE": "Adres ulicy, numer domu",
+    "CITY": "Miasto",
+    "REGION": "Region",
+    "ZIP_CODE": "Kod pocztowy",
+    "COUNTRY": "Kraj",
+    "VAT_ID": "NIP",
+    "ACCOUNT_NUMBER": "Numer konta"
   },
   "ACCOUNTS": {
     "PAGE_TITLE": "Konta",
