@@ -193,6 +193,7 @@
     "MAIN_INFO": "Główne informacje",
     "SELLER_INFO": "Informacje o sprzedawcy",
     "BUYER_INFO": "Informacje o kupującym",
+    "EMPTY_TEXT": "Brak dostępnych faktur",
     "DOCUMENT": {
       "INVOICE_NO": "Numer faktury",
       "ISSUE_DATE": "Data wystawienia",

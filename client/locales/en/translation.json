@@ -193,6 +193,7 @@
     "MAIN_INFO": "Main info",
     "SELLER_INFO": "Seller info",
     "BUYER_INFO": "Buyer info",
+    "EMPTY_TEXT": "No invoice is available",
     "DOCUMENT": {
       "INVOICE_NO": "Invoice No",
       "ISSUE_DATE": "Issue date",
