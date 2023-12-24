@@ -63,12 +63,14 @@ const calculateSummary = async (userId: string, fromDate?: Date, toDate?: Date):
   const allUserTransactions = await Transaction.find({ userId, createdAt: { $gte: fromDate, $lte: toDate } });
   const expenseTransactions = mapTransactions(allUserTransactions.filter(({ type }) => type === CategoryType.expense));
   const incomeTransactions = mapTransactions(allUserTransactions.filter(({ type }) => type === CategoryType.income));
-  const expenses = calculateAmountByField(expenseTransactions, 'amount');
-  const incomes = calculateAmountByField(incomeTransactions, 'amount');
+  const sortedExpenseTransactions = expenseTransactions.sort((a, b) => b.amount - a.amount);
+  const sortedIncomeTransactions = incomeTransactions.sort((a, b) => b.amount - a.amount);
+  const expenses = calculateAmountByField(sortedExpenseTransactions, 'amount');
+  const incomes = calculateAmountByField(sortedIncomeTransactions, 'amount');
   const profit = incomes - expenses;
   const balance = await calculateAccountsTotalBalance(userId);
-  const categoryExpenseTransactions = getTransactionsByCategory(expenseTransactions, expenses, incomes);
-  const categoryIncomeTransactions = getTransactionsByCategory(incomeTransactions, expenses, incomes);
+  const categoryExpenseTransactions = getTransactionsByCategory(sortedExpenseTransactions, expenses, incomes);
+  const categoryIncomeTransactions = getTransactionsByCategory(sortedIncomeTransactions, expenses, incomes);
 
   return {
     userId,
@@ -80,6 +82,7 @@ const calculateSummary = async (userId: string, fromDate?: Date, toDate?: Date):
     categoryIncomeTransactions
   };
 };
+
 
 const updateSummary = async (userId: string): Promise<void> => {
   const result = await calculateSummary(userId);
