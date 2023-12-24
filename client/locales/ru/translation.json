@@ -195,7 +195,7 @@
     "BUYER_INFO": "Информация покупца",
     "EMPTY_TEXT": "Нет фактур",
     "DOCUMENT": {
-      "INVOICE_NO": "Номер инвойса",
+      "INVOICE_NO": "Номер фактуры",
       "ISSUE_DATE": "Дата выставления",
       "SALE_DATE": "Дата продажи",
       "DUE_DATE": "Срок оплаты",
@@ -220,7 +220,7 @@
       }
     },
     "ERRORS": {
-      "REQUIRED_TITLE": "Заголовок обязательный",
+      "REQUIRED_NAME": "Название обязательно",
       "REQUIRED_SALARY": "Зарплата обязательна",
       "INVALID_SALARY": "Неверная зарплата",
       "REQUIRED_CURRENCY": "Валюта обязательна",
@@ -232,7 +232,12 @@
       "REQUIRED_BUYER_NAME": "Имя покупателя обязательна",
       "REQUIRED_BUYER_ADDRESS": "Адрес покупателя обязательный",
       "REQUIRED_BUYER_LOCATION": "Локация покупателя обязательный",
-      "REQUIRED_BUYER_VAT_ID": "НДС идентификатор покупателя обязательный"
-    }
+      "REQUIRED_BUYER_VAT_ID": "НДС идентификатор покупателя обязательный",
+      "REACHED_USER_LIMIT": "Вы достигли максимального количества фактур.",
+      "INVOICE_EXISTS": "Фактура уже существует."
+    },
+    "DELETE_DIALOG_TITLE": "Удалить фактуру",
+    "DELETE_DIALOG_CONFIRM": "Вы уверены, что хотите удалить этот счёт?",
+    "DELETE_SUCCESS": "Фактура успешно удалён."
   }
 }

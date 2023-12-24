@@ -220,10 +220,10 @@
       }
     },
     "ERRORS": {
-      "REQUIRED_TITLE": "Wymagany nagłówek",
+      "REQUIRED_NAME": "Wymagana nazwa",
       "REQUIRED_SALARY": "Wymagane wynagrodzenie",
       "INVALID_SALARY": "Nieprawidłowe wynagrodzenie",
-      "REQUIRED_CURRENCY": "Wymagana jest waluta",
+      "REQUIRED_CURRENCY": "Wymagana waluta",
       "REQUIRED_SELLER_NAME": "Wymagane imię sprzedawcy",
       "REQUIRED_SELLER_ADDRESS": "Wymagany adres sprzedawcy",
       "REQUIRED_SELLER_LOCATION": "Wymagana lokalizacja sprzedawcy",
@@ -232,7 +232,12 @@
       "REQUIRED_BUYER_NAME": "Wymagane imię kupującego",
       "REQUIRED_BUYER_ADDRESS": "Wymagany adres kupującego",
       "REQUIRED_BUYER_LOCATION": "Wymagana lokalizacja kupującego",
-      "REQUIRED_BUYER_VAT_ID": "Wymagany numer identyfikacyjny VAT kupującego"
-    }
+      "REQUIRED_BUYER_VAT_ID": "Wymagany numer identyfikacyjny VAT kupującego",
+      "REACHED_USER_LIMIT": "Osiągnąłeś maksymalną liczbę faktur.",
+      "INVOICE_EXISTS": "Faktura już istnieje."
+    },
+    "DELETE_DIALOG_TITLE": "Usuń fakturę",
+    "DELETE_DIALOG_CONFIRM": "Czy na pewno chcesz usunąć tę fakturę?",
+    "DELETE_SUCCESS": "Faktura została pomyślnie usunięta."
   }
 }

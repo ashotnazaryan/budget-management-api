@@ -220,7 +220,7 @@
       }
     },
     "ERRORS": {
-      "REQUIRED_TITLE": "Վերնագիրը պարտադիր է",
+      "REQUIRED_NAME": "Անունը պարտադիր է",
       "REQUIRED_SALARY": "Աշխատավարձը պարտադիր է",
       "INVALID_SALARY": "Աշխատավարձն անվավեր է",
       "REQUIRED_CURRENCY": "Արժույթը պարտադիր է",
@@ -232,7 +232,12 @@
       "REQUIRED_BUYER_NAME": "Գնորդի անունը պարտադիր է",
       "REQUIRED_BUYER_ADDRESS": "Գնորդի հասցեն պարտադիր է",
       "REQUIRED_BUYER_LOCATION": "Գնորդի վայրը պարտադիր է",
-      "REQUIRED_BUYER_VAT_ID": "Գնորդի ԱԱՀ իդենտիֆիկատորը պարտադիր է"
-    }
+      "REQUIRED_BUYER_VAT_ID": "Գնորդի ԱԱՀ իդենտիֆիկատորը պարտադիր է",
+      "REACHED_USER_LIMIT": "Դուք անցել եք ձեր առավելագույն ֆակտուրաների քանակը։",
+      "INVOICE_EXISTS": "Այս ֆակտուրան արդեն գոյություն ունի"
+    },
+    "DELETE_DIALOG_TITLE": "Ջնջել ֆակտուրան",
+    "DELETE_DIALOG_CONFIRM": "Արդյոք ցանկանու՞մ եք ջնջել այս ֆակտուրան:",
+    "DELETE_SUCCESS": "Ֆակտուրան հաջողությամբ ջնջվեց։"
   }
 }

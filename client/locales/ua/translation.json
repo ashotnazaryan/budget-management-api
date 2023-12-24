@@ -220,7 +220,7 @@
       }
     },
     "ERRORS": {
-      "REQUIRED_TITLE": "Заголовок обов'язковий",
+      "REQUIRED_NAME": "Назва обов'язкова",
       "REQUIRED_SALARY": "Зарплата обов'язкова",
       "INVALID_SALARY": "Невірна зарплата",
       "REQUIRED_CURRENCY": "Валюта обов'язкова",
@@ -232,7 +232,12 @@
       "REQUIRED_BUYER_NAME": "Ім'я покупця обов'язкове",
       "REQUIRED_BUYER_ADDRESS": "Адреса покупця обов'язкова",
       "REQUIRED_BUYER_LOCATION": "Місце розташування покупця обов'язкове",
-      "REQUIRED_BUYER_VAT_ID": "Ідентифікатор ПДВ покупця обов'язковий"
-    }
+      "REQUIRED_BUYER_VAT_ID": "Ідентифікатор ПДВ покупця обов'язковий",
+      "REACHED_USER_LIMIT": "Ви досягли максимальної кількості фактур.",
+      "INVOICE_EXISTS": "Фактура вже існує."
+    },
+    "DELETE_DIALOG_TITLE": "Видалити фактуру",
+    "DELETE_DIALOG_CONFIRM": "Ви впевнені, що хочете видалити цей фактуру?",
+    "DELETE_SUCCESS": "Фактура успішно видалено."
   }
 }
