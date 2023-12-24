@@ -3,7 +3,7 @@ import { CONFIG } from '../core/configs';
 import { isAuthenticated } from '../middleware';
 import { getSummary, getBalanceInfo } from '../services';
 
-const summaryRoute = () => {
+const summaryRoute = (): Router => {
   const router = Router();
 
   router.get(CONFIG.routes.getSummary, isAuthenticated, getSummary);

@@ -32,7 +32,7 @@ const getTransactionById = async (request: Request<{ id: TransactionInput['id'] 
   }
 };
 
-const addTransaction = async (request: Request<unknown, unknown, TransactionInput>, response: Response) => {
+const createTransaction = async (request: Request<unknown, unknown, TransactionInput>, response: Response) => {
   const userId = request.user?.userId;
 
   const { amount, categoryId, name, nameKey, type, icon, accountId, createdAt, note } = request.body;
@@ -169,7 +169,7 @@ const deleteAccountTransactions = async (userId: string, accountId: AccountInput
 export {
   getTransactions,
   getTransactionById,
-  addTransaction,
+  createTransaction,
   editTransaction,
   deleteTransaction,
   updateCategoryTransactions,

@@ -32,7 +32,7 @@ export const CONFIG = {
     getTransactions: '/',
     getTransactionById: '/:id',
     editTransaction: '/:id',
-    addTransaction: '/transaction',
+    createTransaction: '/transaction',
     deleteTransaction: '/:id',
     getCategories: '/',
     createCategory: '/category',
@@ -53,6 +53,11 @@ export const CONFIG = {
     addSetting: '/setting',
     getProfile: '/',
     editProfile: '/',
+    getInvoices: '/',
+    createInvoice: '/invoice',
+    getInvoiceById: '/:id',
+    editInvoice: '/:id',
+    deleteInvoice: '/:id',
     reset: '/:userId/reset',
     accessToken: '/access-token'
   },
@@ -66,7 +71,8 @@ export const CONFIG = {
     categories: 'categories',
     accounts: 'accounts',
     transactions: 'transactions',
-    transfers: 'transfers'
+    transfers: 'transfers',
+    invoices: 'invoices'
   }
 };
 
@@ -91,6 +97,7 @@ export const MAX_ACCOUNTS_PER_USER = 5;
 export const MAX_CATEGORIES_PER_USER = 50;
 export const MAX_TRANSACTIONS_PER_USER = 500;
 export const MAX_TRANSFERS_PER_USER = 500;
+export const MAX_INVOICES_PER_USER = 50;
 
 type GoogleStrategyOptions = StrategyOptions & AuthenticateOptionsGoogle;
 type FacebookStrategyOptions = StrategyOption & AuthenticateOptions;

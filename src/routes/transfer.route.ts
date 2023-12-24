@@ -3,7 +3,7 @@ import { CONFIG } from '../core/configs';
 import { isAuthenticated } from '../middleware';
 import { createTransfer, getTransfers, getTransferById, editTransfer, deleteTransfer } from '../services';
 
-const transferRoute = () => {
+const transferRoute = (): Router => {
   const router = Router();
 
   router.get(CONFIG.routes.getTransfers, isAuthenticated, getTransfers);

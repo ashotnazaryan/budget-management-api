@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { CONFIG } from '../core/configs';
 import { google, facebook, googleCallback, facebookCallback, loginFailed, loginSuccess, getNewAccessToken, logout } from '../services';
 
-const authRoute = () => {
+const authRoute = (): Router => {
   const router = Router();
 
   router.get(CONFIG.routes.loginSuccess, loginSuccess);
