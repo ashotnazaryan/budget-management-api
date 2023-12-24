@@ -58,7 +58,7 @@ export const CONFIG = {
     getInvoiceById: '/:id',
     editInvoice: '/:id',
     deleteInvoice: '/:id',
-    reset: '/:userId/reset',
+    reset: '/reset',
     accessToken: '/access-token'
   },
   collections: {

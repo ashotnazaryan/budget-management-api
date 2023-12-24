@@ -60,7 +60,7 @@ const addSetting = async (request: Request<unknown, unknown, SettingInput>, resp
 };
 
 const reset = async (request: Request, response: Response) => {
-  const userId = request.params.userId;
+  const userId = request.user?.userId;
 
   try {
     await Setting.deleteMany({ userId });
