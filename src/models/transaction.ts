@@ -71,8 +71,7 @@ const transactionSchema = new Schema(
       required: true
     },
     percentValue: {
-      type: Schema.Types.Number,
-      required: false
+      type: Schema.Types.Number
     },
     createdAt: {
       type: Schema.Types.Date,

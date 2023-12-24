@@ -7,3 +7,4 @@ export * from './category.route';
 export * from './account.route';
 export * from './setting.route';
 export * from './transfer.route';
+export * from './invoice.route';

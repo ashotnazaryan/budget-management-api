@@ -3,7 +3,7 @@ import { CONFIG } from '../core/configs';
 import { isAuthenticated } from '../middleware';
 import { getSettings, addSetting, reset } from '../services';
 
-const settingRoute = () => {
+const settingRoute = (): Router => {
   const router = Router();
 
   router.get(CONFIG.routes.getSettings, isAuthenticated, getSettings);

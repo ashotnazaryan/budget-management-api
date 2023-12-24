@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Account, Category, Period, Setting, SettingInput, Summary, Transaction, Transfer } from '../models';
+import { Account, Category, Invoice, Period, Setting, SettingInput, Summary, Transaction, Transfer } from '../models';
 
 const initialSetting: SettingInput = {
   defaultCurrency: 'USD',
@@ -69,6 +69,7 @@ const reset = async (request: Request, response: Response) => {
     await Summary.deleteMany({ userId });
     await Transaction.deleteMany({ userId });
     await Transfer.deleteMany({ userId });
+    await Invoice.deleteMany({ userId });
 
     return response.status(204).json(null);
   } catch {
