@@ -4,15 +4,21 @@ import { mapTransaction, mapTransactions } from '../helpers';
 import { calculateAccountBalance, updateAccountBalance, updateSummary } from '../services';
 import { MAX_TRANSACTIONS_PER_USER, MAX_TRANSACTION_AMOUNT } from '../core/configs';
 
-const getTransactions = async (request: Request, response: Response) => {
+const getTransactions = async (request: Request<unknown, unknown, unknown, qs.ParsedQs>, response: Response) => {
   const userId = request.user?.userId;
+  const { categoryId } = request.query;
+  let transactions;
 
   try {
-    const transactions = await Transaction.find({ userId }).sort({ createdAt: -1 });
+    if (categoryId) {
+      transactions = await Transaction.find({ userId, categoryId }).sort({ createdAt: -1 });
+    } else {
+      transactions = await Transaction.find({ userId }).sort({ createdAt: -1 });
+    }
 
     return response.status(200).json(mapTransactions(transactions));
   } catch {
-    return response.status(200).json(null);
+    return response.status(500).json({ message: 'Internal server error', status: 500 });
   }
 };
 
