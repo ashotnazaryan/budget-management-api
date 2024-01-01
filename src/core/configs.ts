@@ -12,6 +12,7 @@ export const CONFIG = {
   facebookClientID: process.env.FACEBOOK_OUATH_CLIENT_ID || '',
   facebookClientSecret: process.env.FACEBOOK_OUATH_CLIENT_SECRET || '',
   clientURL: process.env.CLIENT_URL || 'http://localhost:3000',
+  nbpURL: process.env.NBP_PL || 'https://api.nbp.pl/api/exchangerates/tables',
   domain: process.env.DOMAIN,
   cookieSessionSecretName: process.env.COOKIE_SECRET_NAME || '',
   cookieSessionSecretKey: process.env.COOKIE_SECRET_KEY || 'key',
@@ -58,6 +59,8 @@ export const CONFIG = {
     getInvoiceById: '/:id',
     editInvoice: '/:id',
     deleteInvoice: '/:id',
+    getRegularRates: '/regular',
+    getInvoiceRates: '/invoice',
     reset: '/reset',
     accessToken: '/access-token'
   },
@@ -72,7 +75,9 @@ export const CONFIG = {
     accounts: 'accounts',
     transactions: 'transactions',
     transfers: 'transfers',
-    invoices: 'invoices'
+    invoices: 'invoices',
+    regularRates: 'regularRates',
+    invoiceRates: 'invoiceRates'
   }
 };
 
