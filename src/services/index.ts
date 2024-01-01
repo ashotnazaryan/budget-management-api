@@ -8,4 +8,5 @@ export * from './account.service';
 export * from './setting.service';
 export * from './transfer.service';
 export * from './invoice.service';
+export * from './rate.service';
 export * from './defaults.service';

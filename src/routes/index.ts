@@ -8,3 +8,4 @@ export * from './account.route';
 export * from './setting.route';
 export * from './transfer.route';
 export * from './invoice.route';
+export * from './rate.route';

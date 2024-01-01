@@ -27,6 +27,7 @@
     "google-auth-library": "^8.7.0",
     "mongodb": "^5.1.0",
     "mongoose": "^7.0.2",
+    "node-fetch": "^2.7.0",
     "passport": "^0.5.0",
     "passport-facebook": "^3.0.0",
     "passport-google-oauth20": "^2.0.0"
@@ -37,6 +38,7 @@
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.17",
     "@types/node": "^18.15.0",
+    "@types/node-fetch": "^2.6.10",
     "@types/passport": "^1.0.12",
     "@types/passport-facebook": "^2.1.11",
     "@types/passport-google-oauth20": "^2.0.11",

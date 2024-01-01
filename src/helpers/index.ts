@@ -7,4 +7,5 @@ export * from './user.helpers';
 export * from './profile.helpers';
 export * from './transfer.helpers';
 export * from './invoice.helpers';
+export * from './rate.helpers';
 export * from './common.helpers';
