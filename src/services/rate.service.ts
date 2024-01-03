@@ -1,29 +1,32 @@
 import { Request, Response } from 'express';
 import fetch from 'node-fetch';
-import { NBPResponse, RegularRate, InvoiceRate, StartEndDate } from '../models';
-import { mapNBPResponse, mapRate } from '../helpers';
+import { NBPResponse, RegularRate, InvoiceRate, StartEndDate, RateInput } from '../models';
+import { isNewDate, isNewMonth, mapNBPResponse, mapRate } from '../helpers';
 import { CONFIG } from '../core/configs';
 
 const getRegularExchangeRates = async (request: Request, response: Response) => {
   try {
     const dbRate = await RegularRate.findOne();
 
-    // TODO: check if it's a new month
-    if (dbRate) {
+    if (!dbRate) {
+      const rate = await getNBPData(`${CONFIG.nbpURL}/A`);
+
+      if (rate) {
+        await RegularRate.create(rate);
+
+        return response.status(200).json(rate);
+      }
+    } else if (dbRate && isNewDate(dbRate.date)) {
+      const rate = await getNBPData(`${CONFIG.nbpURL}/A`);
+
+      if (rate) {
+        await RegularRate.updateOne(rate);
+
+        return response.status(200).json(rate);
+      }
+    } else {
       return response.status(200).json(mapRate(dbRate));
     }
-
-    const nbpResponse = await fetch(`${CONFIG.nbpURL}/A`);
-    const data = await nbpResponse.json() as NBPResponse[];
-
-    if (data?.length) {
-      const rate = mapNBPResponse(data[0]);
-      await RegularRate.create(rate);
-
-      return response.status(200).json(rate);
-    }
-
-    return response.status(404).json({ message: 'Rate not found', status: 404 });
   } catch {
     return response.status(500).json({ message: 'Internal server error', status: 500 });
   }
@@ -35,25 +38,35 @@ const getInvoiceExchangeRates = async (request: Request<unknown, unknown, unknow
   try {
     const dbRate = await InvoiceRate.findOne();
 
-    // TODO: check if it's a new month
-    if (dbRate) {
+    if (!dbRate) {
+      const rate = await getNBPData(`${CONFIG.nbpURL}/A/${startDate}/${endDate}`);
+
+      if (rate) {
+        await InvoiceRate.create(rate);
+
+        return response.status(200).json(rate);
+      }
+    } else if (dbRate && isNewMonth(dbRate.date)) {
+      const rate = await getNBPData(`${CONFIG.nbpURL}/A/${startDate}/${endDate}`);
+
+      if (rate) {
+        await InvoiceRate.updateOne(rate);
+
+        return response.status(200).json(rate);
+      }
+    } else {
       return response.status(200).json(mapRate(dbRate));
     }
-
-    const nbpResponse = await fetch(`${CONFIG.nbpURL}/A/${startDate}/${endDate}`);
-    const data = await nbpResponse.json() as NBPResponse[];
-
-    if (data?.length) {
-      const rate = mapNBPResponse(data[data.length - 1]);
-      await InvoiceRate.create(rate);
-
-      return response.status(200).json(rate);
-    }
-
-    return response.status(404).json({ message: 'Rate not found', status: 404 });
   } catch {
     return response.status(500).json({ message: 'Internal server error', status: 500 });
   }
+};
+
+const getNBPData = async (url: string): Promise<RateInput | null> => {
+  const nbpResponse = await fetch(url);
+  const data = await nbpResponse.json() as NBPResponse[];
+
+  return data?.length ? mapNBPResponse(data[data.length - 1]) : null;
 };
 
 export {

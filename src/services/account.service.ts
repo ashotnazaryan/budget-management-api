@@ -104,6 +104,7 @@ const editAccount = async (request: Request<{ id: AccountInput['id'] }, unknown,
 
       updatedAccount = {
         ...updatedAccount,
+        nameKey: account.name === updatedAccount.name ? account.nameKey : '',
         balance: account.balance + balanceDiff
       };
 

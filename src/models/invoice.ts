@@ -17,6 +17,7 @@ interface InvoiceInput {
   name: string;
   salary: string;
   currencyIso: CurrencyIso;
+  month: number;
   vatIncluded: boolean;
   sellerName: string;
   sellerAddress: string;
@@ -36,6 +37,7 @@ interface InvoiceDocument extends Document {
   name: string;
   salary: string;
   currencyIso: CurrencyIso;
+  month: number;
   vatIncluded: boolean;
   sellerName: string;
   sellerAddress: string;
@@ -68,6 +70,10 @@ const invoiceSchema = new Schema(
     },
     currencyIso: {
       type: Schema.Types.String,
+      required: true
+    },
+    month: {
+      type: Schema.Types.Number,
       required: true
     },
     vatIncluded: {

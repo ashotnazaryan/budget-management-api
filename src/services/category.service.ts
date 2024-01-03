@@ -86,26 +86,33 @@ const createCategory = async (request: Request<unknown, unknown, CategoryInput>,
 
 const editCategory = async (request: Request<{ id: CategoryInput['id'] }, unknown, CategoryInput>, response: Response) => {
   const id = request.params.id;
-  const category = request.body;
+  let updatedCategory = request.body;
   const userId = request.user?.userId;
-
-  if (!userId || !id) {
-    return;
-  }
 
   try {
     const categories = await Category.find({ userId });
-    const categoryAvailable = categories.some((item) => item.name === category.name && item.id !== id);
+    const categoryAvailable = categories.some((item) => item.name === updatedCategory.name && item.id !== id);
 
     if (categoryAvailable) {
       return response.status(409).json({ message: 'Category already exists', messageKey: 'CATEGORIES.ERRORS.CATEGORY_EXISTS', status: 409 });
     }
 
-    await Category.findByIdAndUpdate(id, category);
-    await updateCategoryTransactions(userId, id, category);
-    await updateSummary(userId);
+    const category = await Category.findById(id);
 
-    return response.status(200).json(null);
+    if (category && userId) {
+      updatedCategory = {
+        ...updatedCategory,
+        nameKey: category.name === updatedCategory.name ? category.nameKey : '',
+      };
+
+      await Category.findByIdAndUpdate(id, updatedCategory);
+      await updateCategoryTransactions(userId, id, updatedCategory);
+      await updateSummary(userId);
+
+      return response.status(200).json(null);
+    }
+
+    return response.status(404).json({ message: 'Category not found', status: 404 });
   } catch {
     return response.status(500).json({ message: 'Internal server error', status: 500 });
   }
