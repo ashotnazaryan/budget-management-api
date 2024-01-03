@@ -11,6 +11,7 @@ export const mapInvoice = (invoice: InvoiceDocument, userId: string): InvoiceInp
     name: invoice.name,
     salary: invoice.salary,
     currencyIso: invoice.currencyIso,
+    month: invoice.month,
     vatIncluded: invoice.vatIncluded,
     sellerName: invoice.sellerName,
     sellerAddress: invoice.sellerAddress,
