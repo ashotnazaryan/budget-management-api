@@ -32,7 +32,21 @@
     "PREVIEW": "Перегляд",
     "ADDRESS": "Адреса",
     "LOCATION": "Місце розташування",
-    "VAT_ID": "Ідентифікатор ПДВ"
+    "VAT_ID": "Ідентифікатор ПДВ",
+    "MONTHS": {
+      "JANUARY": "Січень",
+      "FEBRUARY": "Лютий",
+      "MARCH": "Березень",
+      "APRIL": "Квітень",
+      "MAY": "Травень",
+      "JUNE": "Червень",
+      "JULY": "Липень",
+      "AUGUST": "Серпень",
+      "SEPTEMBER": "Вересень",
+      "OCTOBER": "Жовтень",
+      "NOVEMBER": "Листопад",
+      "DECEMBER": "Грудень"
+    }    
   },
   "CURRENCIES": {
     "USD": "Долар США",
@@ -54,6 +68,7 @@
     "DASHBOARD": "Панель",
     "SETTINGS": "Налаштування",
     "PROFILE": "Профіль",
+    "REPORTS": "Звіти",
     "CATEGORIES": "Категорії",
     "ACCOUNTS": "Рахунки",
     "TRANSFERS": "Перекази",
@@ -93,6 +108,9 @@
     "COUNTRY": "Країна",
     "VAT_ID": "ІПН",
     "ACCOUNT_NUMBER": "Номер рахунку"
+  },
+  "REPORTS": {
+    "PAGE_TITLE": "Звіти"
   },
   "ACCOUNTS": {
     "PAGE_TITLE": "Рахунки",
@@ -189,6 +207,7 @@
   "INVOICES": {
     "PAGE_TITLE": "Фактури",
     "NEW_INVOICE": "Нова фактура",
+    "INVOICE": "Фактура",
     "INCLUDE_VAT": "Включає ПДВ",
     "MAIN_INFO": "Основна інформація",
     "SELLER_INFO": "Інформація продавця",
@@ -224,6 +243,7 @@
       "REQUIRED_SALARY": "Зарплата обов'язкова",
       "INVALID_SALARY": "Невірна зарплата",
       "REQUIRED_CURRENCY": "Валюта обов'язкова",
+      "REQUIRED_MONTH": "Місяць обов'язковий",
       "REQUIRED_SELLER_NAME": "Ім'я продавця обов'язкове",
       "REQUIRED_SELLER_ADDRESS": "Адреса продавця обов'язкова",
       "REQUIRED_SELLER_LOCATION": "Місце розташування продавця обов'язкове",

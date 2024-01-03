@@ -32,7 +32,21 @@
     "PREVIEW": "Preview",
     "ADDRESS": "Address",
     "LOCATION": "Location",
-    "VAT_ID": "VAT ID"
+    "VAT_ID": "VAT ID",
+    "MONTHS": {
+      "JANUARY": "January",
+      "FEBRUARY": "February",
+      "MARCH": "March",
+      "APRIL": "April",
+      "MAY": "May",
+      "JUNE": "June",
+      "JULY": "July",
+      "AUGUST": "August",
+      "SEPTEMBER": "September",
+      "OCTOBER": "October",
+      "NOVEMBER": "November",
+      "DECEMBER": "December"
+    }
   },
   "CURRENCIES": {
     "USD": "US Dollar",
@@ -54,6 +68,7 @@
     "DASHBOARD": "Dashboard",
     "SETTINGS": "Settings",
     "PROFILE": "Profile",
+    "REPORTS": "Reports",
     "CATEGORIES": "Categories",
     "ACCOUNTS": "Accounts",
     "TRANSFERS": "Transfers",
@@ -93,6 +108,9 @@
     "COUNTRY": "Country",
     "VAT_ID": "VAT ID",
     "ACCOUNT_NUMBER": "Account number"
+  },
+  "REPORTS": {
+    "PAGE_TITLE": "Reports"
   },
   "ACCOUNTS": {
     "PAGE_TITLE": "Accounts",
@@ -189,6 +207,7 @@
   "INVOICES": {
     "PAGE_TITLE": "Invoices",
     "NEW_INVOICE": "New invoice",
+    "INVOICE": "Invoice",
     "INCLUDE_VAT": "Include VAT",
     "MAIN_INFO": "Main info",
     "SELLER_INFO": "Seller info",
@@ -224,6 +243,7 @@
       "REQUIRED_SALARY": "Salary is required",
       "INVALID_SALARY": "Invalid salary",
       "REQUIRED_CURRENCY": "Currency is required",
+      "REQUIRED_MONTH": "Month is required",
       "REQUIRED_SELLER_NAME": "Seller name is required",
       "REQUIRED_SELLER_ADDRESS": "Seller address is required",
       "REQUIRED_SELLER_LOCATION": "Seller location is required",

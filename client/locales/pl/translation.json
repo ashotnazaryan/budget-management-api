@@ -32,7 +32,21 @@
     "PREVIEW": "Zapowiedź",
     "ADDRESS": "Adres",
     "LOCATION": "Lokalizacja",
-    "VAT_ID": "NIP"
+    "VAT_ID": "NIP",
+    "MONTHS": {
+      "JANUARY": "Styczeń",
+      "FEBRUARY": "Luty",
+      "MARCH": "Marzec",
+      "APRIL": "Kwiecień",
+      "MAY": "Maj",
+      "JUNE": "Czerwiec",
+      "JULY": "Lipiec",
+      "AUGUST": "Sierpień",
+      "SEPTEMBER": "Wrzesień",
+      "OCTOBER": "Październik",
+      "NOVEMBER": "Listopad",
+      "DECEMBER": "Grudzień"
+    }    
   },
   "CURRENCIES": {
     "USD": "Dolar amerykański",
@@ -54,6 +68,7 @@
     "DASHBOARD": "Panel",
     "SETTINGS": "Ustawienia",
     "PROFILE": "Profil",
+    "REPORTS": "Raporty",
     "CATEGORIES": "Kategorie",
     "ACCOUNTS": "Konta",
     "TRANSFERS": "Przelewy",
@@ -93,6 +108,9 @@
     "COUNTRY": "Kraj",
     "VAT_ID": "NIP",
     "ACCOUNT_NUMBER": "Numer konta"
+  },
+  "REPORTS": {
+    "PAGE_TITLE": "Raporty"
   },
   "ACCOUNTS": {
     "PAGE_TITLE": "Konta",
@@ -189,6 +207,7 @@
   "INVOICES": {
     "PAGE_TITLE": "Faktury",
     "NEW_INVOICE": "Nowa faktura",
+    "INVOICE": "Faktura",
     "INCLUDE_VAT": "Zawiera VAT",
     "MAIN_INFO": "Główne informacje",
     "SELLER_INFO": "Informacje o sprzedawcy",
@@ -224,6 +243,7 @@
       "REQUIRED_SALARY": "Wymagane wynagrodzenie",
       "INVALID_SALARY": "Nieprawidłowe wynagrodzenie",
       "REQUIRED_CURRENCY": "Wymagana waluta",
+      "REQUIRED_MONTH": "Wymagany miesiąc",
       "REQUIRED_SELLER_NAME": "Wymagane imię sprzedawcy",
       "REQUIRED_SELLER_ADDRESS": "Wymagany adres sprzedawcy",
       "REQUIRED_SELLER_LOCATION": "Wymagana lokalizacja sprzedawcy",

@@ -32,7 +32,21 @@
     "PREVIEW": "Предосмотр",
     "ADDRESS": "Адрес",
     "LOCATION": "Локация",
-    "VAT_ID": "НДС Идентификатор"
+    "VAT_ID": "НДС Идентификатор",
+    "MONTHS": {
+      "JANUARY": "Январь",
+      "FEBRUARY": "Февраль",
+      "MARCH": "Март",
+      "APRIL": "Апрель",
+      "MAY": "Май",
+      "JUNE": "Июнь",
+      "JULY": "Июль",
+      "AUGUST": "Август",
+      "SEPTEMBER": "Сентябрь",
+      "OCTOBER": "Октябрь",
+      "NOVEMBER": "Ноябрь",
+      "DECEMBER": "Декабрь"
+    }    
   },
   "CURRENCIES": {
     "USD": "Доллар США",
@@ -54,6 +68,7 @@
     "DASHBOARD": "Панель",
     "SETTINGS": "Настройки",
     "PROFILE": "Профиль",
+    "REPORTS": "Отчеты",
     "CATEGORIES": "Категории",
     "ACCOUNTS": "Счета",
     "TRANSFERS": "Трансферы",
@@ -93,6 +108,9 @@
     "COUNTRY": "Страна",
     "VAT_ID": "ИНН",
     "ACCOUNT_NUMBER": "Номер счета"
+  },
+  "REPORTS": {
+    "PAGE_TITLE": "Отчеты"
   },
   "ACCOUNTS": {
     "PAGE_TITLE": "Счета",
@@ -189,6 +207,7 @@
   "INVOICES": {
     "PAGE_TITLE": "Фактуры",
     "NEW_INVOICE": "Новая фактура",
+    "INVOICE": "Фактура",
     "INCLUDE_VAT": "Включает НДС",
     "MAIN_INFO": "Основная информация",
     "SELLER_INFO": "Информация продавца",
@@ -224,6 +243,7 @@
       "REQUIRED_SALARY": "Зарплата обязательна",
       "INVALID_SALARY": "Неверная зарплата",
       "REQUIRED_CURRENCY": "Валюта обязательна",
+      "REQUIRED_MONTH": "Месяц обязательный",
       "REQUIRED_SELLER_NAME": "Имя продавца обязательна",
       "REQUIRED_SELLER_ADDRESS": "Адрес продавца обязательный",
       "REQUIRED_SELLER_LOCATION": "Локация продавца обязательна",
