@@ -16,7 +16,8 @@ import {
   transferRoute,
   profileRoute,
   invoiceRoute,
-  rateRoute
+  rateRoute,
+  reportRoute
 } from './routes';
 import { createDefaultCollections } from './services';
 import { setResponseHeaders } from './middleware';
@@ -66,6 +67,7 @@ app.use('/api/accounts', accountRoute());
 app.use('/api/transfers', transferRoute());
 app.use('/api/transactions', transactionRoute());
 app.use('/api/invoices', invoiceRoute());
+app.use('/api/reports', reportRoute());
 app.use('/api/rates', rateRoute());
 app.use('/api/settings', settingRoute());
 
