@@ -63,6 +63,7 @@ export const CONFIG = {
     deleteInvoice: '/:id',
     getRegularRates: '/regular',
     getInvoiceRates: '/invoice',
+    getReports: '/',
     reset: '/reset',
     accessToken: '/access-token'
   },
@@ -78,6 +79,7 @@ export const CONFIG = {
     transactions: 'transactions',
     transfers: 'transfers',
     invoices: 'invoices',
+    reports: 'reports',
     regularRates: 'regularRates',
     invoiceRates: 'invoiceRates'
   }

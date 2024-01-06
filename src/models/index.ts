@@ -7,4 +7,5 @@ export * from './account';
 export * from './setting';
 export * from './transfer';
 export * from './invoice';
+export * from './report';
 export * from './rate';
