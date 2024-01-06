@@ -3,6 +3,11 @@ import { CONFIG } from '../core/configs';
 
 const Schema = mongoose.Schema;
 
+interface RateModel {
+  code: string;
+  value: number;
+}
+
 interface NBPResponse {
   effectiveDate: string;
   rates: {
@@ -14,19 +19,13 @@ interface NBPResponse {
 interface RateInput {
   id?: string;
   date: string;
-  rates: {
-    code: string;
-    rate: number;
-  }[];
+  rates: RateModel[];
 }
 
 interface RateDocument extends Document {
   id?: string;
   date: string;
-  rates: {
-    code: string;
-    rate: number;
-  }[];
+  rates: RateModel[];
 }
 
 interface StartEndDate {
@@ -77,4 +76,4 @@ const invoiceRateSchema = new Schema(
 const RegularRate = mongoose.model<RateDocument>(CONFIG.collections.regularRates, regularRateSchema);
 const InvoiceRate = mongoose.model<RateDocument>(CONFIG.collections.invoiceRates, invoiceRateSchema);
 
-export { RegularRate, InvoiceRate, RateDocument, RateInput, NBPResponse, StartEndDate };
+export { RegularRate, InvoiceRate, RateDocument, RateInput, RateModel, NBPResponse, StartEndDate };

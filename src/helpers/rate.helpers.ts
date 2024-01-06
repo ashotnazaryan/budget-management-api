@@ -1,4 +1,5 @@
 import { CURRENCIES } from '../constants';
+import { CONFIG } from '../core/configs';
 import { NBPResponse, RateDocument, RateInput } from '../models';
 
 export const mapRate = (rate: RateDocument): RateInput => {
@@ -15,7 +16,7 @@ export const mapNBPResponse = (rate: NBPResponse): RateInput => {
     rates: [
       ...rate.rates,
       ...CURRENCIES
-        .filter(({ iso }) => iso === 'PLN')
+        .filter(({ iso }) => iso === CONFIG.defaultCurrency)
         .map(({ iso }) => {
           return {
             code: iso,
@@ -34,7 +35,7 @@ export const mapNBPResponse = (rate: NBPResponse): RateInput => {
       .map(({ code, mid }) => {
         return {
           code,
-          rate: mid
+          value: mid
         };
       })
   };
