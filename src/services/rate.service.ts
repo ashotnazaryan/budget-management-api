@@ -1,30 +1,50 @@
 import { Request, Response } from 'express';
 import fetch from 'node-fetch';
-import { NBPResponse, RegularRate, InvoiceRate, StartEndDate, RateInput } from '../models';
-import { isNewDate, isNewMonth, mapNBPResponse, mapRate } from '../helpers';
 import { CONFIG } from '../core/configs';
+import { NBPResponse, RegularRate, InvoiceRate, StartEndDate, RateInput, CurrencyIso, RateDocument, Setting } from '../models';
+import { isNewDate, isNewMonth, mapNBPResponse, mapRate, roundToDecimalPlaces } from '../helpers';
 
 const getRegularExchangeRates = async (request: Request, response: Response) => {
+  const userId = request.user?.userId;
+
   try {
     const dbRate = await RegularRate.findOne();
+    const setting = await Setting.findOne({ userId });
+
+    if (!setting) {
+      return response.status(404).json({ message: 'Setting not found', status: 404 });
+    }
 
     if (!dbRate) {
-      const rate = await getNBPData(`${CONFIG.nbpURL}/A`);
+      let rate = await getNBPData(`${CONFIG.nbpURL}/A`);
 
       if (rate) {
+        if (setting.defaultCurrency !== CONFIG.defaultCurrency) {
+          rate = getRate(rate, setting.defaultCurrency, false);
+        }
+
         await RegularRate.create(rate);
 
         return response.status(200).json(rate);
       }
     } else if (dbRate && isNewDate(dbRate.date)) {
-      const rate = await getNBPData(`${CONFIG.nbpURL}/A`);
+      let rate = await getNBPData(`${CONFIG.nbpURL}/A`);
 
       if (rate) {
+        if (setting.defaultCurrency !== CONFIG.defaultCurrency) {
+          rate = getRate(rate, setting.defaultCurrency, false);
+        }
+
         await RegularRate.updateOne(rate);
 
         return response.status(200).json(rate);
       }
     } else {
+      if (setting.defaultCurrency !== CONFIG.defaultCurrency) {
+        const rate = getRate(dbRate, setting.defaultCurrency, false);
+        return response.status(200).json(rate);
+      }
+
       return response.status(200).json(mapRate(dbRate));
     }
   } catch {
@@ -34,27 +54,46 @@ const getRegularExchangeRates = async (request: Request, response: Response) => 
 
 const getInvoiceExchangeRates = async (request: Request<unknown, unknown, unknown, qs.ParsedQs>, response: Response) => {
   const { startDate, endDate } = request.query as unknown as StartEndDate;
+  const userId = request.user?.userId;
 
   try {
     const dbRate = await InvoiceRate.findOne();
+    const setting = await Setting.findOne({ userId });
+
+    if (!setting) {
+      return response.status(404).json({ message: 'Setting not found', status: 404 });
+    }
 
     if (!dbRate) {
-      const rate = await getNBPData(`${CONFIG.nbpURL}/A/${startDate}/${endDate}`);
+      let rate = await getNBPData(`${CONFIG.nbpURL}/A/${startDate}/${endDate}`);
 
       if (rate) {
+        if (setting.defaultCurrency !== CONFIG.defaultCurrency) {
+          rate = getRate(rate, setting.defaultCurrency, false);
+        }
+
         await InvoiceRate.create(rate);
 
         return response.status(200).json(rate);
       }
     } else if (dbRate && isNewMonth(dbRate.date)) {
-      const rate = await getNBPData(`${CONFIG.nbpURL}/A/${startDate}/${endDate}`);
+      let rate = await getNBPData(`${CONFIG.nbpURL}/A/${startDate}/${endDate}`);
 
       if (rate) {
+        if (setting.defaultCurrency !== CONFIG.defaultCurrency) {
+          rate = getRate(rate, setting.defaultCurrency, false);
+        }
+
         await InvoiceRate.updateOne(rate);
 
         return response.status(200).json(rate);
       }
     } else {
+      if (setting.defaultCurrency !== CONFIG.defaultCurrency) {
+        const rate = getRate(dbRate, setting.defaultCurrency, false);
+        return response.status(200).json(rate);
+      }
+
       return response.status(200).json(mapRate(dbRate));
     }
   } catch {
@@ -69,28 +108,54 @@ const getNBPData = async (url: string): Promise<RateInput | null> => {
   return data?.length ? mapNBPResponse(data[data.length - 1]) : null;
 };
 
-export {
-  getRegularExchangeRates,
-  getInvoiceExchangeRates
+const recalculateRegularRates = async (currency: CurrencyIso): Promise<void> => {
+  try {
+    const dbRate = await RegularRate.findOne();
+
+    if (dbRate) {
+      const updatedRate = getRate(dbRate, currency);
+
+      await RegularRate.updateOne(updatedRate);
+    }
+  } catch (error) {
+    console.error('An error occurred in recalculateRegularRates:', error);
+  }
 };
 
-// 1 usd == 3.935 pln
-// 1 eur = 4.348 pln
-// 1 uah == 0.1037 pln
-// 1 pln == 1 pln
+const recalculateInvoiceRates = async (currency: CurrencyIso): Promise<void> => {
+  try {
+    const dbRate = await InvoiceRate.findOne();
 
+    if (dbRate) {
+      const updatedRate = getRate(dbRate, currency);
 
-// for uah
-// 1 usd == (1 / 0.1037) * 3.935 -> uah
-// 1 eur = (1 / 0.1037) * 4.348 -> uah
-// 1 pln = (1 / 0.1037) * 1 -> uah
+      await InvoiceRate.updateOne(updatedRate);
+    }
+  } catch (error) {
+    console.error('An error occurred in recalculateInvoiceRates:', error);
+  }
+};
 
-// for eur
-// 1 usd = (1 / 4.348) * 3.935 -> eur
-// 1 pln = (1 / 4.348) * 1 -> eur
-// 1 uah = (1 / 4.348) * 0.1037 -> eur
+const getRate = (dbRate: RateDocument | RateInput, currency: CurrencyIso, shouldMapRate = true): RateInput => {
+  const mappedRate = shouldMapRate ? mapRate(dbRate as RateDocument) : dbRate;
+  const { rates, date } = mappedRate;
+  const value = rates.find((rate) => rate.code === currency)?.value || 1;
+  const coef = 1 / value;
 
-// for usd
-// 1 eur = (1 / 3.935) * 4.348 -> usd
-// 1 pln = (1 / 3.935) * 1 -> usd
-// 1 uah = (1 / 3.935) * 0.1037 -> usd
+  return {
+    date,
+    rates: rates.map((rate) => {
+      return {
+        ...rate,
+        value: roundToDecimalPlaces(coef * rate.value, 10)
+      };
+    })
+  };
+};
+
+export {
+  getRegularExchangeRates,
+  getInvoiceExchangeRates,
+  recalculateRegularRates,
+  recalculateInvoiceRates
+};

@@ -1,8 +1,10 @@
 import { Request, Response } from 'express';
-import { Account, Category, Invoice, Period, Setting, SettingInput, Summary, Transaction, Transfer } from '../models';
+import { Account, Category, CurrencyIso, Invoice, Period, Setting, SettingInput, Summary, Transaction, Transfer } from '../models';
+import { recalculateInvoiceRates, recalculateRegularRates } from './rate.service';
+import { CONFIG } from '../core/configs';
 
 const initialSetting: SettingInput = {
-  defaultCurrency: 'USD',
+  defaultCurrency: CONFIG.defaultCurrency as CurrencyIso,
   defaultAccount: '',
   defaultPeriod: Period.month,
   locale: 'en',
@@ -46,6 +48,11 @@ const addSetting = async (request: Request<unknown, unknown, SettingInput>, resp
           locale
         }
       });
+
+      if (defaultCurrency !== setting.defaultCurrency) {
+        await recalculateRegularRates(defaultCurrency);
+        await recalculateInvoiceRates(defaultCurrency);
+      }
 
       return response.status(200).json(null);
     }

@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import { AuthenticateOptionsGoogle, StrategyOptions } from 'passport-google-oauth20';
 import { StrategyOption, AuthenticateOptions } from 'passport-facebook';
+import { DEFAULT_CURRENCY_ISO } from '../constants';
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ export const CONFIG = {
   mongoUser: process.env.MONGO_ATLAS_CLUSTER_USERNAME || '',
   mongoPassword: process.env.MONGO_ATLAS_CLUSTER_PASSWORD || '',
   db: process.env.MONGO_ATLAS_CLUSTER_DB || '',
+  defaultCurrency: DEFAULT_CURRENCY_ISO,
   routes: {
     loginSuccess: '/login/success',
     loginFailed: '/login/failed',
