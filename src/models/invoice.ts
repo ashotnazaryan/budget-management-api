@@ -9,6 +9,7 @@ export interface Amount {
   gross: number;
   vatAmount: number;
   vatRate: number;
+  currencyIso: CurrencyIso;
 }
 
 interface InvoiceInput {
