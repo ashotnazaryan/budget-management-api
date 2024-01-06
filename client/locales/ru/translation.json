@@ -213,6 +213,8 @@
     "SELLER_INFO": "Информация продавца",
     "BUYER_INFO": "Информация покупца",
     "EMPTY_TEXT": "Нет фактур",
+    "EMPTY_TEXT_RENDER_CONTENT": "Фактура не найдена",
+    "EMPTY_TITLE": "Неизвестная фактура",
     "DOCUMENT": {
       "INVOICE_NO": "Номер фактуры",
       "ISSUE_DATE": "Дата выставления",

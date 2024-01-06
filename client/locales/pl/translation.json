@@ -213,6 +213,8 @@
     "SELLER_INFO": "Informacje o sprzedawcy",
     "BUYER_INFO": "Informacje o kupującym",
     "EMPTY_TEXT": "Brak dostępnych faktur",
+    "EMPTY_TEXT_RENDER_CONTENT": "Nie znaleziono faktury",
+    "EMPTY_TITLE": "Nieznana faktura",
     "DOCUMENT": {
       "INVOICE_NO": "Numer faktury",
       "ISSUE_DATE": "Data wystawienia",

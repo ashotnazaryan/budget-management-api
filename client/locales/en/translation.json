@@ -213,6 +213,8 @@
     "SELLER_INFO": "Seller info",
     "BUYER_INFO": "Buyer info",
     "EMPTY_TEXT": "No invoice is available",
+    "EMPTY_TEXT_RENDER_CONTENT": "Invoice not found",
+    "EMPTY_TITLE": "Unknown invoice",
     "DOCUMENT": {
       "INVOICE_NO": "Invoice No",
       "ISSUE_DATE": "Issue date",

@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkbudget_management=self.webpackChunkbudget_management||[]).push([[569],{569:(e,t,n)=>{n.r(t),n.d(t,{default:()=>r});n(2791);var a=n(8870),s=n(3394),l=n(5900),c=n(184);const r=()=>{const{t:e}=(0,s.$G)();return(0,c.jsx)(a.Z,{component:"form",display:"flex",flexDirection:"column",flexGrow:1,children:(0,c.jsx)(l.Z,{"data-testid":"page-title",text:e("REPORTS.PAGE_TITLE")})})}}}]);
-//# sourceMappingURL=569.e0aa57d1.chunk.js.map
