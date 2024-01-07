@@ -4,20 +4,26 @@ import { CurrencyIso } from './setting';
 
 const Schema = mongoose.Schema;
 
-interface ReportInput {
-  id: string;
-  userId: string;
+interface ReportItem {
   month: number;
   currencyIso: CurrencyIso;
   value: number;
 }
 
+interface ReportInput {
+  id: string;
+  userId: string;
+  reports: ReportItem[];
+  total: number;
+  limit: number | undefined;
+}
+
 interface ReportDocument extends Document {
   id: string;
   userId: string;
-  month: number;
-  value: number;
-  currencyIso: CurrencyIso;
+  reports: ReportItem[];
+  total: number;
+  limit: number | undefined;
 }
 
 const reportSchema = new Schema(
@@ -29,18 +35,17 @@ const reportSchema = new Schema(
       type: Schema.Types.String,
       required: true
     },
-    month: {
+    reports: {
+      type: Schema.Types.Array,
+      required: true
+    },
+    total: {
       type: Schema.Types.Number,
       required: true
     },
-    currencyIso: {
-      type: Schema.Types.String,
-      required: true
-    },
-    value: {
-      type: Schema.Types.Number,
-      required: true
-    },
+    limit: {
+      type: Schema.Types.Number
+    }
   },
   {
     timestamps: false,

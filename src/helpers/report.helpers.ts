@@ -1,26 +1,29 @@
-import { InvoiceDocument, ReportDocument, ReportInput } from '../models';
-
-export const mapReports = (reports: ReportDocument[], userId: string): ReportInput[] => {
-  return reports.map((report) => mapReport(report, userId));
-};
+import { VAT_LIMIT } from '../constants';
+import { CurrencyIso, InvoiceDocument, ReportDocument, ReportInput } from '../models';
 
 export const mapReport = (report: ReportDocument, userId: string): ReportInput => {
   return {
     userId,
     id: report.get('_id'),
-    month: report.month,
-    currencyIso: report.currencyIso,
-    value: report.value
+    reports: report.reports,
+    total: report.total,
+    limit: report.limit
   };
 };
 
-export const mapInvoicesToReports = (invoices: InvoiceDocument[], userId: string): Omit<ReportInput, 'id'>[] => {
-  return invoices.map((invoice) => {
-    return {
-      userId,
-      month: invoice.month,
-      currencyIso: invoice.amount.currencyIso,
-      value: invoice.amount.gross
-    };
-  });
+export const mapInvoicesToReport = (invoices: InvoiceDocument[], userId: string, defaultCurrency: CurrencyIso): Omit<ReportInput, 'id'> => {
+  return {
+    userId,
+    limit: VAT_LIMIT[defaultCurrency],
+    total: invoices.reduce((acc, curr) => {
+      return acc + curr.amount.gross;
+    }, 0),
+    reports: invoices.map((invoice) => {
+      return {
+        month: invoice.month,
+        currencyIso: invoice.amount.currencyIso,
+        value: invoice.amount.gross
+      };
+    })
+  };
 };
