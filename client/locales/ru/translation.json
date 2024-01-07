@@ -33,6 +33,9 @@
     "ADDRESS": "Адрес",
     "LOCATION": "Локация",
     "VAT_ID": "НДС Идентификатор",
+    "TOTAL": "Итого",
+    "LIMIT": "Лимит",
+    "DOWNLOAD": "Скачать",
     "MONTHS": {
       "JANUARY": "Январь",
       "FEBRUARY": "Февраль",
@@ -110,7 +113,8 @@
     "ACCOUNT_NUMBER": "Номер счета"
   },
   "REPORTS": {
-    "PAGE_TITLE": "Отчеты"
+    "PAGE_TITLE": "Отчеты",
+    "EMPTY_TEXT": "Нет отчетов"
   },
   "ACCOUNTS": {
     "PAGE_TITLE": "Счета",
@@ -224,6 +228,7 @@
       "TRANSFER": "Перевод",
       "SELLER": "Продавец",
       "BUYER": "Покупатель",
+      "UNSUPPORTED_DEVICE": "Это устройство не поддерживается. Пожалуйста, нажмите кнопку «Скачать».",
       "TABLE": {
         "NO": "Но",
         "NAME": "Название",

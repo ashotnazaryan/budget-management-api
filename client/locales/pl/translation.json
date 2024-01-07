@@ -33,6 +33,9 @@
     "ADDRESS": "Adres",
     "LOCATION": "Lokalizacja",
     "VAT_ID": "NIP",
+    "TOTAL": "Razem",
+    "LIMIT": "Limit",
+    "DOWNLOAD": "Pobierz",
     "MONTHS": {
       "JANUARY": "Styczeń",
       "FEBRUARY": "Luty",
@@ -110,7 +113,8 @@
     "ACCOUNT_NUMBER": "Numer konta"
   },
   "REPORTS": {
-    "PAGE_TITLE": "Raporty"
+    "PAGE_TITLE": "Raporty",
+    "EMPTY_TEXT": "Brak raportów"
   },
   "ACCOUNTS": {
     "PAGE_TITLE": "Konta",
@@ -224,6 +228,7 @@
       "TRANSFER": "Przelew",
       "SELLER": "Sprzedawca",
       "BUYER": "Kupujący",
+      "UNSUPPORTED_DEVICE": "To urządzenie nie jest obsługiwane. Proszę nacisnąć przycisk „Pobierz”.",
       "TABLE": {
         "NO": "Nr",
         "NAME": "Nazwa",

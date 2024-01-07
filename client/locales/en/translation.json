@@ -33,6 +33,9 @@
     "ADDRESS": "Address",
     "LOCATION": "Location",
     "VAT_ID": "VAT ID",
+    "TOTAL": "Total",
+    "LIMIT": "Limit",
+    "DOWNLOAD": "Download",
     "MONTHS": {
       "JANUARY": "January",
       "FEBRUARY": "February",
@@ -110,7 +113,8 @@
     "ACCOUNT_NUMBER": "Account number"
   },
   "REPORTS": {
-    "PAGE_TITLE": "Reports"
+    "PAGE_TITLE": "Reports",
+    "EMPTY_TEXT": "No report is available"
   },
   "ACCOUNTS": {
     "PAGE_TITLE": "Accounts",
@@ -224,6 +228,7 @@
       "TRANSFER": "Transfer",
       "SELLER": "Seller",
       "BUYER": "Buyer",
+      "UNSUPPORTED_DEVICE": "This device is not supported. Please, press Download button",
       "TABLE": {
         "NO": "No",
         "NAME": "Name",
