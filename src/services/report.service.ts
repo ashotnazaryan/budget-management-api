@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { Invoice, Report } from '../models';
-import { mapInvoicesToReports, mapReports } from '../helpers';
+import { Invoice, Report, Setting } from '../models';
+import { mapInvoicesToReport, mapReport } from '../helpers';
 
 const getReports = async (request: Request, response: Response) => {
   const userId = request.user?.userId;
@@ -11,17 +11,26 @@ const getReports = async (request: Request, response: Response) => {
 
   try {
     const invoices = await Invoice.find({ userId });
+    const setting = await Setting.findOne({ userId });
 
     if (!invoices.length) {
-      return response.status(200).json([]);
+      return response.status(200).json({});
     }
 
-    const newReports = mapInvoicesToReports(invoices, userId);
-    await Report.deleteMany({ userId });
-    await Report.insertMany(newReports);
-    const reports = await Report.find({ userId });
+    if (!setting) {
+      return response.status(404).json({ message: 'Setting not found', status: 404 });
+    }
 
-    return response.status(200).json(mapReports(reports, userId));
+    const newReport = mapInvoicesToReport(invoices, userId, setting.defaultCurrency);
+    await Report.deleteOne({ userId });
+    await Report.create(newReport);
+    const report = await Report.findOne({ userId });
+
+    if (report) {
+      return response.status(200).json(mapReport(report, userId));
+    }
+
+    return response.status(404).json({ message: 'Report not found', status: 404 });
   } catch (error) {
     return response.status(500).json({ message: 'Internal server error', status: 500 });
   }
