@@ -251,6 +251,7 @@
       "INVALID_SALARY": "Неверная зарплата",
       "REQUIRED_CURRENCY": "Валюта обязательна",
       "REQUIRED_MONTH": "Месяц обязательный",
+      "REQUIRED_DATE": "Дата обязательна",
       "REQUIRED_SELLER_NAME": "Имя продавца обязательна",
       "REQUIRED_SELLER_ADDRESS": "Адрес продавца обязательный",
       "REQUIRED_SELLER_LOCATION": "Локация продавца обязательна",

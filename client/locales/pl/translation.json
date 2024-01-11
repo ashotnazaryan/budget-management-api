@@ -251,6 +251,7 @@
       "INVALID_SALARY": "Nieprawidłowe wynagrodzenie",
       "REQUIRED_CURRENCY": "Wymagana waluta",
       "REQUIRED_MONTH": "Wymagany miesiąc",
+      "REQUIRED_DATE": "Wymagana data",
       "REQUIRED_SELLER_NAME": "Wymagane imię sprzedawcy",
       "REQUIRED_SELLER_ADDRESS": "Wymagany adres sprzedawcy",
       "REQUIRED_SELLER_LOCATION": "Wymagana lokalizacja sprzedawcy",

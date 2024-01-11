@@ -251,6 +251,7 @@
       "INVALID_SALARY": "Invalid salary",
       "REQUIRED_CURRENCY": "Currency is required",
       "REQUIRED_MONTH": "Month is required",
+      "REQUIRED_DATE": "Date is required",
       "REQUIRED_SELLER_NAME": "Seller name is required",
       "REQUIRED_SELLER_ADDRESS": "Seller address is required",
       "REQUIRED_SELLER_LOCATION": "Seller location is required",
