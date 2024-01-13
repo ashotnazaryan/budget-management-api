@@ -1,10 +1,10 @@
 import passport from 'passport';
 import { Strategy as GoogleStrategy, Profile as GoogleProfile } from 'passport-google-oauth20';
 import { Strategy as FacebookStrategy, Profile as FacebookProfile } from 'passport-facebook';
-import { PassportUser, User, UserInput } from '../models';
+import { PassportUser, User, UserDTO } from '../models';
 import { FACEBOOK_STRATEGY_OPTIONS, GOOGLE_STRATEGY_OPTIONS } from './configs';
 
-const getUser = (profile: GoogleProfile | FacebookProfile): Omit<UserInput, 'id'> => {
+const getUser = (profile: GoogleProfile | FacebookProfile): Omit<UserDTO, 'id'> => {
   const fullName = profile.displayName;
   const avatar = profile.photos?.length ? profile.photos[0].value : undefined;
 

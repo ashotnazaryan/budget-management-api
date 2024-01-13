@@ -1,6 +1,6 @@
-import { AccountInput } from '../models';
+import { AccountDTO } from '../models';
 
-export const DEFAULT_ACCOUNTS: Omit<AccountInput, 'id'>[] = [
+export const DEFAULT_ACCOUNTS: Omit<AccountDTO, 'id'>[] = [
   {
     name: 'Wallet',
     icon: 'wallet',

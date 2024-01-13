@@ -1,12 +1,12 @@
 import mongoose, { Document } from 'mongoose';
 import { CONFIG } from '../core/configs';
 import { CategoryType } from './category';
-import { AccountInput } from './account';
+import { AccountDTO } from './account';
 import { CurrencyIso } from './setting';
 
 const Schema = mongoose.Schema;
 
-interface TransactionInput {
+interface TransactionDTO {
   userId: string;
   categoryId: string;
   accountId: string;
@@ -18,10 +18,10 @@ interface TransactionInput {
   createdAt: Date;
   icon: string;
   id: string;
-  accountName?: AccountInput['name'];
-  accountIcon?: AccountInput['icon'];
+  accountName?: AccountDTO['name'];
+  accountIcon?: AccountDTO['icon'];
   nameKey?: string;
-  accountNameKey?: AccountInput['nameKey'] | null;
+  accountNameKey?: AccountDTO['nameKey'] | null;
   note?: string;
 }
 
@@ -37,10 +37,10 @@ interface TransactionDocument extends Document {
   createdAt: Date;
   icon: string;
   id: string;
-  accountName?: AccountInput['name'];
-  accountIcon?: AccountInput['icon'];
+  accountName?: AccountDTO['name'];
+  accountIcon?: AccountDTO['icon'];
   nameKey?: string;
-  accountNameKey?: AccountInput['nameKey'];
+  accountNameKey?: AccountDTO['nameKey'];
   note?: string;
 }
 
@@ -109,4 +109,4 @@ const transactionSchema = new Schema(
 
 const Transaction = mongoose.model<TransactionDocument>(CONFIG.collections.transactions, transactionSchema);
 
-export { Transaction, TransactionDocument, TransactionInput };
+export { Transaction, TransactionDocument, TransactionDTO };

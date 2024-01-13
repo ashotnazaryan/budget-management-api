@@ -16,7 +16,7 @@ interface NBPResponse {
   }[];
 }
 
-interface RateInput {
+interface RateDTO {
   id?: string;
   date: string;
   rates: RateModel[];
@@ -76,4 +76,4 @@ const invoiceRateSchema = new Schema(
 const RegularRate = mongoose.model<RateDocument>(CONFIG.collections.regularRates, regularRateSchema);
 const InvoiceRate = mongoose.model<RateDocument>(CONFIG.collections.invoiceRates, invoiceRateSchema);
 
-export { RegularRate, InvoiceRate, RateDocument, RateInput, RateModel, NBPResponse, StartEndDate };
+export { RegularRate, InvoiceRate, RateDocument, RateDTO, RateModel, NBPResponse, StartEndDate };

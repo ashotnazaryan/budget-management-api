@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Account, AccountDocument, AccountInput, CategoryType, DefaultAccount, Setting, Transaction, TransactionInput } from '../models';
+import { Account, AccountDocument, AccountDTO, CategoryType, DefaultAccount, Setting, Transaction, TransactionDTO } from '../models';
 import { calculateAmountByField, calculateTransactionsAmount, mapAccount, mapAccounts } from '../helpers';
 import { deleteAccountTransactions, deleteAccountTransfers, updateAccountTransactions, updateSummary } from '../services';
 import { MAX_ACCOUNTS_PER_USER } from '../core/configs';
@@ -32,7 +32,7 @@ const getAccounts = async (request: Request, response: Response) => {
   }
 };
 
-const getAccountById = async (request: Request<{ id: AccountInput['id'] }, unknown, AccountInput>, response: Response) => {
+const getAccountById = async (request: Request<{ id: AccountDTO['id'] }, unknown, AccountDTO>, response: Response) => {
   const id = request.params.id;
   const userId = request.user?.userId;
 
@@ -53,9 +53,9 @@ const getAccountById = async (request: Request<{ id: AccountInput['id'] }, unkno
   }
 };
 
-const createAccount = async (request: Request<unknown, unknown, AccountInput>, response: Response) => {
+const createAccount = async (request: Request<unknown, unknown, AccountDTO>, response: Response) => {
   const userId = request.user?.userId;
-  const newAccount: AccountInput = {
+  const newAccount: AccountDTO = {
     ...request.body,
     userId,
     isDefaultAccount: false
@@ -84,7 +84,7 @@ const createAccount = async (request: Request<unknown, unknown, AccountInput>, r
   }
 };
 
-const editAccount = async (request: Request<{ id: AccountInput['id'] }, unknown, AccountInput>, response: Response) => {
+const editAccount = async (request: Request<{ id: AccountDTO['id'] }, unknown, AccountDTO>, response: Response) => {
   const id = request.params.id;
   let updatedAccount = request.body;
   const userId = request.user?.userId;
@@ -120,7 +120,7 @@ const editAccount = async (request: Request<{ id: AccountInput['id'] }, unknown,
   }
 };
 
-const deleteAccount = async (request: Request<{ id: AccountInput['id'] }, unknown, unknown>, response: Response) => {
+const deleteAccount = async (request: Request<{ id: AccountDTO['id'] }, unknown, unknown>, response: Response) => {
   const id = request.params.id;
   const userId = request.user?.userId;
 
@@ -157,7 +157,7 @@ const calculateAccountBalance = async (
   type: CategoryType,
   mode: 'create' | 'edit',
   userId?: string,
-  oldTransaction?: TransactionInput
+  oldTransaction?: TransactionDTO
 ): Promise<void> => {
   if (account) {
     let balance = account.balance;

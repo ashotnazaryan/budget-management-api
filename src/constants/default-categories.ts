@@ -1,6 +1,6 @@
-import { CategoryInput } from '../models';
+import { CategoryDTO } from '../models';
 
-export const DEFAULT_CATEGORIES: Omit<CategoryInput, 'id'>[] = [
+export const DEFAULT_CATEGORIES: Omit<CategoryDTO, 'id'>[] = [
   {
     name: 'Rent',
     icon: 'rent',

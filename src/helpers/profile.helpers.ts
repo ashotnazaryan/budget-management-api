@@ -1,6 +1,6 @@
-import { ProfileDocument, ProfileInput } from '../models';
+import { ProfileDocument, ProfileDTO } from '../models';
 
-export const mapProfile = (profile: ProfileDocument, userId: string): ProfileInput => {
+export const mapProfile = (profile: ProfileDocument, userId: string): ProfileDTO => {
   return {
     userId,
     id: profile.get('_id'),

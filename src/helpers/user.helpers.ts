@@ -1,6 +1,6 @@
-import { UserDocument, UserInput } from '../models';
+import { UserDocument, UserDTO } from '../models';
 
-export const mapUser = (user: UserDocument): UserInput => {
+export const mapUser = (user: UserDocument): UserDTO => {
   return {
     id: user.id,
     userId: user.userId,

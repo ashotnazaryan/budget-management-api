@@ -10,7 +10,7 @@ interface ReportItem {
   value: number;
 }
 
-interface ReportInput {
+interface ReportDTO {
   id: string;
   userId: string;
   reports: ReportItem[];
@@ -55,4 +55,4 @@ const reportSchema = new Schema(
 
 const Report = mongoose.model<ReportDocument>(CONFIG.collections.reports, reportSchema);
 
-export { Report, ReportDocument, ReportInput };
+export { Report, ReportDocument, ReportDTO };

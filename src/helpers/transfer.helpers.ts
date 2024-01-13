@@ -1,10 +1,10 @@
-import { TransferDocument, TransferInput } from '../models';
+import { TransferDocument, TransferDTO } from '../models';
 
-export const mapTransfers = (transfers: TransferDocument[], userId: string): TransferInput[] => {
+export const mapTransfers = (transfers: TransferDocument[], userId: string): TransferDTO[] => {
   return transfers.map((transfer) => mapTransfer(transfer, userId));
 };
 
-export const mapTransfer = (transfer: TransferDocument, userId: string): TransferInput => {
+export const mapTransfer = (transfer: TransferDocument, userId: string): TransferDTO => {
   return {
     userId,
     id: transfer.id,

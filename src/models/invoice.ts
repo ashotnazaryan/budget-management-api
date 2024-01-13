@@ -12,7 +12,7 @@ export interface Amount {
   currencyIso: CurrencyIso;
 }
 
-interface InvoiceInput {
+interface InvoiceDTO {
   id: string;
   userId: string;
   name: string;
@@ -136,4 +136,4 @@ const invoiceSchema = new Schema(
 
 const Invoice = mongoose.model<InvoiceDocument>(CONFIG.collections.invoices, invoiceSchema);
 
-export { Invoice, InvoiceDocument, InvoiceInput };
+export { Invoice, InvoiceDocument, InvoiceDTO };

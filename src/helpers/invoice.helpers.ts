@@ -1,10 +1,10 @@
-import { InvoiceDocument, InvoiceInput } from '../models';
+import { InvoiceDocument, InvoiceDTO } from '../models';
 
-export const mapInvoices = (invoices: InvoiceDocument[], userId: string): InvoiceInput[] => {
+export const mapInvoices = (invoices: InvoiceDocument[], userId: string): InvoiceDTO[] => {
   return invoices.map((invoice) => mapInvoice(invoice, userId));
 };
 
-export const mapInvoice = (invoice: InvoiceDocument, userId: string): InvoiceInput => {
+export const mapInvoice = (invoice: InvoiceDocument, userId: string): InvoiceDTO => {
   return {
     userId,
     id: invoice.get('_id'),

@@ -1,22 +1,22 @@
 import mongoose, { Document } from 'mongoose';
 import { CONFIG } from '../core/configs';
-import { AccountInput } from './account';
+import { AccountDTO } from './account';
 
 const Schema = mongoose.Schema;
 
 export interface TransferDocument extends Document {
   id: string;
-  fromAccount: AccountInput['id'];
-  toAccount: AccountInput['id'];
+  fromAccount: AccountDTO['id'];
+  toAccount: AccountDTO['id'];
   amount: number;
   createdAt: Date;
   userId?: string;
 }
 
-export interface TransferInput {
+export interface TransferDTO {
   id: string;
-  fromAccount: AccountInput['id'];
-  toAccount: AccountInput['id'];
+  fromAccount: AccountDTO['id'];
+  toAccount: AccountDTO['id'];
   amount: number;
   createdAt: Date;
   userId?: string;

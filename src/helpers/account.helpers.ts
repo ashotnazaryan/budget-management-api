@@ -1,10 +1,10 @@
-import { AccountDocument, AccountInput } from '../models';
+import { AccountDocument, AccountDTO } from '../models';
 
-export const mapAccounts = (accounts: AccountDocument[], userId: string): AccountInput[] => {
+export const mapAccounts = (accounts: AccountDocument[], userId: string): AccountDTO[] => {
   return accounts.map((account) => mapAccount(account, userId));
 };
 
-export const mapAccount = (account: AccountDocument, userId: string): AccountInput => {
+export const mapAccount = (account: AccountDocument, userId: string): AccountDTO => {
   return {
     userId,
     id: account.id,

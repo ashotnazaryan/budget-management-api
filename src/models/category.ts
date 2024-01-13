@@ -18,7 +18,7 @@ export interface CategoryDocument extends Document {
   nameKey?: string;
 }
 
-export interface CategoryInput {
+export interface CategoryDTO {
   name: string;
   icon: string;
   type: CategoryType;
