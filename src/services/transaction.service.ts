@@ -6,14 +6,14 @@ import { MAX_TRANSACTIONS_PER_USER, MAX_TRANSACTION_AMOUNT } from '../core/confi
 
 const getTransactions = async (request: Request<unknown, unknown, unknown, qs.ParsedQs>, response: Response) => {
   const userId = request.user?.userId;
-  const { categoryId } = request.query;
+  const { categoryId, fromDate, toDate } = request.query;
   let transactions;
 
   try {
     if (categoryId) {
-      transactions = await Transaction.find({ userId, categoryId }).sort({ createdAt: -1 });
+      transactions = await Transaction.find({ userId, categoryId, createdAt: { $gte: fromDate, $lte: toDate } }).sort({ createdAt: -1 });
     } else {
-      transactions = await Transaction.find({ userId }).sort({ createdAt: -1 });
+      transactions = await Transaction.find({ userId, createdAt: { $gte: fromDate, $lte: toDate } }).sort({ createdAt: -1 });
     }
 
     return response.status(200).json(mapTransactions(transactions));
