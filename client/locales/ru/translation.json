@@ -49,7 +49,11 @@
       "OCTOBER": "Октябрь",
       "NOVEMBER": "Ноябрь",
       "DECEMBER": "Декабрь"
-    }    
+    },
+    "ERRORS": {
+      "REQUIRED_DATE": "Дата обязательна",
+      "FUTURE_DATE": "Выбранная дата не может быть в будущем."
+    }
   },
   "CURRENCIES": {
     "USD": "Доллар США",
@@ -183,7 +187,6 @@
       "REQUIRED_CATEGORY": "Категория обязательна",
       "REQUIRED_ACCOUNT": "Счет обязательный",
       "REQUIRED_TYPE": "Тип обязательный",
-      "FUTURE_DATE": "Выбранная дата не может быть в будущем.",
       "REACHED_USER_LIMIT": "Вы достигли максимального количества транзакций."
     },
     "DELETE_DIALOG_TITLE": "Удалить транзакцию",
@@ -251,7 +254,6 @@
       "INVALID_SALARY": "Неверная зарплата",
       "REQUIRED_CURRENCY": "Валюта обязательна",
       "REQUIRED_MONTH": "Месяц обязательный",
-      "REQUIRED_DATE": "Дата обязательна",
       "REQUIRED_SELLER_NAME": "Имя продавца обязательна",
       "REQUIRED_SELLER_ADDRESS": "Адрес продавца обязательный",
       "REQUIRED_SELLER_LOCATION": "Локация продавца обязательна",

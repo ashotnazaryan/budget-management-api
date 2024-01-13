@@ -49,6 +49,10 @@
       "OCTOBER": "October",
       "NOVEMBER": "November",
       "DECEMBER": "December"
+    },
+    "ERRORS": {
+      "REQUIRED_DATE": "Date is required",
+      "FUTURE_DATE": "Selected date cannot be a future date."
     }
   },
   "CURRENCIES": {
@@ -251,7 +255,6 @@
       "INVALID_SALARY": "Invalid salary",
       "REQUIRED_CURRENCY": "Currency is required",
       "REQUIRED_MONTH": "Month is required",
-      "REQUIRED_DATE": "Date is required",
       "REQUIRED_SELLER_NAME": "Seller name is required",
       "REQUIRED_SELLER_ADDRESS": "Seller address is required",
       "REQUIRED_SELLER_LOCATION": "Seller location is required",

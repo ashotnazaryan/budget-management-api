@@ -49,7 +49,11 @@
       "OCTOBER": "Жовтень",
       "NOVEMBER": "Листопад",
       "DECEMBER": "Грудень"
-    }    
+    },
+    "ERRORS": {
+      "REQUIRED_DATE": "Дата обов'язкова",
+      "FUTURE_DATE": "Вибрана дата не може бути в майбутньому."
+    }
   },
   "CURRENCIES": {
     "USD": "Долар США",
@@ -183,7 +187,6 @@
       "REQUIRED_CATEGORY": "Категорія є обов'язковою",
       "REQUIRED_ACCOUNT": "Рахунок є обов'язковим",
       "REQUIRED_TYPE": "Тип є обов'язковим",
-      "FUTURE_DATE": "Вибрана дата не може бути в майбутньому.",
       "REACHED_USER_LIMIT": "Ви досягли максимальної кількості транзакцій."
     },
     "DELETE_DIALOG_TITLE": "Видалити транзакцію",
@@ -251,7 +254,6 @@
       "INVALID_SALARY": "Невірна зарплата",
       "REQUIRED_CURRENCY": "Валюта обов'язкова",
       "REQUIRED_MONTH": "Місяць обов'язковий",
-      "REQUIRED_DATE": "Дата обов'язкова",
       "REQUIRED_SELLER_NAME": "Ім'я продавця обов'язкове",
       "REQUIRED_SELLER_ADDRESS": "Адреса продавця обов'язкова",
       "REQUIRED_SELLER_LOCATION": "Місце розташування продавця обов'язкове",

@@ -49,7 +49,11 @@
       "OCTOBER": "Październik",
       "NOVEMBER": "Listopad",
       "DECEMBER": "Grudzień"
-    }    
+    },
+    "ERRORS": {
+      "REQUIRED_DATE": "Wymagana data",
+      "FUTURE_DATE": "Wybrana data nie może być w przyszłości."
+    }
   },
   "CURRENCIES": {
     "USD": "Dolar amerykański",
@@ -183,7 +187,6 @@
       "REQUIRED_CATEGORY": "Wymagana kategoria",
       "REQUIRED_ACCOUNT": "Wymagane konto",
       "REQUIRED_TYPE": "Wymagany typ",
-      "FUTURE_DATE": "Wybrana data nie może być w przyszłości.",
       "REACHED_USER_LIMIT": "Osiągnąłeś maksymalną liczbę transakcji."
     },
     "DELETE_DIALOG_TITLE": "Usuń transakcję",
@@ -251,7 +254,6 @@
       "INVALID_SALARY": "Nieprawidłowe wynagrodzenie",
       "REQUIRED_CURRENCY": "Wymagana waluta",
       "REQUIRED_MONTH": "Wymagany miesiąc",
-      "REQUIRED_DATE": "Wymagana data",
       "REQUIRED_SELLER_NAME": "Wymagane imię sprzedawcy",
       "REQUIRED_SELLER_ADDRESS": "Wymagany adres sprzedawcy",
       "REQUIRED_SELLER_LOCATION": "Wymagana lokalizacja sprzedawcy",
