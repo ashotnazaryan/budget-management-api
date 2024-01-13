@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import { CategoryInput, CategoryType, DateRange, Summary, SummaryInput, Transaction } from '../models';
+import { CategoryDTO, CategoryType, DateRange, Summary, SummaryDTO, Transaction } from '../models';
 import { calculateAccountsTotalBalance } from '../services';
 import { getTransactionsByCategory, mapCategoryTransaction, mapTransactions } from '../helpers';
 import { calculateAmountByField } from '../helpers';
 
-const initialSummary: Omit<SummaryInput, 'userId'> = {
+const initialSummary: Omit<SummaryDTO, 'userId'> = {
   incomes: 0,
   expenses: 0,
   profit: 0,
@@ -59,7 +59,7 @@ const getBalanceInfo = async (request: Request, response: Response) => {
   }
 };
 
-const calculateSummary = async (userId: string, fromDate?: Date, toDate?: Date): Promise<SummaryInput> => {
+const calculateSummary = async (userId: string, fromDate?: Date, toDate?: Date): Promise<SummaryDTO> => {
   const allUserTransactions = await Transaction.find({ userId, createdAt: { $gte: fromDate, $lte: toDate } });
   const expenseTransactions = mapTransactions(allUserTransactions.filter(({ type }) => type === CategoryType.expense));
   const incomeTransactions = mapTransactions(allUserTransactions.filter(({ type }) => type === CategoryType.income));
@@ -99,7 +99,7 @@ const updateSummary = async (userId: string): Promise<void> => {
   });
 };
 
-const updateSummaryCategoryTransactions = async (userId: string, categoryId: CategoryInput['id'], category: CategoryInput): Promise<void> => {
+const updateSummaryCategoryTransactions = async (userId: string, categoryId: CategoryDTO['id'], category: CategoryDTO): Promise<void> => {
   const summary = await Summary.findOne({ userId });
 
   const categoryTransactions = category.type === CategoryType.expense

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Account, Category, CategoryInput, DefaultCategory } from '../models';
+import { Account, Category, CategoryDTO, DefaultCategory } from '../models';
 import { mapCategories, mapCategory } from '../helpers';
 import { deleteCategoryTransactions, updateAccountBalance, updateCategoryTransactions, updateSummary } from '../services';
 import { MAX_CATEGORIES_PER_USER } from '../core/configs';
@@ -32,7 +32,7 @@ const getCategories = async (request: Request, response: Response) => {
   }
 };
 
-const getCategoryById = async (request: Request<{ id: CategoryInput['id'] }, unknown, CategoryInput>, response: Response) => {
+const getCategoryById = async (request: Request<{ id: CategoryDTO['id'] }, unknown, CategoryDTO>, response: Response) => {
   const id = request.params.id;
   const userId = request.user?.userId;
 
@@ -53,9 +53,9 @@ const getCategoryById = async (request: Request<{ id: CategoryInput['id'] }, unk
   }
 };
 
-const createCategory = async (request: Request<unknown, unknown, CategoryInput>, response: Response) => {
+const createCategory = async (request: Request<unknown, unknown, CategoryDTO>, response: Response) => {
   const userId = request.user?.userId;
-  const newCategory: CategoryInput = {
+  const newCategory: CategoryDTO = {
     ...request.body,
     userId,
     isDefaultCategory: false
@@ -84,7 +84,7 @@ const createCategory = async (request: Request<unknown, unknown, CategoryInput>,
   }
 };
 
-const editCategory = async (request: Request<{ id: CategoryInput['id'] }, unknown, CategoryInput>, response: Response) => {
+const editCategory = async (request: Request<{ id: CategoryDTO['id'] }, unknown, CategoryDTO>, response: Response) => {
   const id = request.params.id;
   let updatedCategory = request.body;
   const userId = request.user?.userId;
@@ -118,7 +118,7 @@ const editCategory = async (request: Request<{ id: CategoryInput['id'] }, unknow
   }
 };
 
-const deleteCategory = async (request: Request<{ id: CategoryInput['id'] }, unknown, unknown>, response: Response) => {
+const deleteCategory = async (request: Request<{ id: CategoryDTO['id'] }, unknown, unknown>, response: Response) => {
   const id = request.params.id;
   const userId = request.user?.userId;
 

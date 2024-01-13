@@ -1,8 +1,8 @@
 import { CURRENCIES } from '../constants';
 import { CONFIG } from '../core/configs';
-import { NBPResponse, RateDocument, RateInput } from '../models';
+import { NBPResponse, RateDocument, RateDTO } from '../models';
 
-export const mapRate = (rate: RateDocument): RateInput => {
+export const mapRate = (rate: RateDocument): RateDTO => {
   return {
     id: rate.get('_id'),
     date: rate.date,
@@ -10,7 +10,7 @@ export const mapRate = (rate: RateDocument): RateInput => {
   };
 };
 
-export const mapNBPResponse = (rate: NBPResponse): RateInput => {
+export const mapNBPResponse = (rate: NBPResponse): RateDTO => {
   const currencyRates: NBPResponse = {
     effectiveDate: '',
     rates: [

@@ -16,7 +16,7 @@ export interface ProfileDocument extends Document {
   accountNumber?: string;
 }
 
-export interface ProfileInput {
+export interface ProfileDTO {
   id: string;
   userId: string;
   streetAddress?: string;

@@ -18,7 +18,7 @@ interface UserDocument extends Document {
   avatar: string;
 }
 
-interface UserInput {
+interface UserDTO {
   id: string;
   userId: string;
   fullName: string;
@@ -55,4 +55,4 @@ const userSchema = new Schema(
 
 const User = mongoose.model<UserDocument>(CONFIG.collections.user, userSchema);
 
-export { User, UserDocument, UserInput, PassportUser };
+export { User, UserDocument, UserDTO, PassportUser };

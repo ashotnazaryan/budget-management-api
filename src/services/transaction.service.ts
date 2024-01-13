@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Transaction, Account, TransactionInput, TransactionDocument, CategoryInput, AccountInput } from '../models';
+import { Transaction, Account, TransactionDTO, TransactionDocument, CategoryDTO, AccountDTO } from '../models';
 import { mapTransaction, mapTransactions } from '../helpers';
 import { calculateAccountBalance, updateAccountBalance, updateSummary } from '../services';
 import { MAX_TRANSACTIONS_PER_USER, MAX_TRANSACTION_AMOUNT } from '../core/configs';
@@ -22,7 +22,7 @@ const getTransactions = async (request: Request<unknown, unknown, unknown, qs.Pa
   }
 };
 
-const getTransactionById = async (request: Request<{ id: TransactionInput['id'] }, unknown, TransactionInput>, response: Response) => {
+const getTransactionById = async (request: Request<{ id: TransactionDTO['id'] }, unknown, TransactionDTO>, response: Response) => {
   const id = request.params.id;
 
   try {
@@ -38,11 +38,11 @@ const getTransactionById = async (request: Request<{ id: TransactionInput['id'] 
   }
 };
 
-const createTransaction = async (request: Request<unknown, unknown, TransactionInput>, response: Response) => {
+const createTransaction = async (request: Request<unknown, unknown, TransactionDTO>, response: Response) => {
   const userId = request.user?.userId;
 
   const { amount, categoryId, name, nameKey, type, icon, accountId, createdAt, note } = request.body;
-  const payload = { userId, amount, categoryId, name, nameKey, type, icon, accountId, createdAt, note } as TransactionInput;
+  const payload = { userId, amount, categoryId, name, nameKey, type, icon, accountId, createdAt, note } as TransactionDTO;
 
   if (!amount || !categoryId || !name) {
     return response.status(422).json({ message: 'Missing fields', status: 422 });
@@ -69,11 +69,11 @@ const createTransaction = async (request: Request<unknown, unknown, TransactionI
   }
 };
 
-const editTransaction = async (request: Request<{ id: TransactionInput['id'] }, unknown, TransactionInput>, response: Response) => {
+const editTransaction = async (request: Request<{ id: TransactionDTO['id'] }, unknown, TransactionDTO>, response: Response) => {
   const id = request.params.id;
   const { amount, categoryId, name, nameKey, type, icon, accountId, createdAt, note } = request.body;
   const userId = request.user?.userId;
-  const payload = { userId, amount, categoryId, name, nameKey, type, icon, accountId, createdAt, note } as TransactionInput;
+  const payload = { userId, amount, categoryId, name, nameKey, type, icon, accountId, createdAt, note } as TransactionDTO;
 
   if (amount >= MAX_TRANSACTION_AMOUNT) {
     return response.status(422).json({ message: 'Invalid amount', messageKey: 'TRANSACTIONS.ERRORS.INVALID_AMOUNT', status: 422 });
@@ -88,7 +88,7 @@ const editTransaction = async (request: Request<{ id: TransactionInput['id'] }, 
   }
 };
 
-const deleteTransaction = async (request: Request<{ id: TransactionInput['id'] }, unknown, unknown>, response: Response) => {
+const deleteTransaction = async (request: Request<{ id: TransactionDTO['id'] }, unknown, unknown>, response: Response) => {
   const id = request.params.id;
   const userId = request.user?.userId;
 
@@ -116,7 +116,7 @@ const deleteTransaction = async (request: Request<{ id: TransactionInput['id'] }
   }
 };
 
-const createUpdateTransaction = async (payload: TransactionInput, id?: TransactionInput['id']) => {
+const createUpdateTransaction = async (payload: TransactionDTO, id?: TransactionDTO['id']) => {
   const { userId, accountId, amount, type } = payload;
   const account = await Account.findById(accountId);
 
@@ -144,7 +144,7 @@ const createUpdateTransaction = async (payload: TransactionInput, id?: Transacti
   await updateSummary(userId);
 };
 
-const updateCategoryTransactions = async (userId: string, categoryId: CategoryInput['id'], category: CategoryInput): Promise<void> => {
+const updateCategoryTransactions = async (userId: string, categoryId: CategoryDTO['id'], category: CategoryDTO): Promise<void> => {
   await Transaction.updateMany({ userId, categoryId },
     {
       $set: {
@@ -154,7 +154,7 @@ const updateCategoryTransactions = async (userId: string, categoryId: CategoryIn
     });
 };
 
-const updateAccountTransactions = async (userId: string, accountId: AccountInput['id'], account: Pick<AccountInput, 'name' | 'icon'>): Promise<void> => {
+const updateAccountTransactions = async (userId: string, accountId: AccountDTO['id'], account: Pick<AccountDTO, 'name' | 'icon'>): Promise<void> => {
   await Transaction.updateMany({ userId, accountId },
     {
       $set: {
@@ -164,11 +164,11 @@ const updateAccountTransactions = async (userId: string, accountId: AccountInput
     });
 };
 
-const deleteCategoryTransactions = async (userId: string, categoryId: CategoryInput['id']): Promise<void> => {
+const deleteCategoryTransactions = async (userId: string, categoryId: CategoryDTO['id']): Promise<void> => {
   await Transaction.deleteMany({ userId, categoryId });
 };
 
-const deleteAccountTransactions = async (userId: string, accountId: AccountInput['id']): Promise<void> => {
+const deleteAccountTransactions = async (userId: string, accountId: AccountDTO['id']): Promise<void> => {
   await Transaction.deleteMany({ userId, accountId });
 };
 

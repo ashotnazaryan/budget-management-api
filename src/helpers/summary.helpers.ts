@@ -1,7 +1,7 @@
-import { CategoryType, SummaryDocument, SummaryInput, TransactionInput } from '../models';
+import { CategoryType, SummaryDocument, SummaryDTO, TransactionDTO } from '../models';
 import { calculateAmountByField } from './common.helpers';
 
-export const mapSummary = (summary: SummaryDocument, userId: string): SummaryInput => {
+export const mapSummary = (summary: SummaryDocument, userId: string): SummaryDTO => {
   return {
     userId,
     profit: summary.profit,
@@ -13,7 +13,7 @@ export const mapSummary = (summary: SummaryDocument, userId: string): SummaryInp
   };
 };
 
-export const mapSummaryProfit = (summary: SummaryDocument, profit: number, userId: string): SummaryInput => {
+export const mapSummaryProfit = (summary: SummaryDocument, profit: number, userId: string): SummaryDTO => {
   return {
     userId,
     profit,
@@ -25,8 +25,8 @@ export const mapSummaryProfit = (summary: SummaryDocument, profit: number, userI
   };
 };
 
-export const getTransactionsByCategory = (transactions: TransactionInput[], expenses: number, incomes: number): TransactionInput[] => {
-  const groupedTransactions = transactions.reduce<{ [key: TransactionInput['categoryId']]: TransactionInput[] }>((groups, item) => {
+export const getTransactionsByCategory = (transactions: TransactionDTO[], expenses: number, incomes: number): TransactionDTO[] => {
+  const groupedTransactions = transactions.reduce<{ [key: TransactionDTO['categoryId']]: TransactionDTO[] }>((groups, item) => {
     const { categoryId } = item;
 
     if (!groups[categoryId]) {
@@ -38,10 +38,10 @@ export const getTransactionsByCategory = (transactions: TransactionInput[], expe
     return groups;
   }, {});
 
-  return Object.values(groupedTransactions).reduce<TransactionInput[]>((groups, items) => {
+  return Object.values(groupedTransactions).reduce<TransactionDTO[]>((groups, items) => {
     const categoryAmount = calculateAmountByField(items, 'amount');
 
-    const categoryItem = items.reduce<TransactionInput>((acc, curr) => {
+    const categoryItem = items.reduce<TransactionDTO>((acc, curr) => {
       return {
         ...curr,
         amount: categoryAmount,
@@ -49,7 +49,7 @@ export const getTransactionsByCategory = (transactions: TransactionInput[], expe
           ? parseInt(((categoryAmount / expenses) * 100).toFixed(0))
           : parseInt(((categoryAmount / incomes) * 100).toFixed(0))
       };
-    }, {} as TransactionInput);
+    }, {} as TransactionDTO);
     return [...groups, categoryItem];
   }, []);
 };

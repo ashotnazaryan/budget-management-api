@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Profile, ProfileInput } from '../models';
+import { Profile, ProfileDTO } from '../models';
 import { mapProfile } from '../helpers';
 
 const getProfile = async (request: Request, response: Response) => {
@@ -24,7 +24,7 @@ const getProfile = async (request: Request, response: Response) => {
   }
 };
 
-const editProfile = async (request: Request<unknown, unknown, ProfileInput>, response: Response) => {
+const editProfile = async (request: Request<unknown, unknown, ProfileDTO>, response: Response) => {
   const updatedProfile = request.body;
   const userId = request.user?.userId;
 

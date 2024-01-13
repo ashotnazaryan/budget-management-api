@@ -1,10 +1,10 @@
-import { CategoryInput, CategoryType, TransactionDocument, TransactionInput } from '../models';
+import { CategoryDTO, CategoryType, TransactionDocument, TransactionDTO } from '../models';
 
-export const mapTransactions = (transactions: TransactionDocument[]): TransactionInput[] => {
+export const mapTransactions = (transactions: TransactionDocument[]): TransactionDTO[] => {
   return transactions.map(mapTransaction);
 };
 
-export const mapTransaction = (transaction: TransactionDocument): TransactionInput => {
+export const mapTransaction = (transaction: TransactionDocument): TransactionDTO => {
   return {
     id: transaction.id,
     categoryId: transaction.categoryId,
@@ -25,7 +25,7 @@ export const mapTransaction = (transaction: TransactionDocument): TransactionInp
   };
 };
 
-export const mapCategoryTransaction = (transaction: TransactionInput, category: Pick<CategoryInput, 'name' | 'type' | 'icon'>): TransactionInput => {
+export const mapCategoryTransaction = (transaction: TransactionDTO, category: Pick<CategoryDTO, 'name' | 'type' | 'icon'>): TransactionDTO => {
   return {
     ...transaction,
     name: category.name,

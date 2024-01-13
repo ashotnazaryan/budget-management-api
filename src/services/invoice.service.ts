@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { MAX_INVOICES_PER_USER } from '../core/configs';
-import { Invoice, InvoiceInput } from '../models';
+import { Invoice, InvoiceDTO } from '../models';
 import { mapInvoice, mapInvoices } from '../helpers';
 
 const getInvoices = async (request: Request, response: Response) => {
@@ -19,7 +19,7 @@ const getInvoices = async (request: Request, response: Response) => {
   }
 };
 
-const getInvoiceById = async (request: Request<{ id: InvoiceInput['id'] }, unknown, InvoiceInput>, response: Response) => {
+const getInvoiceById = async (request: Request<{ id: InvoiceDTO['id'] }, unknown, InvoiceDTO>, response: Response) => {
   const id = request.params.id;
   const userId = request.user?.userId;
 
@@ -40,14 +40,14 @@ const getInvoiceById = async (request: Request<{ id: InvoiceInput['id'] }, unkno
   }
 };
 
-const createInvoice = async (request: Request<unknown, unknown, InvoiceInput>, response: Response) => {
+const createInvoice = async (request: Request<unknown, unknown, InvoiceDTO>, response: Response) => {
   const userId = request.user?.userId;
 
   if (!userId) {
     return;
   }
 
-  const newInvoice: InvoiceInput = {
+  const newInvoice: InvoiceDTO = {
     ...request.body,
     userId
   };
@@ -75,7 +75,7 @@ const createInvoice = async (request: Request<unknown, unknown, InvoiceInput>, r
   }
 };
 
-const editInvoice = async (request: Request<{ id: InvoiceInput['id'] }, unknown, InvoiceInput>, response: Response) => {
+const editInvoice = async (request: Request<{ id: InvoiceDTO['id'] }, unknown, InvoiceDTO>, response: Response) => {
   const id = request.params.id;
   const updatedInvoice = request.body;
   const userId = request.user?.userId;
@@ -95,7 +95,7 @@ const editInvoice = async (request: Request<{ id: InvoiceInput['id'] }, unknown,
   }
 };
 
-const deleteInvoice = async (request: Request<{ id: InvoiceInput['id'] }, unknown, unknown>, response: Response) => {
+const deleteInvoice = async (request: Request<{ id: InvoiceDTO['id'] }, unknown, unknown>, response: Response) => {
   const id = request.params.id;
   const userId = request.user?.userId;
 

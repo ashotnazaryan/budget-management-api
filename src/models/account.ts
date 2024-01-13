@@ -15,7 +15,7 @@ export interface AccountDocument extends Document {
   nameKey?: string;
 }
 
-export interface AccountInput {
+export interface AccountDTO {
   name: string;
   icon: string;
   balance: number;

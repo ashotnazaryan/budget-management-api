@@ -1,7 +1,7 @@
 import { VAT_LIMIT } from '../constants';
-import { CurrencyIso, InvoiceDocument, ReportDocument, ReportInput } from '../models';
+import { CurrencyIso, InvoiceDocument, ReportDocument, ReportDTO } from '../models';
 
-export const mapReport = (report: ReportDocument, userId: string): ReportInput => {
+export const mapReport = (report: ReportDocument, userId: string): ReportDTO => {
   return {
     userId,
     id: report.get('_id'),
@@ -11,7 +11,7 @@ export const mapReport = (report: ReportDocument, userId: string): ReportInput =
   };
 };
 
-export const mapInvoicesToReport = (invoices: InvoiceDocument[], userId: string, defaultCurrency: CurrencyIso): Omit<ReportInput, 'id'> => {
+export const mapInvoicesToReport = (invoices: InvoiceDocument[], userId: string, defaultCurrency: CurrencyIso): Omit<ReportDTO, 'id'> => {
   return {
     userId,
     limit: VAT_LIMIT[defaultCurrency],

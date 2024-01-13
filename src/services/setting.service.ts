@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import { Account, Category, CurrencyIso, Invoice, Period, Setting, SettingInput, Summary, Transaction, Transfer } from '../models';
+import { Account, Category, CurrencyIso, Invoice, Period, Setting, SettingDTO, Summary, Transaction, Transfer } from '../models';
 import { recalculateInvoiceRates, recalculateRegularRates } from './rate.service';
 import { CONFIG } from '../core/configs';
 
-const initialSetting: SettingInput = {
+const initialSetting: SettingDTO = {
   defaultCurrency: CONFIG.defaultCurrency as CurrencyIso,
   defaultAccount: '',
   defaultPeriod: Period.month,
@@ -30,7 +30,7 @@ const getSettings = async (request: Request, response: Response) => {
   }
 };
 
-const addSetting = async (request: Request<unknown, unknown, SettingInput>, response: Response) => {
+const addSetting = async (request: Request<unknown, unknown, SettingDTO>, response: Response) => {
   const userId = request.user?.userId;
   const { defaultCurrency, defaultAccount, defaultPeriod, showDecimals, isDarkTheme, locale } = request.body;
 

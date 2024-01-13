@@ -1,10 +1,10 @@
-import { CategoryDocument, CategoryInput } from '../models';
+import { CategoryDocument, CategoryDTO } from '../models';
 
-export const mapCategories = (categories: CategoryDocument[], userId: string): CategoryInput[] => {
+export const mapCategories = (categories: CategoryDocument[], userId: string): CategoryDTO[] => {
   return categories.map((category) => mapCategory(category, userId));
 };
 
-export const mapCategory = (category: CategoryDocument, userId: string): CategoryInput => {
+export const mapCategory = (category: CategoryDocument, userId: string): CategoryDTO => {
   return {
     userId,
     id: category.id,

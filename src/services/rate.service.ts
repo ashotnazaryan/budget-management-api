@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import fetch from 'node-fetch';
 import { CONFIG } from '../core/configs';
-import { NBPResponse, RegularRate, InvoiceRate, StartEndDate, RateInput, CurrencyIso, RateDocument, Setting } from '../models';
+import { NBPResponse, RegularRate, InvoiceRate, StartEndDate, RateDTO, CurrencyIso, RateDocument, Setting } from '../models';
 import { isNewDate, isNewMonth, mapNBPResponse, mapRate, roundToDecimalPlaces } from '../helpers';
 
 const getRegularExchangeRates = async (request: Request, response: Response) => {
@@ -101,7 +101,7 @@ const getInvoiceExchangeRates = async (request: Request<unknown, unknown, unknow
   }
 };
 
-const getNBPData = async (url: string): Promise<RateInput | null> => {
+const getNBPData = async (url: string): Promise<RateDTO | null> => {
   const nbpResponse = await fetch(url);
   const data = await nbpResponse.json() as NBPResponse[];
 
@@ -136,7 +136,7 @@ const recalculateInvoiceRates = async (currency: CurrencyIso): Promise<void> => 
   }
 };
 
-const getRate = (dbRate: RateDocument | RateInput, currency: CurrencyIso, shouldMapRate = true): RateInput => {
+const getRate = (dbRate: RateDocument | RateDTO, currency: CurrencyIso, shouldMapRate = true): RateDTO => {
   const mappedRate = shouldMapRate ? mapRate(dbRate as RateDocument) : dbRate;
   const { rates, date } = mappedRate;
   const value = rates.find((rate) => rate.code === currency)?.value || 1;

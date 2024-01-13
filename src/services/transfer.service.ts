@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Account, AccountInput, Transfer, TransferInput } from '../models';
+import { Account, AccountDTO, Transfer, TransferDTO } from '../models';
 import { mapTransfer, mapTransfers } from '../helpers';
 import { MAX_TRANSFERS_PER_USER, MAX_TRANSFER_AMOUNT } from '../core/configs';
 
@@ -19,7 +19,7 @@ const getTransfers = async (request: Request, response: Response) => {
   }
 };
 
-const getTransferById = async (request: Request<{ id: TransferInput['id'] }, unknown, TransferInput>, response: Response) => {
+const getTransferById = async (request: Request<{ id: TransferDTO['id'] }, unknown, TransferDTO>, response: Response) => {
   const id = request.params.id;
   const userId = request.user?.userId;
 
@@ -40,7 +40,7 @@ const getTransferById = async (request: Request<{ id: TransferInput['id'] }, unk
   }
 };
 
-const createTransfer = async (request: Request<unknown, unknown, TransferInput>, response: Response) => {
+const createTransfer = async (request: Request<unknown, unknown, TransferDTO>, response: Response) => {
   const userId = request.user?.userId;
 
   const { fromAccount, toAccount, amount, createdAt } = request.body;
@@ -75,7 +75,7 @@ const createTransfer = async (request: Request<unknown, unknown, TransferInput>,
   }
 };
 
-const editTransfer = async (request: Request<{ id: TransferInput['id'] }, unknown, TransferInput>, response: Response) => {
+const editTransfer = async (request: Request<{ id: TransferDTO['id'] }, unknown, TransferDTO>, response: Response) => {
   const id = request.params.id;
   const { fromAccount, toAccount, amount } = request.body;
 
@@ -122,7 +122,7 @@ const editTransfer = async (request: Request<{ id: TransferInput['id'] }, unknow
   }
 };
 
-const deleteTransfer = async (request: Request<{ id: TransferInput['id'] }, unknown, unknown>, response: Response) => {
+const deleteTransfer = async (request: Request<{ id: TransferDTO['id'] }, unknown, unknown>, response: Response) => {
   const id = request.params.id;
 
   try {
@@ -149,7 +149,7 @@ const deleteTransfer = async (request: Request<{ id: TransferInput['id'] }, unkn
   }
 };
 
-const deleteAccountTransfers = async (userId: string, accountId: AccountInput['id']): Promise<void> => {
+const deleteAccountTransfers = async (userId: string, accountId: AccountDTO['id']): Promise<void> => {
   await Transfer.deleteMany({
     userId, $or: [
       { fromAccount: { $in: accountId } },
