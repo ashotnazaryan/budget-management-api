@@ -8,6 +8,8 @@
     "DELETE": "Видалити",
     "EXPENSE": "Витрата",
     "INCOME": "Дохід",
+    "PROFIT": "Прибуток",
+    "LOSS": "Збиток",
     "BACK": "Назад",
     "AMOUNT": "Сума",
     "ACCOUNT": "Рахунок",
@@ -78,6 +80,7 @@
     "REPORTS": "Звіти",
     "CATEGORIES": "Категорії",
     "ACCOUNTS": "Рахунки",
+    "CHARTS": "Графіки",
     "TRANSFERS": "Перекази",
     "TRANSACTIONS": "Транзакції",
     "INVOICES": "Фактури"
@@ -90,7 +93,6 @@
     "SUMMARY": "Загальна інформація",
     "TOTAL_INCOME": "Загальний дохід",
     "TOTAL_EXPENSES": "Загальні витрати",
-    "PROFIT": "Прибуток",
     "EMPTY_TEXT": "Немає спільної інформації"
   },
   "SETTINGS": {
@@ -119,6 +121,10 @@
   "REPORTS": {
     "PAGE_TITLE": "Звіти",
     "EMPTY_TEXT": "Немає звітів"
+  },
+  "CHARTS": {
+    "PAGE_TITLE": "Графіки",
+    "EMPTY_TEXT": "Дані недоступні"
   },
   "ACCOUNTS": {
     "PAGE_TITLE": "Рахунки",

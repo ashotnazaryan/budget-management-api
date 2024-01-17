@@ -8,6 +8,8 @@
     "DELETE": "Delete",
     "EXPENSE": "Expense",
     "INCOME": "Income",
+    "PROFIT": "Profit",
+    "LOSS": "Loss",
     "BACK": "Back",
     "AMOUNT": "Amount",
     "ACCOUNT": "Account",
@@ -78,6 +80,7 @@
     "REPORTS": "Reports",
     "CATEGORIES": "Categories",
     "ACCOUNTS": "Accounts",
+    "CHARTS": "Charts",
     "TRANSFERS": "Transfers",
     "TRANSACTIONS": "Transactions",
     "INVOICES": "Invoices"
@@ -90,7 +93,6 @@
     "SUMMARY": "Summary",
     "TOTAL_INCOME": "Total income",
     "TOTAL_EXPENSES": "Total expenses",
-    "PROFIT": "Profit",
     "EMPTY_TEXT": "No summary is available"
   },
   "SETTINGS": {
@@ -119,6 +121,10 @@
   "REPORTS": {
     "PAGE_TITLE": "Reports",
     "EMPTY_TEXT": "No report is available"
+  },
+  "CHARTS": {
+    "PAGE_TITLE": "Charts",
+    "EMPTY_TEXT": "No data is available"
   },
   "ACCOUNTS": {
     "PAGE_TITLE": "Accounts",

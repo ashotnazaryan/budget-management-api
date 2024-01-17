@@ -8,6 +8,8 @@
     "DELETE": "Usuń",
     "EXPENSE": "Wydatek",
     "INCOME": "Przychód",
+    "PROFIT": "Zysk",
+    "LOSS": "Strata",
     "BACK": "Wstecz",
     "AMOUNT": "Kwota",
     "ACCOUNT": "Konto",
@@ -78,6 +80,7 @@
     "REPORTS": "Raporty",
     "CATEGORIES": "Kategorie",
     "ACCOUNTS": "Konta",
+    "CHARTS": "Wykresy",
     "TRANSFERS": "Przelewy",
     "TRANSACTIONS": "Transakcje",
     "INVOICES": "Faktury"
@@ -90,7 +93,6 @@
     "SUMMARY": "Informacje ogólne",
     "TOTAL_INCOME": "Całkowity przychód",
     "TOTAL_EXPENSES": "Całkowite wydatki",
-    "PROFIT": "Zysk",
     "EMPTY_TEXT": "Brak ogólnych informacji"
   },
   "SETTINGS": {
@@ -119,6 +121,10 @@
   "REPORTS": {
     "PAGE_TITLE": "Raporty",
     "EMPTY_TEXT": "Brak raportów"
+  },
+  "CHARTS": {
+    "PAGE_TITLE": "Wykresy",
+    "EMPTY_TEXT": "Brak dostępnych danych"
   },
   "ACCOUNTS": {
     "PAGE_TITLE": "Konta",

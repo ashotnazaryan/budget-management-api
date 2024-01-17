@@ -8,6 +8,8 @@
     "DELETE": "Удалить",
     "EXPENSE": "Расход",
     "INCOME": "Доход",
+    "PROFIT": "Прибыль",
+    "LOSS": "Убыток",
     "BACK": "Назад",
     "AMOUNT": "Сумма",
     "ACCOUNT": "Счет",
@@ -78,6 +80,7 @@
     "REPORTS": "Отчеты",
     "CATEGORIES": "Категории",
     "ACCOUNTS": "Счета",
+    "CHARTS": "Графики",
     "TRANSFERS": "Трансферы",
     "TRANSACTIONS": "Транзакции",
     "INVOICES": "Фактуры"
@@ -90,7 +93,6 @@
     "SUMMARY": "Общая информация",
     "TOTAL_INCOME": "Общий доход",
     "TOTAL_EXPENSES": "Общие расходы",
-    "PROFIT": "Прибыль",
     "EMPTY_TEXT": "Нет общей информации"
   },
   "SETTINGS": {
@@ -119,6 +121,10 @@
   "REPORTS": {
     "PAGE_TITLE": "Отчеты",
     "EMPTY_TEXT": "Нет отчетов"
+  },
+  "CHARTS": {
+    "PAGE_TITLE": "Графики",
+    "EMPTY_TEXT": "Нет доступных данных"
   },
   "ACCOUNTS": {
     "PAGE_TITLE": "Счета",
